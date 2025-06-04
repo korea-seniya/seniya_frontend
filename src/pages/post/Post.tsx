@@ -1,9 +1,9 @@
 import React from 'react'
 
-function posst() {
+function Post() {
   return (
     <div>post</div>
   )
 }
 
-export default posst
+export default Post

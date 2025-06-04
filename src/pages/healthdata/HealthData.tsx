@@ -1,9 +1,9 @@
 import React from 'react'
 
-function HealthData() {
+function Healthdata() {
   return (
-    <div>HealthData</div>
+    <div>Healthdata</div>
   )
 }
 
-export default HealthData
+export default Healthdata
