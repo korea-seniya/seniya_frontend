@@ -1,7 +1,7 @@
 export interface inquiry {
-  username: string;
+  id: number;
   title: string;
-  content: string;
+  username: string;
   createdAt: string;
   updatedAt: string;
 }
