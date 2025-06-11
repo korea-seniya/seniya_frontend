@@ -1,3 +1,5 @@
+import CourseList from "./pages/admin/course/CourseList"
+import CreateCourse from "./pages/admin/course/CreateCourse"
 import InquiryList from "./pages/inquiry/InquiryList"
 
 function App() {
@@ -5,9 +7,7 @@ function App() {
   // assets, apis(ts), components(tsx), constants(ts), layouts(tsx)
   // , stores(ts), styles(ts), types(ts), views(tsx)
   return (
-    <>
     <InquiryList />
-    </>
   )
 }
 
