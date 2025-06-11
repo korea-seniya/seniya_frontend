@@ -1,4 +1,5 @@
-import InquiryList from "./pages/inquiry/InquiryList"
+import InquiryCreate from "./pages/inquiry/InquiryCreate"
+// import InquiryList from "./pages/inquiry/InquiryList"
 
 function App() {
   // 4. 폴더 구조 생성
@@ -6,7 +7,8 @@ function App() {
   // , stores(ts), styles(ts), types(ts), views(tsx)
   return (
     <>
-    <InquiryList />
+    {/* <InquiryList /> */}
+    <InquiryCreate />
     </>
   )
 }
