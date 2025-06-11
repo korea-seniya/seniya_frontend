@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
-import type { inquiry } from './inquiry';
+import type { inquiryList } from './inquiryList';
 import { inquiryDummyData } from './inquiryDummyData';
 import {
   containerStyle,
@@ -14,7 +14,7 @@ import {
 } from './inquiryList.style';
 
 function InquiryList() {
-  const [inquiries, setInquiries] = useState<inquiry[]>([]);
+  const [inquiries, setInquiries] = useState<inquiryList[]>([]);
 
   useEffect(() => {
     setInquiries(inquiryDummyData);

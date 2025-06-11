@@ -1,4 +1,4 @@
-export interface inquiry {
+export interface inquiryList {
   id: number;
   title: string;
   username: string;
