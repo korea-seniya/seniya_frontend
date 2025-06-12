@@ -1,4 +1,8 @@
+import CourseList from "./pages/admin/course/CourseList"
+import PaymentConfirm from "./pages/admin/payment/PaymentConfirm"
+import UserList from "./pages/admin/user/UserList"
 import InquiryCreate from "./pages/inquiry/InquiryCreate"
+import PurchasePass from "./pages/payment/PurchasePass"
 // import InquiryList from "./pages/inquiry/InquiryList"
 
 function App() {
@@ -7,8 +11,7 @@ function App() {
   // , stores(ts), styles(ts), types(ts), views(tsx)
   return (
     <>
-    {/* <InquiryList /> */}
-    <InquiryCreate />
+
     </>
   )
 }
