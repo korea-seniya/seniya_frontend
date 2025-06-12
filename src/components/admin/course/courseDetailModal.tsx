@@ -2,7 +2,7 @@
 import { css } from '@emotion/react';
 
 import React from 'react';
-import * as styles from './courseDetailModal.style'
+import * as style from './courseDetailModal.style'
 
 
 type courseModalProps = {
@@ -13,39 +13,41 @@ type courseModalProps = {
 };
 
 const CourseModal: React.FC<courseModalProps> = ({ isOpen, onClose, onDelete, onUpdate }) => {
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
-    <div css={styles.overlay}>
-      <div css={styles.modal}>
-        <form css={styles.form}>
-          <div css={styles.row}>
+    <div css={style.overlay}>
+      <div css={style.modal}>
+        <form css={style.form}>
+          <div css={style.row}>
             <label>수업 제목</label>
             <input type="text" />
           </div>
 
-          <div css={styles.row}>
+          <div css={style.row}>
             <label>수업 설명</label>
             <input type="text" />
           </div>
 
           <div style={{ display: 'flex', gap: '10px' }}>
-            <div css={styles.row}>
+            <div css={style.row}>
               <label>담당 트레이너 ID</label>
               <input type="text" />
             </div>
-            <div css={styles.row}>
+            <div css={style.row}>
               <label>담당 트레이너 이름</label>
               <input type="text" />
             </div>
           </div>
 
           <div style={{ display: 'flex', gap: '10px' }}>
-            <div css={styles.row}>
+            <div css={style.row}>
               <label>수업 날짜</label>
               <input type="date" />
             </div>
-            <div css={styles.row}>
+            <div css={style.row}>
               <label>수업 시간</label>
               <div style={{ display: 'flex', gap: '5px' }}>
                 <input type="time" style={{ flex: 1 }} />
@@ -55,24 +57,24 @@ const CourseModal: React.FC<courseModalProps> = ({ isOpen, onClose, onDelete, on
             </div>
           </div>
 
-          <div css={styles.row}>
+          <div css={style.row}>
             <label>카테고리</label>
             <input type="text" name='category' />
           </div>
 
-          <div css={styles.row}>
+          <div css={style.row}>
             <label>강의장</label>
             <input type="text" />
           </div>
 
-          <div css={styles.buttonGroup}>
-            <button type="button" css={styles.backBtn} onClick={onClose}>
+          <div css={style.buttonGroup}>
+            <button type="button" css={style.backBtn} onClick={onClose}>
               뒤로 가기
             </button>
-            <button type="button" css={styles.deleteBtn} onClick={onDelete}>
+            <button type="button" css={style.deleteBtn} onClick={onDelete}>
               수업 개설 삭제
             </button>
-            <button type="submit" css={styles.updateBtn} onClick={onUpdate}>
+            <button type="submit" css={style.updateBtn} onClick={onUpdate}>
               수업 수정
             </button>
           </div>
