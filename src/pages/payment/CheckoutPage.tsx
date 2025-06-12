@@ -24,7 +24,7 @@ interface Amount {
 export default function CheckoutPage() {
   const [amount, setAmount] = useState<Amount>({
     currency: "KRW",
-    value: 50000,
+    value: 10,
   });
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState<TossPaymentsWidgets | null>(null);
@@ -159,6 +159,6 @@ export default function CheckoutPage() {
           결제하기
         </button>
       </div>
-    </div>
+    </div >
   );
 }
