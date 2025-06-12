@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import React, { useState } from 'react';
 
 import * as style from './courseList.style'
-import CourseModal from '../../../components/course/courseDetailModal';
+import CourseModal from '../../../components/admin/course/courseDetailModal';
 
 
 function CourseList() {

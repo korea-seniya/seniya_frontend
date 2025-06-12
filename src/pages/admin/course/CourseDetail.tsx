@@ -1,6 +1,6 @@
 // pages/CourseDetail.tsx
 import React, { useState } from 'react';
-import LessonModal from '../../../components/course/courseDetailModal';
+import LessonModal from '../../../components/admin/course/courseDetailModal';
 
 
 function CourseDetail() {
