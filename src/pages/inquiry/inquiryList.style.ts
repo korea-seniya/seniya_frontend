@@ -20,6 +20,23 @@ const searchWrapperStyle = css`
   gap: 8px;
   justify-content: center;
   margin-bottom: 30px;
+  border: 1px solid rgba(0,0,0,0);
+  padding: 15px 15px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+`;
+
+const selectStyle = css`
+  flex: 0;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  &:focus {
+    outline: none;
+    border-color: #4caf50;
+  }
 `;
 
 const inputStyle = css`
@@ -78,4 +95,5 @@ export {
   thStyle,
   tdStyle,
   statusStyle,
+  selectStyle
 };

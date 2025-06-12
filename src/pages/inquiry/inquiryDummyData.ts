@@ -1,7 +1,7 @@
-import type { inquiryList } from "./inquiryList";
+import type { InquiryList } from "./InquiryList";
 
 
-export const inquiryDummyData: inquiryList[] = [
+export const InquiryDummyData: InquiryList[] = [
   {
     id: 15,
     title: '비밀글 입니다.',
