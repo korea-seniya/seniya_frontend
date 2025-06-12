@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, useEffect } from 'react';
-import type { inquiryList } from './inquiryList';
-import { inquiryDummyData } from './inquiryDummyData';
+import React, { useState, useEffect } from "react";
+import type { InquiryList } from "./InquiryList";
+import { InquiryDummyData } from "./InquiryDummyData";
 import {
   containerStyle,
   titleStyle,
@@ -10,21 +10,27 @@ import {
   buttonStyle,
   tableStyle,
   thStyle,
-  tdStyle
-} from './inquiryList.style';
+  tdStyle,
+  selectStyle
+} from "./InquiryList.style";
 
-function InquiryList() {
-  const [inquiries, setInquiries] = useState<inquiryList[]>([]);
+function InquiryListPage() {
+  const [inquiries, setInquiries] = useState<InquiryList[]>([]);
 
   useEffect(() => {
-    setInquiries(inquiryDummyData);
+    setInquiries(InquiryDummyData);
   }, []);
 
   return (
     <div css={containerStyle}>
-      <h1 css={titleStyle}>문의</h1>
+      <h1 css={titleStyle}>문 의</h1>
 
       <div css={searchWrapperStyle}>
+        <select css={selectStyle}>
+          <option value="title">제목</option>
+          <option value="username">작성자</option>
+        </select>
+
         <input
           type="text"
           placeholder="검색어를 입력해주세요."
@@ -58,4 +64,4 @@ function InquiryList() {
   );
 }
 
-export default InquiryList;
+export default InquiryListPage;
