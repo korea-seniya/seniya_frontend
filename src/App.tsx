@@ -1,4 +1,8 @@
 import InquiryCreate from "./pages/inquiry/InquiryCreate"
+import PostCreate from "./pages/post/PostCreate"
+import postList from "./pages/post/PostList"
+import Post from "./pages/post/PostList"
+import PostUpdate from "./pages/post/PostUpdate"
 // import InquiryList from "./pages/inquiry/InquiryList"
 
 function App() {
@@ -7,8 +11,7 @@ function App() {
   // , stores(ts), styles(ts), types(ts), views(tsx)
   return (
     <>
-    {/* <InquiryList /> */}
-    <InquiryCreate />
+    
     </>
   )
 }
