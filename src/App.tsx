@@ -5,6 +5,7 @@ import InquiryCreate from "./pages/inquiry/InquiryCreate"
 import InquiryAnswer from "./pages/inquiry/InquiryAnswer"
 import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
 import InquiryListPage from "./pages/inquiry/InquiryListPage"
+import TrainerApplication from "./pages/trainer/TrainerApplication"
 function App() {
   // 4. 폴더 구조 생성
   // assets, apis(ts), components(tsx), constants(ts), layouts(tsx)
@@ -12,9 +13,10 @@ function App() {
   return (
     <>
     <InquiryListPage />
-    {/* <InquiryCreate /> */}
-    {/* <InquiryAnswer /> */}
-    {/* <InquiryUpdate /> */}
+    <InquiryCreate />
+    <InquiryAnswer />
+    <InquiryUpdate />
+    <TrainerApplication />
     </>
   )
 }
