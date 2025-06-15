@@ -44,7 +44,6 @@ function InquiryListPage() {
           <tr>
             <th css={thStyle}>번호</th>
             <th css={thStyle}>제목</th>
-            <th css={thStyle}>상태</th>
             <th css={thStyle}>작성일</th>
             <th css={thStyle}>작성자</th>
           </tr>
