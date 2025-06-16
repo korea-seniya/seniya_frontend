@@ -1,80 +1,108 @@
+// export default UserList;
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-
-import React, { useState } from 'react'
-import * as style from './UserList.style'
+import React, { useEffect, useState } from 'react';
+import * as style from './UserList.style';
 import UserModal from '../../../components/admin/user/userDetailModal';
+import AdminSidebar from '../../../components/admin/AdminSidebar';
+import Header from '../../../components/header';
+import { getUserList } from '../../../apis/userList/userList';
+import type { GetUserListResponseDto } from '../../../dtos/response/GetUserList.response.dto';
+import { getUserDetail } from '../../../apis/userList/userDetail';
+import type { GetUserDetailResponseDto } from '../../../dtos/response/GetUserDetail.response.dto';
 
 function UserList() {
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<GetUserDetailResponseDto | null>(null);
 
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+  const openModalWithUser = (user: GetUserDetailResponseDto) => {
+    setSelectedUser(user);
+    setModalOpen(true);
+  };
 
-  const users = [
-    {
-      username: 'dkdlel123',
-      name: '이름1',
-      email: 'dlapdlf123@naver.com',
-      phone: '010-1234-5678',
-      createdAt: '2025-01-01',
-      updatedAt: '2025-01-02',
-    }, {
-      username: 'dkdlel1234',
-      name: '이름2',
-      email: 'dlapdlf1234@naver.com',
-      phone: '010-1111-2222',
-      createdAt: '2025-33-33',
-      updatedAt: '2025-33-44',
-    }, {
-      username: 'dkdlel12345',
-      name: '이름3',
-      email: 'dlapdlf12345@naver.com',
-      phone: '010-4444-1111',
-      createdAt: '2025-77-77',
-      updatedAt: '2025-99-99',
-    },
-  ];
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedUser(null);
+  };
+
+  const [users, setUsers] = useState<GetUserListResponseDto[]>([]);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const response = await getUserList();
+        if (response.code === "SU" && Array.isArray(response.data)) {
+          setUsers(response.data);
+          console.log(response.data);
+        } else {
+          alert(response.message)
+        }
+      } catch (e) {
+        console.log("실패");
+      }
+    }
+    fetchUsers();
+  }, []);
+
+  const openModalWithUserId = async (id: number) => {
+    try {
+      const response = await getUserDetail(id);
+      if (response.code === 'SU' && response.data) {
+        setSelectedUser(response.data); // 상세 정보 설정
+        setModalOpen(true);
+      } else {
+        alert(response.message);
+      }
+    } catch (e) {
+      console.log("유저 상세 조회 실패");
+    }
+  };
+
 
   return (
-    <div>
-      <div css={style.containerStyle}>
-        <table css={style.tableStyle}>
-          <thead>
-            <tr css={style.firtTrStyle}>
-              <th css={style.thStyle}>아이디</th>
-              <th css={style.thStyle}>이름</th>
-              <th css={style.thStyle}>이메일</th>
-              <th css={style.thStyle}>번호</th>
-              <th css={style.thStyle}>가입 날짜</th>
-              <th css={style.thStyle}>수정 날짜</th>
-              <th css={style.thStyle}>세부 사항</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={index} css={style.trStyle}>
-                <td css={style.tdStyle}>{user.username}</td>
-                <td css={style.tdStyle}>{user.name}</td>
-                <td css={style.tdStyle}>{user.email}</td>
-                <td css={style.tdStyle}>{user.phone}</td>
-                <td css={style.tdStyle}>{user.createdAt}</td>
-                <td css={style.tdStyle}>{user.updatedAt}</td>
-                <td css={style.tdStyle}>
-                  <button css={style.detailButtonStyle} onClick={openModal}>detail</button>
-                  <UserModal
-                    isOpen={modalOpen}
-                    onClose={closeModal}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <>
+      <Header />
+      <div css={style.pageWrapper}>
+        <AdminSidebar />
+        <main css={style.contentWrapper}>
+          <h2 css={style.titleStyle}>사용자 목록</h2>
+          <div css={style.tableContainer}>
+            <table css={style.tableStyle}>
+              <thead>
+                <tr css={style.firstTrStyle}>
+                  <th css={style.thStyle}>아이디</th>
+                  <th css={style.thStyle}>이름</th>
+                  <th css={style.thStyle}>이메일</th>
+                  <th css={style.thStyle}>번호</th>
+                  <th css={style.thStyle}>가입 날짜</th>
+                  <th css={style.thStyle}>수정 날짜</th>
+                  <th css={style.thStyle}>세부 사항</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user.id} css={style.trStyle}>
+                    <td css={style.tdStyle}>{user.username}</td>
+                    <td css={style.tdStyle}>{user.name}</td>
+                    <td css={style.tdStyle}>{user.email}</td>
+                    <td css={style.tdStyle}>{user.phone}</td>
+                    <td css={style.tdStyle}>{user.createdAt}</td>
+                    <td css={style.tdStyle}>{user.updatedAt}</td>
+                    <td css={style.tdStyle}>
+                      <button css={style.detailButtonStyle} onClick={() => openModalWithUserId(user.id)}>
+                        detail
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </main>
+        <UserModal isOpen={modalOpen} onClose={closeModal} user={selectedUser} />
       </div>
-    </div>
+    </>
   )
 }
 
-export default UserList
+export default UserList;

@@ -5,7 +5,6 @@ const containerStyle = css`
   max-width: 900px;
   height: 700px;
   margin: 30px auto;
-  margin-top: 150px;
   padding: 40px;
   border: 3px solid #4658AE;
   border-radius: 28px;
