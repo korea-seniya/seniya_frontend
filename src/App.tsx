@@ -1,3 +1,4 @@
+
 import { Route, Routes } from "react-router-dom"
 import CourseList from "./pages/admin/course/CourseList"
 import PurchasePass from "./pages/payment/PurchasePass"
@@ -7,9 +8,6 @@ import UserList from "./pages/admin/user/UserList"
 import CreateCourse from "./pages/admin/course/CreateCourse"
 
 function App() {
-  // 4. 폴더 구조 생성
-  // assets, apis(ts), components(tsx), constants(ts), layouts(tsx)
-  // , stores(ts), styles(ts), types(ts), views(tsx)
   return (
     <>
       <Routes>
@@ -19,11 +17,9 @@ function App() {
         <Route path='/api/v1/payments/request' element={<CheckoutPage />} />
         <Route path='/api/v1/payments/confirm' element={<PaymentConfirm />} />
         <Route path='/api/v1/users' element={<UserList />} />
-
-
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
