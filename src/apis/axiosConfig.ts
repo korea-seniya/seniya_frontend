@@ -1,7 +1,7 @@
 //# Axios 인스턴스 및 공통 설정
 
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { ResponseDto } from "../dtos/response";
+import axios, { AxiosError, type AxiosResponse } from "axios";
+import type ResponseDto from "../dtos/response.dto";
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.REACT_APP_API_DOMAIN || "http://localhost:8080",
