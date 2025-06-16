@@ -1,14 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as style from './courseList.style'
 import CourseModal from '../../../components/admin/course/courseDetailModal';
+import { courseList } from '../../../apis/course/course';
+import type { Course } from '../../../types/course.type';
 
+
+interface CourseListResponseDto {
+  courseList: Course[];
+}
 
 function CourseList() {
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [courses, setCourses] = useState<Course[]>([]);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -23,36 +30,24 @@ function CourseList() {
     closeModal();
   };
 
-  const courses = [
-    {
-      id: 1,
-      name: '이름1',
-      title: '제목1',
-      classDate: '25-05-28',
-      category: '카테고리1',
-      createdAt: '25-05-28',
-      updatedAt: 'X',
-      classroom: '앞집',
-    }, {
-      id: 1,
-      name: '이름2',
-      title: '제목2',
-      classDate: '25-05-28',
-      category: '카테고리2',
-      createdAt: '25-05-28',
-      updatedAt: 'X',
-      classroom: '뒷집',
-    }, {
-      id: 1,
-      name: '이름3',
-      title: '제목3',
-      classDate: '25-05-28',
-      category: '카테고리3',
-      createdAt: '25-05-28',
-      updatedAt: 'X',
-      classroom: '옆집',
-    },
-  ];
+  useEffect(() => {
+    async function fetchCourses() {
+      try {
+        const response = await courseList(); // ResponseDto<CourseListResponseDto> 타입
+
+        if (response.code === 'SUCCESS' && response.data?.courseList) {
+          setCourses(response.data.courseList);
+        } else {
+          alert(response.message || '수업 목록을 불러오는데 실패했습니다.');
+        }
+
+      } catch (error) {
+        alert('서버와 통신 중 오류가 발생했습니다.');
+      }
+    }
+
+    fetchCourses();
+  }, []);
 
   return (
     <div css={style.containerStyle}>
@@ -72,13 +67,13 @@ function CourseList() {
         <tbody>
           {courses.map((course, index) => (
             <tr key={index} css={style.trStyle}>
-              <td css={style.tdStyle}>{course.name}</td>
+              <td css={style.tdStyle}>{course.trainerProfile.user.name}</td>
               <td css={style.tdStyle}>{course.title}</td>
-              <td css={style.tdStyle}>{course.classDate}</td>
+              <td css={style.tdStyle}>{course.date}</td>
               <td css={style.tdStyle}>{course.category}</td>
               <td css={style.tdStyle}>{course.createdAt}</td>
               <td css={style.tdStyle}>{course.updatedAt}</td>
-              <td css={style.tdStyle}>{course.classroom}</td>
+              <td css={style.tdStyle}>{course.room}</td>
               <td css={style.tdStyle}>
                 <button css={style.detailButtonStyle} onClick={openModal} >detail</button>
                 <CourseModal

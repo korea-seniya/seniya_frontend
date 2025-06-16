@@ -6,3 +6,5 @@ export const SIGN_IN_URL = `${AUTH_MODULE_URL}/login`;
 
 const FILE_MODULE_URL = `${API_DOMAIN}/api/v1/files`;
 export const UPLOAD_FILE_URL = `${FILE_MODULE_URL}/upload`;
+
+export const COURSE_LIST_URL = `${API_DOMAIN}/courses`
