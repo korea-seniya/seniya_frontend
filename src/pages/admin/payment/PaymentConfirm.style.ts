@@ -5,7 +5,6 @@ export const containerStyle = css`
   max-width: 900px;
   height: 700px;
   margin: 30px auto;
-  margin-top: 150px;
   overflow-x: auto;
   border-radius: 10px;
 `;

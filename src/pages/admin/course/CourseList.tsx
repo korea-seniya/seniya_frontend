@@ -6,13 +6,13 @@ import * as style from './courseList.style'
 import CourseModal from '../../../components/admin/course/courseDetailModal';
 import { courseList } from '../../../apis/course/course';
 import type { Course } from '../../../types/course.type';
-
-
-interface CourseListResponseDto {
-  courseList: Course[];
-}
+import Header from '../../../components/header';
+import AdminSidebar from '../../../components/admin/AdminSidebar';
 
 function CourseList() {
+
+  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRrZGxlbDEyMyIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1MDA1NDE2MCwiZXhwIjoxNzUwMDU3NzYwfQ.23Vph51g8hGJ71_Tt6bBxCTNN8bEp6RClIJqO6ORdZI");
+
 
   const [modalOpen, setModalOpen] = useState(false);
   const [courses, setCourses] = useState<Course[]>([]);
@@ -35,22 +35,26 @@ function CourseList() {
       try {
         const response = await courseList(); // ResponseDto<CourseListResponseDto> 타입
 
-        if (response.code === 'SUCCESS' && response.data?.courseList) {
+        if (response.code === 'SU' && response.data?.courseList) {
           setCourses(response.data.courseList);
         } else {
-          alert(response.message || '수업 목록을 불러오는데 실패했습니다.');
+          // alert(response.message || '수업 목록을 불러오는데 실패했습니다.');
         }
 
       } catch (error) {
-        alert('서버와 통신 중 오류가 발생했습니다.');
+        // alert('서버와 통신 중 오류가 발생했습니다.');
       }
     }
 
     fetchCourses();
   }, []);
 
-  return (
-    <div css={style.containerStyle}>
+
+
+  return (<>
+    <Header />
+    <AdminSidebar />
+    <div css={style.containerStyle} >
       <table css={style.tableStyle}>
         <thead>
           <tr css={style.firtTrStyle}>
@@ -66,7 +70,7 @@ function CourseList() {
         </thead>
         <tbody>
           {courses.map((course, index) => (
-            <tr key={index} css={style.trStyle}>
+            <tr key={course.courseId} css={style.trStyle}>
               <td css={style.tdStyle}>{course.trainerProfile.user.name}</td>
               <td css={style.tdStyle}>{course.title}</td>
               <td css={style.tdStyle}>{course.date}</td>
@@ -87,8 +91,10 @@ function CourseList() {
           ))}
 
         </tbody>
+
       </table>
-    </div>
+    </div >
+  </>
   );
 }
 

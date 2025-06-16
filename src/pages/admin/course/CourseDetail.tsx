@@ -1,6 +1,6 @@
 // pages/CourseDetail.tsx
 import React, { useState } from 'react';
-import LessonModal from '../../../components/admin/course/courseDetailModal';
+import CourseModal from '../../../components/admin/course/courseDetailModal';
 
 
 function CourseDetail() {
@@ -24,7 +24,7 @@ function CourseDetail() {
       <h1>수업 상세 페이지</h1>
       <button onClick={openModal}>수업 수정하기</button>
 
-      <LessonModal
+      <CourseModal
         isOpen={modalOpen}
         onClose={closeModal}
         onDelete={handleDelete}
