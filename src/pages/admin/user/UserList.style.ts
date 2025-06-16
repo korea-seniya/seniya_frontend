@@ -1,13 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-export const containerStyle = css`
-  max-width: 900px;
-  height: 700px;
-  margin: 30px auto;
-  margin-top: 150px;
+export const pageWrapper = css`
+  display: flex;
+`;
+
+export const contentWrapper = css`
+  flex: 1;
+  margin: 0 100px 0 250px;
+  padding: 20px;
+`;
+
+export const titleStyle = css`
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+`;
+
+export const tableContainer = css`
   overflow-x: auto;
-  border-radius: 10px;
 `;
 
 export const tableStyle = css`
@@ -15,10 +26,9 @@ export const tableStyle = css`
   border-collapse: collapse;
 `;
 
-export const firtTrStyle = css`
-  background-color: #4658AE;
+export const firstTrStyle = css`
+  background-color: #4658ae;
   color: white;
-  height: 50px;
 `;
 
 export const trStyle = css`
@@ -28,14 +38,12 @@ export const trStyle = css`
 export const thStyle = css`
   padding: 10px;
   border: 1px solid #ccc;
-  font-weight: bold;
   font-size: 14px;
   text-align: center;
-  border: 3px solid #4658AE;
 `;
 
 export const tdStyle = css`
-  border: 1px solid #4658AE;
+  border: 1px solid #4658ae;
   font-size: 14px;
   text-align: center;
   white-space: nowrap;
@@ -46,7 +54,6 @@ export const tdStyle = css`
 export const detailButtonStyle = css`
   width: 90px;
   height: 40px;
-
   background-color: #7e5bef;
   color: white;
   border: none;

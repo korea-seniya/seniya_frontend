@@ -2,6 +2,8 @@
 import { css } from '@emotion/react';
 import React, { useState } from 'react'
 import * as style from './course.style'
+import AdminSidebar from '../../../components/admin/adminSidebar';
+import Header from '../../../components/header';
 
 function CreateCourse() {
 
@@ -33,6 +35,8 @@ function CreateCourse() {
 
   return (
     <>
+      <Header />
+      <AdminSidebar />
       <div css={style.containerStyle}>
         <h6 css={style.h6Style}>수업 제목</h6>
         <input type="text" placeholder='수업 제목' name='title' value={form.title} onChange={onInputChange} css={style.inputStyle} />
