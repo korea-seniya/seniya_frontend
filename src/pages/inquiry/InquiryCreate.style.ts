@@ -18,8 +18,8 @@ const titleStyle = css`
 const divStyle = css`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 15px;
 `;
 
 const labelStyle = css`
@@ -73,6 +73,14 @@ const buttonWrapperStyle = css`
   gap: 10px;
 `;
 
+const checkboxStyle = css`
+  margin-right: 8px;
+`;
+
+const label2Style = css`
+  text-align: center;
+`;
+
 export {
   containerStyle,
   titleStyle,
@@ -81,5 +89,7 @@ export {
   buttonStyle,
   contentStyle,
   divStyle,
-  buttonWrapperStyle
+  buttonWrapperStyle,
+  checkboxStyle,
+  label2Style
 };

@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import CourseList from "./pages/admin/course/CourseList"
+import InquiryCreate from "./pages/inquiry/InquiryCreate"
 
 function App() {
   // 4. 폴더 구조 생성
@@ -8,8 +9,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/api/v1/courses' element={<CourseList />} />
-
+        {/* <Route path='/api/v1/courses' element={<CourseList />} /> */}
+        <Route path='/api/v1/inquiries' element={<InquiryCreate />} />
       </Routes>
     </>
   )
