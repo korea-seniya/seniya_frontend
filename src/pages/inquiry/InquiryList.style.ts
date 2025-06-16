@@ -23,7 +23,7 @@ const searchWrapperStyle = css`
   border: 1px solid rgba(0,0,0,0);
   padding: 15px 15px;
   border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 `;
 
 const selectStyle = css`
@@ -35,7 +35,7 @@ const selectStyle = css`
   box-sizing: border-box;
   &:focus {
     outline: none;
-    border-color: #4caf50;
+    border-color: #5B6DC6;
   }
 `;
 
@@ -48,7 +48,7 @@ const inputStyle = css`
   box-sizing: border-box;
   &:focus {
     outline: none;
-    border-color: #4caf50;
+    border-color: #5B6DC6;
   }
 `;
 
@@ -58,7 +58,7 @@ const buttonStyle = css`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  background-color: #4caf50;
+  background-color: #5B6DC6;
   color: white;
 `;
 

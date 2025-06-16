@@ -38,7 +38,7 @@ const inputStyle = css`
   box-sizing: border-box;
   &:focus {
     outline: none;
-    border-color: #4caf50;
+    border-color: #5B6DC6;
   }
 `;
 
@@ -52,7 +52,7 @@ const contentStyle = css`
   box-sizing: border-box;
   &:focus {
     outline: none;
-    border-color: #4caf50;
+    border-color: #5B6DC6;
   }
 `;
 
@@ -62,7 +62,7 @@ const buttonStyle = css`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  background-color: #4caf50;
+  background-color: #5B6DC6;
   color: white;
 `;
 

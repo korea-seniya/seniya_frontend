@@ -19,7 +19,7 @@ const divStyle = css`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.5);
   box-sizing: border-box;
   padding: 20px;
   border-radius: 5px;
@@ -73,7 +73,7 @@ font-size: 14px;
 border: none;
 border-radius: 8px;
 cursor: pointer;
-background-color: #4caf50;
+background-color: #5B6DC6;
 color: white;
 `;
 const buttonWrapperStyle = css`
@@ -84,7 +84,7 @@ gap: 10px;
 `;
 
 const lineStyle = css`
-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 margin: 0 10px 0 10px;
 `;
 
@@ -111,7 +111,7 @@ const textareaStyle = css`
   box-sizing: border-box;
   &:focus {
     outline: none;
-    border-color: #4caf50;
+    border-color: #5B6DC6;
   }
 `;
 

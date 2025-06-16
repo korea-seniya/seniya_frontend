@@ -16,7 +16,7 @@ import {
   answerPStyle,
   strongStyle,
   textareaStyle
-} from './inquiryAnswer.style';
+} from './InquiryAnswer.style';
 
 function InquiryDetail() {
 
