@@ -13,7 +13,6 @@ import {
   signUpButtonStyle,
 } from './SignIn.style';
 
-// 경로에 맞게 수정하세요
 import { signIn } from '../../apis/auth/auth';
 
 function SignIn() {
@@ -39,8 +38,7 @@ function SignIn() {
       const data = await signIn(form);
       console.log('로그인 성공:', data);
       alert('로그인 성공! 메인 화면으로 이동합니다.');
-      // 로그인 성공 후 이동할 경로 수정 가능
-      navigate('/dashboard');
+      navigate('/dashboard'); 
     } catch (error: any) {
       alert(error.message || '로그인 실패');
     }
@@ -52,7 +50,7 @@ function SignIn() {
       <div css={loginWrapperStyle}>
         <div css={snsLoginStyle}>
           <p>SNS 로그인</p>
-          {/* SNS 로그인 버튼들 (카카오, 네이버 등) 추가 가능 */}
+          {/* 카카오, 네이버 등 SNS 로그인 버튼 추가 가능 */}
         </div>
 
         <div css={formWrapperStyle}>
@@ -85,7 +83,7 @@ function SignIn() {
             <button
               type="button"
               css={signUpButtonStyle}
-              onClick={() => navigate('/api/v1/signup')}
+              onClick={() => navigate('/signup')} 
             >
               회원가입
             </button>

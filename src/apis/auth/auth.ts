@@ -13,7 +13,7 @@ export interface SignInForm {
   password: string;
 }
 
-const API_BASE_URL = 'http://localhost:8080/api/v1'; // 백엔드 주소
+const API_BASE_URL = 'http://localhost:8080/api/v1/auth'; // 백엔드 주소
 
 export async function signUp(form: SignUpForm) {
   const response = await fetch(`${API_BASE_URL}/signup`, {
