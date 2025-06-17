@@ -7,7 +7,7 @@ export const SIGN_IN_URL = `${AUTH_MODULE_URL}/login`;
 const FILE_MODULE_URL = `${API_DOMAIN}/api/v1/files`;
 export const UPLOAD_FILE_URL = `${FILE_MODULE_URL}/upload`;
 
-const INQUIRY_MODULE_URL = `${API_DOMAIN}/inquiries`;
+const INQUIRY_MODULE_URL = `${API_DOMAIN}/api/v1/inquiries`;
 export const CREATE_INQUIRY_URL = `${INQUIRY_MODULE_URL}`;
 export const GET_MY_INQUIRY_URL = `${INQUIRY_MODULE_URL}/me`;
 export const GET_ALL_INQUIRY_URL = `${INQUIRY_MODULE_URL}`;

@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from "react";
-import type { InquiryList } from "./InquiryList";
-import { InquiryDummyData } from "./InquiryDummyData";
 import {
   containerStyle,
   titleStyle,
@@ -11,14 +9,24 @@ import {
   tableStyle,
   thStyle,
   tdStyle,
-  selectStyle
+  selectStyle,
+  leftAlign,
+  rightAlign,
 } from "./InquiryList.style";
+import { getAllInquiriesRequest } from "../../apis/inquiry/Inquiry";
+import type { AllInquiryResponseDto } from "../../dtos/inquiry/response/inquiryList.response.dto";
 
 function InquiryListPage() {
-  const [inquiries, setInquiries] = useState<InquiryList[]>([]);
+  const [inquiries, setInquiries] = useState<AllInquiryResponseDto[]>([]);
 
   useEffect(() => {
-    setInquiries(InquiryDummyData);
+    const response = async () => {
+      const response = await getAllInquiriesRequest();
+      if (response.code === "SU" && response.data) {
+        setInquiries(response.data);
+      }
+    };
+    response();
   }, []);
 
   return (
@@ -30,7 +38,6 @@ function InquiryListPage() {
           <option value="title">제목</option>
           <option value="username">작성자</option>
         </select>
-
         <input
           type="text"
           placeholder="검색어를 입력해주세요."
@@ -38,23 +45,29 @@ function InquiryListPage() {
         />
         <button css={buttonStyle}>검색</button>
       </div>
-
+      <p>전체 {inquiries.length}건</p>
       <table css={tableStyle}>
         <thead>
           <tr>
-            <th css={thStyle}>번호</th>
-            <th css={thStyle}>제목</th>
-            <th css={thStyle}>작성일</th>
-            <th css={thStyle}>작성자</th>
+            <th css={[thStyle, leftAlign]}>번호</th>
+            <th css={[thStyle, leftAlign]}>제목</th>
+            <th css={[thStyle, rightAlign]}>작성일</th>
+            <th css={[thStyle, rightAlign]}>작성자</th>
           </tr>
         </thead>
         <tbody>
-          {inquiries.map((item, index) => (
-            <tr key={index}>
-              <td css={tdStyle}>{item.id}</td>
-              <td css={tdStyle}>{item.title}</td>
-              <td css={tdStyle}>{item.createdAt}</td>
-              <td css={tdStyle}>{item.username}</td>
+          {inquiries.map((inquiry, index) => (
+            <tr key={inquiry.id}>
+              <td css={[tdStyle, leftAlign]}>{index + 1}</td>
+              <td css={[tdStyle, leftAlign]}>
+                {inquiry.isPrivate !== true ? inquiry.title : "비밀글입니다."}
+              </td>
+              <td css={[tdStyle, rightAlign]}>
+                {inquiry.updatedAt !== null
+                  ? inquiry.updatedAt
+                  : inquiry.createdAt}
+              </td>
+              <td css={[tdStyle, rightAlign]}>{inquiry.username}</td>
             </tr>
           ))}
         </tbody>
