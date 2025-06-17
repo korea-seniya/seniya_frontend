@@ -6,8 +6,6 @@ import { USER_LIST_URL } from "../constants";
 
 export const tmp = '';
 
-// const response = await axios.get<ResponseDto<GetUserListResponseDto[]>>('/api/users');
-// return response.data;
 export const getUserList = async (): Promise<ResponseDto<GetUserListResponseDto[]>> => {
 
   try {
