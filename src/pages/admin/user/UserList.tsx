@@ -35,10 +35,10 @@ function UserList() {
           setUsers(response.data);
           console.log(response.data);
         } else {
-          alert(response.message)
+          console.log(response.message);
         }
-      } catch (e) {
-        console.log("실패");
+      } catch (err) {
+        console.log(err);
       }
     }
     fetchUsers();
@@ -53,8 +53,8 @@ function UserList() {
       } else {
         alert(response.message);
       }
-    } catch (e) {
-      console.log("유저 상세 조회 실패");
+    } catch (err) {
+      console.log(err);
     }
   };
 
