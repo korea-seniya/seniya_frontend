@@ -16,8 +16,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/api/v1/signup' element={<SignUp />} />
-        <Route path='/api/v1/signIn' element={<SignIn />} />
+        <Route path='signup' element={<SignUp />} />
+        <Route path='signIn' element={<SignIn />} />
         <Route path='/api/v1/inquiries' element={<InquiryCreate />} />
         <Route path='/api/v1/create-course' element={<CreateCourse />} />
         <Route path='/api/v1/courses' element={<CourseList />} />

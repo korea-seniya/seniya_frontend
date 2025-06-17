@@ -14,7 +14,7 @@ import {
   submitButtonStyle,
 } from './SignUp.style';
 
-// 여기에 경로 맞게 수정하세요
+// 경로 맞게 수정된 회원가입 API 함수 import
 import { signUp } from '../../apis/auth/auth';
 
 function SignUp() {
@@ -50,7 +50,7 @@ function SignUp() {
       const data = await signUp(form);
       console.log('회원가입 성공:', data);
       alert('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
-      navigate('/api/v1/signIn');
+      navigate('/signin');
     } catch (error: any) {
       alert(error.message || '회원가입 실패');
     }
@@ -142,7 +142,7 @@ function SignUp() {
           <button
             type="button"
             css={cancelButtonStyle}
-            onClick={() => navigate('/api/v1/signIn')}
+            onClick={() => navigate('/signin')}
           >
             취소
           </button>
