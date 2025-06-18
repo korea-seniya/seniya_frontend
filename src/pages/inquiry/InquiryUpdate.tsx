@@ -1,5 +1,5 @@
 // /** @jsxImportSource @emotion/react */
-// import React, { useState } from "react";
+// import React, { useEffect, useState } from "react";
 // import type { InquiryRequestDto } from "../../dtos/inquiry/request/inquiry.request.dto";
 // import { updateInquiryRequest } from "../../apis/inquiry/Inquiry";
 // import { useParams } from "react-router-dom";
@@ -36,7 +36,6 @@
 //   };
 
 //   const { id } = useParams<{ id: string }>();
-
 //   const inquiryId = Number(id);
 
 //   const onSubmit = async () => {
@@ -44,6 +43,13 @@
 //       setMessage("제목과 내용 모두 입력해주세요.");
 //       return;
 //     }
+
+//     useEffect(() => {
+//         const fetchInquiry = async () => {
+//             const response = await getInqiryById(inquiryId);
+//             if ()
+//         }
+//     })
 
 //     const requestBody: InquiryRequestDto = {
 //       title,

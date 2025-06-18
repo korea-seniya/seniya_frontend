@@ -60,7 +60,7 @@ function InquiryListPage() {
             <tr key={inquiry.id}>
               <td css={[tdStyle, leftAlign]}>{index + 1}</td>
               <td css={[tdStyle, leftAlign]}>
-                {inquiry.isPrivate !== true ? inquiry.title : "비밀글입니다."}
+                {inquiry.isPrivated !== true ? inquiry.title : "비밀글입니다."}
               </td>
               <td css={[tdStyle, rightAlign]}>
                 {inquiry.updatedAt !== null

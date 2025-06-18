@@ -17,7 +17,7 @@ import { createInquiryRequest } from '../../apis/inquiry/Inquiry';
 import type { InquiryRequestDto } from '../../dtos/inquiry/request/inquiry.request.dto';
 
 function InquiryCreate() {
-    localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuusuOydmO2FjOyKpO2KuCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUwMTQ1NDAzLCJleHAiOjE3NTAxNDkwMDN9.03I3dLl0vJC4MFboeAWM7Qlce5BNZ0eip0-e4h9DMaQ");
+  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuycoOyggCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUwMjQ0MTc1LCJleHAiOjE3NTAyNDc3NzV9.eTkuLcIjyFyT7mfo8I7wGB76FsRF1-FDT-kDvabQ3qg");
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [isPrivated, setIsPrivated] = useState<boolean>(false);

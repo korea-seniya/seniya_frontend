@@ -18,7 +18,7 @@ import {
   textareaStyle
 } from './InquiryAnswer.style';
 
-function InquiryDetail() {
+function InquiryAnswer() {
 
   return (
     <div css={containerStyle}>
@@ -41,4 +41,4 @@ function InquiryDetail() {
   )
 }
 
-export default InquiryDetail
+export default InquiryAnswer
