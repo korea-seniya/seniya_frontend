@@ -6,9 +6,9 @@ import UserModal from '../../../components/admin/user/userDetailModal';
 import AdminSidebar from '../../../components/admin/AdminSidebar';
 import Header from '../../../components/header';
 import { getUserList } from '../../../apis/userList/userList';
-import type { GetUserListResponseDto } from '../../../dtos/response/GetUserList.response.dto';
+import type { GetUserListResponseDto } from '../../../dtos/adminUser/response/GetUserList.response.dto';
 import { getUserDetail } from '../../../apis/userList/userDetail';
-import type { GetUserDetailResponseDto } from '../../../dtos/response/GetUserDetail.response.dto';
+import type { GetUserDetailResponseDto } from '../../../dtos/adminUser/response/GetUserDetail.response.dto';
 
 function UserList() {
 
@@ -35,10 +35,10 @@ function UserList() {
           setUsers(response.data);
           console.log(response.data);
         } else {
-          alert(response.message)
+          console.log(response.message);
         }
-      } catch (e) {
-        console.log("실패");
+      } catch (err) {
+        console.log(err);
       }
     }
     fetchUsers();
@@ -53,8 +53,8 @@ function UserList() {
       } else {
         alert(response.message);
       }
-    } catch (e) {
-      console.log("유저 상세 조회 실패");
+    } catch (err) {
+      console.log(err);
     }
   };
 

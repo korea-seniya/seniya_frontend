@@ -85,6 +85,14 @@ const statusStyle = css`
   font-weight: bold;
 `;
 
+const leftAlign = css`
+  text-align: left;
+`;
+
+const rightAlign = css`
+  text-align: right;
+`;
+
 export {
   containerStyle,
   titleStyle,
@@ -95,5 +103,7 @@ export {
   thStyle,
   tdStyle,
   statusStyle,
-  selectStyle
+  selectStyle,
+  leftAlign,
+  rightAlign
 };
