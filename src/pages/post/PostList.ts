@@ -3,5 +3,5 @@ export interface PostList {
   title: string;
   username: string;
   createdAt: string;
-  // updatedAt: string;
+  notice: boolean;
 }

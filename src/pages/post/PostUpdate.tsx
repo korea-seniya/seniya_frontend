@@ -7,8 +7,11 @@ import {
   inputStyle,
   contentStyle,
   nameStyle,
-  buttonWrapperStyle,
-  buttonStyle
+  buttonArea,
+  buttonWrapperStyle1,
+  buttonStyle1,
+  buttonWrapperStyle2,
+  buttonStyle2
 } from './PostCreate.style';
 
 function PostUpdate() {
@@ -31,8 +34,13 @@ function PostUpdate() {
               css={contentStyle}
               placeholder="내용을 입력하세요."
             ></textarea>
-            <div css={buttonWrapperStyle}>
-              <button css={buttonStyle}>수정완료</button>
+            <div css={buttonArea}>
+              <div css={buttonWrapperStyle1}>
+                <button css={buttonStyle1}>이미지 선택</button>
+              </div>
+              <div css={buttonWrapperStyle2}>
+                <button css={buttonStyle2}>수정완료</button>
+              </div>
             </div>
           </div>
         </div>
