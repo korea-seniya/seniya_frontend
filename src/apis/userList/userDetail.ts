@@ -1,6 +1,6 @@
 import type { AxiosError } from "axios";
 import type ResponseDto from "../../dtos/response.dto";
-import type { GetUserDetailResponseDto } from "../../dtos/response/GetUserDetail.response.dto";
+import type { GetUserDetailResponseDto } from "../../dtos/adminUser/response/GetUserDetail.response.dto";
 import { axiosInstance, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 import { USER_DETAIL_URL } from "../constants";
 

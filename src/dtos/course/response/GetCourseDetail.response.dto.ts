@@ -1,10 +1,11 @@
-export interface GetCourseListResponseDto {
+export interface GetCourseDetailResponseDto {
   id: number;
+  courseId: number;
+  title: string;
+  name: string;
+  description: string;
   trainerId: number;
   trainerName: string;
-  name: string;
-  title: string;
-  description: string;
   classDate: string;
   classStartTime: string;
   classEndTime: string;
