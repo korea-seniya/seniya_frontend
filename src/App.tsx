@@ -7,11 +7,15 @@ import CheckoutPage from "./pages/payment/CheckoutPage"
 import PaymentConfirm from "./pages/admin/payment/PaymentConfirm"
 import UserList from "./pages/admin/user/UserList"
 import CreateCourse from "./pages/admin/course/CreateCourse"
+import PostCreate from "./pages/post/PostCreate"
+import PostListPage from "./pages/post/PostListPage"
+
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path='/api/v1/posts' element={<PostListPage /> } />
         <Route path='/api/v1/inquiries' element={<InquiryCreate />} />
         <Route path='/api/v1/create-course' element={<CreateCourse />} />
         <Route path='/api/v1/courses' element={<CourseList />} />

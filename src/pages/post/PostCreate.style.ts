@@ -51,13 +51,34 @@ export const contentStyle = css`
   box-sizing: border-box;
 `;
 
-export const buttonWrapperStyle = css`
+export const buttonArea = css`
+  display: flex;
+  justify-content: right;
+`;
+
+export const buttonWrapperStyle1 = css`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-right: 10px;
+`;
+
+export const buttonStyle1 = css`
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+export const buttonWrapperStyle2 = css`
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
 `;
 
-export const buttonStyle = css`
+export const buttonStyle2 = css`
   padding: 10px 20px;
   background-color: #5c6bc0;
   color: white;
