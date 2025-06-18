@@ -1,114 +1,8 @@
-
-// /** @jsxImportSource @emotion/react */
-// import { css } from '@emotion/react';
-
-// import React, { useState } from 'react';
-// import * as style from './courseDetailModal.style';
-// import type { GetCourseDetailResponseDto } from '../../../dtos/response/GetCourseDetail.response.dto';
-
-// type CourseModalProps = {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   onDelete: () => void;
-//   onUpdate: () => void;
-//   course: GetCourseDetailResponseDto | null;
-// };
-
-// function CourseModal(props: CourseModalProps) {
-//   const { isOpen, onClose, onDelete, onUpdate, course } = props;
-
-//   const [isEditing, setIsEditing] = useState(false);
-
-//   if (!isOpen || !course) return null;
-
-//   return (
-//     <div css={style.overlay}>
-//       <div css={style.modal}>
-//         <form css={style.form} onSubmit={(e) => e.preventDefault()}>
-//           <div css={style.row}>
-//             <label>수업 제목</label>
-//             <input type="text" value={course.title} readOnly={!isEditing} />
-//           </div>
-
-//           <div css={style.row}>
-//             <label>수업 설명</label>
-//             <input type="text" value={course.description} readOnly={!isEditing} />
-//           </div>
-
-//           <div style={{ display: 'flex', gap: '10px' }}>
-//             <div css={style.row}>
-//               <label>담당 트레이너 ID</label>
-//               <input type="text" value={course.trainerId} readOnly={!isEditing} />
-//             </div>
-//             <div css={style.row}>
-//               <label>담당 트레이너 이름</label>
-//               <input type="text" value={course.trainerName} readOnly={!isEditing} />
-//             </div>
-//           </div>
-
-//           <div style={{ display: 'flex', gap: '10px' }}>
-//             <div css={style.row}>
-//               <label>수업 날짜</label>
-//               <input type="date" value={course.classDate.slice(0, 10)} readOnly={!isEditing} />
-//             </div>
-//             <div css={style.row}>
-//               <label>수업 시간</label>
-//               <div style={{ display: 'flex', gap: '5px' }}>
-//                 <input type="time" style={{ flex: 1 }} value={course.classStartTime} readOnly={!isEditing} />
-//                 <span>–</span>
-//                 <input type="time" style={{ flex: 1 }} value={course.classEndTime} readOnly={!isEditing} />
-//               </div>
-//             </div>
-//           </div>
-
-//           <div css={style.row}>
-//             <label>카테고리</label>
-//             <input type="text" name="category" value={course.category} readOnly={!isEditing} />
-//           </div>
-
-//           <div css={style.row}>
-//             <label>강의장</label>
-//             <input type="text" value={course.classroom} readOnly={!isEditing} />
-//           </div>
-
-//           <div css={style.buttonGroup}>
-//             <button type="button" css={style.backBtn} onClick={onClose}>
-//               뒤로 가기
-//             </button>
-//             <button type="button" css={style.deleteBtn} onClick={onDelete}>
-//               수업 개설 삭제
-//             </button>
-//             <button
-//               type="button"
-//               css={style.updateBtn}
-//               onClick={() => {
-//                 if (!isEditing) {
-//                   setIsEditing(true); // 편집 모드 진입
-//                 } else {
-//                   onUpdate(); // 수정 확정
-//                   setIsEditing(false); // 편집 모드 종료
-//                 }
-//               }}
-//             >
-//               {isEditing ? '수업 수정 확정' : '수업 수정'}
-//             </button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default CourseModal;
-
-
-
-
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import * as style from './courseDetailModal.style';
-import type { GetCourseDetailResponseDto } from '../../../dtos/response/GetCourseDetail.response.dto';
+import type { GetCourseDetailResponseDto } from '../../../dtos/course/response/GetCourseDetail.response.dto';
 
 type CourseModalProps = {
   isOpen: boolean;
@@ -123,7 +17,6 @@ function CourseModal(props: CourseModalProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editableCourse, setEditableCourse] = useState<GetCourseDetailResponseDto | null>(null);
 
-  // 모달 열릴 때 상태 초기화
   useEffect(() => {
     if (isOpen && course) {
       setEditableCourse({ ...course });
@@ -139,11 +32,17 @@ function CourseModal(props: CourseModalProps) {
 
   const handleUpdateClick = () => {
     if (isEditing) {
-      onUpdate(editableCourse);
+      if (editableCourse) {
+        onUpdate(editableCourse);
+      }
       setIsEditing(false);
     } else {
       setIsEditing(true);
     }
+  };
+
+  const handleDeleteClick = () => {
+    onDelete();
   };
 
   return (
@@ -225,13 +124,24 @@ function CourseModal(props: CourseModalProps) {
 
           <div css={style.row}>
             <label>카테고리</label>
-            <input
-              type="text"
-              name="category"
-              value={editableCourse.category}
-              readOnly={!isEditing}
-              onChange={(e) => handleChange('category', e.target.value)}
-            />
+            {isEditing ? (
+              <select
+                name="category"
+                value={editableCourse.category}
+                onChange={(e) => handleChange('category', e.target.value)}
+              >
+                <option value="SLEEP">SLEEP</option>
+                <option value="REHABILITATION">REHABILITATION</option>
+                <option value="EXERCISE">EXERCISE</option>
+                <option value="PSYCHOLOGY">PSYCHOLOGY</option>
+              </select>
+            ) : (
+              <input
+                type="text"
+                value={editableCourse.category}
+                readOnly
+              />
+            )}
           </div>
 
           <div css={style.row}>
@@ -248,8 +158,8 @@ function CourseModal(props: CourseModalProps) {
             <button type="button" css={style.backBtn} onClick={onClose}>
               뒤로 가기
             </button>
-            <button type="button" css={style.deleteBtn} onClick={onDelete}>
-              수업 개설 삭제
+            <button type="button" css={style.deleteBtn} onClick={handleDeleteClick}>
+              수업 삭제
             </button>
             <button type="button" css={style.updateBtn} onClick={handleUpdateClick}>
               {isEditing ? '수업 수정 확정' : '수업 수정'}

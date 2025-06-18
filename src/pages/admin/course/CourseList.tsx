@@ -6,10 +6,11 @@ import * as style from './courseList.style'
 import CourseModal from '../../../components/admin/course/courseDetailModal';
 import Header from '../../../components/header';
 import AdminSidebar from '../../../components/admin/AdminSidebar';
-import type { GetCourseListResponseDto } from '../../../dtos/response/GetCourseList.response.dto';
+import type { GetCourseListResponseDto } from '../../../dtos/course/response/GetCourseList.response.dto';
 import { getCourseList } from '../../../apis/course/courseList';
-import type { GetCourseDetailResponseDto } from '../../../dtos/response/GetCourseDetail.response.dto';
-import { getCourseDetail } from '../../../apis/course/courseDetail';
+import type { GetCourseDetailResponseDto } from '../../../dtos/course/response/GetCourseDetail.response.dto';
+import { deleteCourse, getCourseDetail, updateCourse } from '../../../apis/course/courseDetail';
+import type { UpdateCourseRequestDto } from '../../../dtos/course/request/UpdateCourse.request.dto';
 
 
 
@@ -61,22 +62,65 @@ function CourseList() {
   }
 
 
+  const handleDelete = async () => {
+    if (!selectedCourse) return;
 
-  const handleDelete = () => {
-    alert('수업 삭제됨');
-    closeModal();
+    const confirmDelete = window.confirm('정말로 수업을 삭제하시겠습니까?');
+    if (!confirmDelete) return;
+
+    try {
+      const response = await deleteCourse(selectedCourse.courseId);
+
+      alert('수업 삭제 완료');
+      setCourses((prevCourses) =>
+        prevCourses.filter((course) => course.id !== selectedCourse.courseId)
+      );
+      closeModal();
+    } catch (error) {
+      console.error(error);
+      alert('수업 삭제 중 오류가 발생했습니다.');
+      closeModal();
+    }
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = async (updatedCourse: GetCourseDetailResponseDto) => {
 
+    const dto: UpdateCourseRequestDto = {
+      trainerId: Number(updatedCourse.trainerId),
+      title: updatedCourse.title,
+      description: updatedCourse.description,
+      classDate: `${updatedCourse.classDate.slice(0, 10)}T00:00:00`,
+      classStartTime: updatedCourse.classStartTime,
+      classEndTime: updatedCourse.classEndTime,
+      category: updatedCourse.category,
+      classroom: updatedCourse.classroom,
+    };
 
-
-
-
-
-
-    alert('수업 수정됨');
-    closeModal();
+    const response = await updateCourse(updatedCourse.courseId, dto);
+    try {
+      if (response.code === 'SU') {
+        alert('수업 수정 완료');
+        setCourses((prevCourses) =>
+          prevCourses.map((course) =>
+            course.id === updatedCourse.courseId
+              ? {
+                ...course,
+                title: updatedCourse.title,
+                classDate: updatedCourse.classDate,
+                category: updatedCourse.category,
+                updatedAt: new Date().toISOString(), // 수정일자 갱신
+                classroom: updatedCourse.classroom,
+              }
+              : course
+          )
+        );
+        closeModal();
+      } else {
+        alert(response.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (<>

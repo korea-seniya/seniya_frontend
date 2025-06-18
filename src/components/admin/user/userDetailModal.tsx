@@ -2,7 +2,7 @@
 import React from 'react';
 import * as style from './userDetailModal.style';
 import type { User } from '../../../types/user.type';
-import type { GetUserDetailResponseDto } from '../../../dtos/response/GetUserDetail.response.dto';
+import type { GetUserDetailResponseDto } from '../../../dtos/adminUser/response/GetUserDetail.response.dto';
 
 type UserModalProps = {
   isOpen: boolean;

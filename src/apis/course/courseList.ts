@@ -1,6 +1,6 @@
 import type { AxiosError } from "axios";
 import type ResponseDto from "../../dtos/response.dto";
-import type { GetCourseListResponseDto } from "../../dtos/response/GetCourseList.response.dto";
+import type { GetCourseListResponseDto } from "../../dtos/course/response/GetCourseList.response.dto";
 import { axiosInstance, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 import { COURSE_LIST_URL } from "../constants";
 
