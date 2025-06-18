@@ -11,6 +11,8 @@ import PostCreate from "./pages/post/PostCreate"
 import PostListPage from "./pages/post/PostListPage"
 import InquiryListPage from "./pages/inquiry/InquiryListPage"
 import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
+import SignUp from "./pages/auth/SignUp"
+import SignIn from "./pages/auth/SignIn"
 
 
 
