@@ -28,18 +28,18 @@ function PostListPage() {
   useEffect(() => {
   const fetchPosts = async () => {
     try {
-      const response = await getPostList(); // ResponseDto<PostListResponseDto[]>
+      const response = await getPostList();
 
       if (response.data) {
         const mapped = response.data.map((item) => ({
-          id: item.postId, // 백엔드의 postId → 프론트의 id
+          id: item.postId, 
           title: item.title,
           username: item.username,
           createdAt: item.createdAt,
-          notice: false, // 백엔드에서 없으면 false로 기본값 줌
+          notice: false, 
         }));
 
-        setPosts(mapped); // ✅ 타입이 PostList[]로 맞춰짐
+        setPosts(mapped);
       } else {
         setPosts([]);
       }
