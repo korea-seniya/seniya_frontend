@@ -10,9 +10,10 @@ import CreateCourse from "./pages/admin/course/CreateCourse"
 import PostCreate from "./pages/post/PostCreate"
 import PostListPage from "./pages/post/PostListPage"
 import InquiryListPage from "./pages/inquiry/InquiryListPage"
-import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
+// import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
 import SignUp from "./pages/auth/SignUp"
 import SignIn from "./pages/auth/SignIn"
+import PostDetailPage from "./pages/post/PostDetail"
 
 
 
@@ -20,11 +21,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/api/v1/posts' element={<PostListPage /> } />
+        <Route path='/api/v1/posts' element={<PostDetailPage /> } />
+        {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
         <Route path='/api/v1/inquiries' element={<InquiryCreate />} />
         <Route path='/api/v1/inquiry' element={<InquiryCreate />} />
         <Route path='/api/v1/inquiries' element={<InquiryListPage />} />
-        <Route path='/api/v1/inquiries/${id}' element={<InquiryUpdate />} />
+        {/* <Route path='/api/v1/inquiries/${id}' element={<InquiryUpdate />} /> */}
         <Route path='signup' element={<SignUp />} />
         <Route path='signIn' element={<SignIn />} />
         <Route path='/api/v1/create-course' element={<CreateCourse />} />
