@@ -10,10 +10,14 @@ import CreateCourse from "./pages/admin/course/CreateCourse"
 import PostCreate from "./pages/post/PostCreate"
 import PostListPage from "./pages/post/PostListPage"
 import InquiryListPage from "./pages/inquiry/InquiryListPage"
-//import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
+
 import SignUp from "./pages/auth/SignUp"
 import SignIn from "./pages/auth/SignIn"
+import PaymentSuccess from "./pages/payment/SuccessPage"
+import PaymentFail from "./pages/payment/FailPage"
+
 import PostDetailPage from "./pages/post/PostDetail"
+
 
 
 
@@ -29,12 +33,16 @@ function App() {
         {/* <Route path='/api/v1/inquiries/${id}' element={<InquiryUpdate />} /> */}
         <Route path='signup' element={<SignUp />} />
         <Route path='signin' element={<SignIn />} />
-        <Route path='/api/v1/create-course' element={<CreateCourse />} />
-        <Route path='/api/v1/courses' element={<CourseList />} />
+
+        <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
+        <Route path='/api/v1/admin/courses' element={<CourseList />} />
+
         <Route path='/api/v1/purchases' element={<PurchasePass />} />
         <Route path='/api/v1/payments/request' element={<CheckoutPage />} />
-        <Route path='/api/v1/payments/confirm' element={<PaymentConfirm />} />
-        <Route path='/api/v1/users' element={<UserList />} />
+        <Route path="/success" element={<PaymentSuccess />} />
+        <Route path="/fail" element={<PaymentFail />} />
+        <Route path='/api/v1/payments' element={<PaymentConfirm />} />
+        <Route path='/api/v1/admin/users' element={<UserList />} />
       </Routes>
     </>
   );
