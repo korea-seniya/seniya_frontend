@@ -30,7 +30,7 @@ export async function signUp(form: SignUpForm) {
 }
 
 export async function signIn(form: SignInForm) {
-  const response = await fetch(`${API_BASE_URL}/signIn`, {
+  const response = await fetch(`${API_BASE_URL}/signin`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(form),
