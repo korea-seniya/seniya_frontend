@@ -12,8 +12,6 @@ import type { GetCourseDetailResponseDto } from '../../../dtos/course/response/G
 import { deleteCourse, getCourseDetail, updateCourse } from '../../../apis/course/courseDetail';
 import type { UpdateCourseRequestDto } from '../../../dtos/course/request/UpdateCourse.request.dto';
 
-
-
 function CourseList() {
 
   const [modalOpen, setModalOpen] = useState(false);
