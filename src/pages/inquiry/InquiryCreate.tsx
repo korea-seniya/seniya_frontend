@@ -15,13 +15,15 @@ import {
 
 import { createInquiryRequest } from '../../apis/inquiry/Inquiry';
 import type { InquiryRequestDto } from '../../dtos/inquiry/request/inquiry.request.dto';
+import { useNavigate } from 'react-router-dom';
 
 function InquiryCreate() {
-  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuycoOyggCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUwMjQ0MTc1LCJleHAiOjE3NTAyNDc3NzV9.eTkuLcIjyFyT7mfo8I7wGB76FsRF1-FDT-kDvabQ3qg");
+  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3R0cmFpbmVyIiwicm9sZSI6IlRSQUlORVIiLCJpYXQiOjE3NTAzODM3OTksImV4cCI6MTc1MDM4NzM5OX0.IRfkeQAFfZLVOCdc7iFJRAVsFSYS_EtheERydo_aPsA");
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [isPrivated, setIsPrivated] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
+  const navigate = useNavigate();
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -50,6 +52,7 @@ function InquiryCreate() {
     const response = await createInquiryRequest(requestBody);
     if (response.code === 'SU') {
       alert('문의 등록 완료.');
+      navigate('/api/v1/inquiries');
     } else {
       setMessage(response.message);
     }
