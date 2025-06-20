@@ -83,3 +83,8 @@ export const certBox = css`
   gap: 1rem;
   margin-bottom: 1rem;
 `;
+
+export const text = css`
+  font-size: 16px;
+  margin-bottom: 12px;
+`;

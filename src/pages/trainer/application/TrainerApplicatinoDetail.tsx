@@ -17,6 +17,8 @@ import {
 import type { TrainerApplicationDetailResponseDto } from "../../../dtos/trainer/response/trainerApplyDetail.response.dto";
 
 function TrainerApplicationDetail() {
+  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFwcGx5dGVzdCIsInJvbGUiOiJUUkFJTkVSIiwiaWF0IjoxNzUwMzk1NDA3LCJleHAiOjE3NTAzOTkwMDd9.1ymDMtx4WwlQlzTgIAaWXSMpPRGEzbtAvSTr6ljTzWo");
+  
   const { id } = useParams<{ id: string }>();
   const ApplyId = Number(id);
   const [app, setApp] = useState<TrainerApplicationDetailResponseDto | null>(

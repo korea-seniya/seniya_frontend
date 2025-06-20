@@ -43,7 +43,7 @@ export const updateProfile = async (
   dto: TrainerProfileRequestDto
 ): Promise<ResponseDto<void>> => {
   try {
-    const response = await axiosInstance.post(UPDATE_PROFILE_URL, dto, {
+    const response = await axiosInstance.put(UPDATE_PROFILE_URL, dto, {
       headers: {
         Authorization: localStorage.getItem("Authorization"),
       },
