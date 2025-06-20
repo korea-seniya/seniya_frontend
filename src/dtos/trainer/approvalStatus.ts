@@ -1,0 +1,1 @@
+export type ApprovalStatus = "APPROVE" | "REJECT" | "PENDING" | "QUIT";
