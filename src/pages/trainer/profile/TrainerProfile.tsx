@@ -16,7 +16,7 @@ import { createProfile, getMyProfile, updateProfile } from "../../../apis/traine
 import type { Specialty } from "../../../dtos/trainer/specialty";
 
 function TrainerProfileForm({ isEdit }: { isEdit: boolean }) {
-  
+  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3R0cmFpbmVyIiwicm9sZSI6IlRSQUlORVIiLCJpYXQiOjE3NTA0MDE4NTYsImV4cCI6MTc1MDQwNTQ1Nn0.z7GJIJK_sKuYo3hHaJoZmWB2k3WC41D2tah7vsJxhjA");
 
   const navigate = useNavigate();
   const [form, setForm] = useState<TrainerProfileRequestDto>({
@@ -55,7 +55,7 @@ function TrainerProfileForm({ isEdit }: { isEdit: boolean }) {
     const response = isEdit ? await updateProfile(form) : await createProfile(form);
     if (response.code === "SU") {
       alert(isEdit ? "프로필이 수정되었습니다." : "프로필이 등록되었습니다.");
-      navigate("/trainer/profile");
+      navigate("/api/v1/trainer-profile");
     } else {
       alert(response.message || "오류가 발생했습니다.");
     }

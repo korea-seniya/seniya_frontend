@@ -18,11 +18,12 @@ import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
 import TrainerApplication from "./pages/trainer/application/TrainerApplication"
 import PaymentSuccess from "./pages/payment/SuccessPage"
 import PaymentFail from "./pages/payment/FailPage"
-import PostDetailPage from "./pages/post/PostDetail"
+// import PostDetailPage from "./pages/post/PostDetail"
 import MyTrainerApplicationStatus from "./pages/trainer/application/MyTrainerApplicationStatus"
 import TrainerApplicationList from "./pages/trainer/application/TrainerApplicationList"
 import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplicatinoDetail"
 import TrainerProfileForm from "./pages/trainer/profile/TrainerProfile"
+import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
 
 function App() {
   return (
@@ -45,8 +46,9 @@ function App() {
         
         <Route path="/api/v1/trainer-profile/create" element={<TrainerProfileForm isEdit={false} />} />
         <Route path="/api/v1/trainer-profile/edit" element={<TrainerProfileForm isEdit={true} />} />
+        <Route path="/api/v1/trainer-profile" element={<GetTrainerProfile />} />
         
-        <Route path='/api/v1/posts' element={<PostDetailPage /> } />
+        {/* <Route path='/api/v1/posts' element={<PostDetailPage /> } /> */}
         {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
 
         <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
