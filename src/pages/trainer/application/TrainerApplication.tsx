@@ -12,15 +12,24 @@ import {
   checkboxContainerStyle,
   listStyle,
 } from "./TrainerApplication.style";
+import { trainerApply } from "../../../apis/trainer/application";
+import { useNavigate } from "react-router-dom";
 
 function TrainerApplication() {
+    localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFwcGx5dGVzdCIsInJvbGUiOiJUUkFJTkVSIiwiaWF0IjoxNzUwMzk1NDA3LCJleHAiOjE3NTAzOTkwMDd9.1ymDMtx4WwlQlzTgIAaWXSMpPRGEzbtAvSTr6ljTzWo");
+
   const [isChecked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
   };
 
-  const onSubmit
+  const onSubmit = async () => {
+    await trainerApply();
+    alert('신청 완료');
+    navigate('/api/v1/trainer-application/me');
+  }
 
   return (
     <div css={containerStyle}>
@@ -57,10 +66,9 @@ function TrainerApplication() {
           <label css={agreeTextStyle}>예, 위 약관을 읽고 동의합니다.</label>
         </div>
         <div css={centerButtonStyle}>
-          <button css={buttonStyle} disabled={!isChecked}>
+          <button css={buttonStyle} disabled={!isChecked} onClick={onSubmit}>
             신청
-          </button>{" "}
-          {/* ✅ 비활성 조건 */}
+          </button>
         </div>
       </div>
     </div>

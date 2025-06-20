@@ -13,10 +13,14 @@ import InquiryListPage from "./pages/inquiry/InquiryListPage"
 import InquiryDetail from "./pages/inquiry/InquiryDetail"
 import InquiryAnswer from "./pages/inquiry/InquiryAnswer"
 import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
-import TrainerApplication from "./pages/trainer/TrainerApplication"
+import TrainerApplication from "./pages/trainer/application/TrainerApplication"
 import PaymentSuccess from "./pages/payment/SuccessPage"
 import PaymentFail from "./pages/payment/FailPage"
 import PostDetailPage from "./pages/post/PostDetail"
+import MyTrainerApplicationStatus from "./pages/trainer/application/MyTrainerApplicationStatus"
+import TrainerApplicationList from "./pages/trainer/application/TrainerApplicationList"
+import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplicatinoDetail"
+import TrainerProfileForm from "./pages/trainer/profile/TrainerProfile"
 
 
 
@@ -34,6 +38,14 @@ function App() {
         <Route path='/api/v1/inquiry/:id/response' element={<InquiryAnswer />} />
         
         <Route path='/api/v1/trainer-application' element={<TrainerApplication />} />
+        <Route path='/api/v1/trainer-application/me' element={<MyTrainerApplicationStatus />} />
+        <Route path='/api/v1/trainer-applications' element={<TrainerApplicationList />} />
+        <Route path='/api/v1/trainer-application/:id' element={<TrainerApplicationDetail />} />
+        <Route path="/api/v1/trainer-profile/create" element={<TrainerProfileForm isEdit={false} />} />
+        <Route path="/api/v1/trainer-profile/edit" element={<TrainerProfileForm isEdit={true} />} />
+
+
+
         
         <Route path='/api/v1/posts' element={<PostDetailPage /> } />
         {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
