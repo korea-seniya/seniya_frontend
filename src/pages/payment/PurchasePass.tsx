@@ -22,14 +22,14 @@ function PurchasePass() {
     }
 
     const selectedPass = passOptions[selectedIndex];
-    localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluMTIzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUwMzIyMDAyLCJleHAiOjE3NTAzMjU2MDJ9.F--N8TfsKsBHGb4SrZXydenQ4-oBwh-HYFNYiYZZ-Uk");
+    localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluMTIzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUwMzg1NDQzLCJleHAiOjE3NTA0MjE0NDN9.rvojBr2XGVVfStAwwwYetIQlSu6b9dr9_1RiY6iGVu4");
 
     const newWindow = window.open('/api/v1/payments/request', '_blank', 'width=600,height=800');
 
 
 
     if (newWindow) {
-      newWindow.name = JSON.stringify(selectedPass); // 💡 window.name에 데이터 담기
+      newWindow.name = JSON.stringify(selectedPass);
     }
   };
 
@@ -76,7 +76,7 @@ function PurchasePass() {
                 color={selectedIndex === index ? "#fff" : "#4658AE"}
               />
               <div css={style.passCount}>수강권 {pass.count}개</div>
-              <div css={style.passPrice}>₩{pass.price}</div>
+              <div css={style.passPrice}>₩{pass.count * 1000}</div>
             </div>
           ))}
           <button css={style.payBtn} onClick={purchaseClick}>결제하기</button>

@@ -14,6 +14,7 @@ function generateRandomString() {
 // TODO: 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요. 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
 // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+
 const customerKey = generateRandomString();
 
 interface Amount {
@@ -115,34 +116,6 @@ export default function CheckoutPage() {
         <div id="payment-method" />
         {/* 이용약관 UI */}
         <div id="agreement" />
-        {/* 쿠폰 체크박스
-        <div style={{ paddingLeft: "24px" }}>
-          <div className="checkable typography--p">
-            <label
-              htmlFor="coupon-box"
-              className="checkable__label typography--regular"
-            >
-              <input
-                id="coupon-box"
-                className="checkable__input"
-                type="checkbox"
-                aria-checked="true"
-                disabled={!ready}
-                // ------  주문서의 결제 금액이 변경되었을 경우 결제 금액 업데이트 ------
-                // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
-                onChange={async (event) => {
-                  await updateAmount({
-                    currency: amount.currency,
-                    value: event.target.checked
-                      ? amount.value - 5000
-                      : amount.value + 5000,
-                  });
-                }}
-              />
-              <span className="checkable__label-text">5,000원 쿠폰 적용</span>
-            </label>
-          </div>
-        </div> */}
 
         {/* 결제하기 버튼 */}
         <button
@@ -156,25 +129,17 @@ export default function CheckoutPage() {
             const selectedPass = JSON.parse(window.name);
             const count = selectedPass?.count || 1;
 
-            const orderName = `수강권 ${count}개`;
-
 
             try {
               // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
               // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
               await widgets!.requestPayment({
                 orderId: generateRandomString(),
-                // orderName에 "수강권" + couponCount 로 넣기
-                orderName: orderName,
-                successUrl: `${window.location.origin}/success?count=${count}`,
-                // successUrl: window.location.origin + "/success",
+                orderName: "수강권 " + count + "개",
+                successUrl: window.location.origin + `/success?count=${count}`,
                 failUrl: window.location.origin + "/fail",
-                // customerEmail: "customer123@gmail.com",
-                // customerName: "김토스",
-                // customerMobilePhone: "01012341234",
               });
             } catch (error) {
-              // 에러 처리하기
               console.error(error);
             }
           }}

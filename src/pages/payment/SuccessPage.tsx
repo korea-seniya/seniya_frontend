@@ -12,12 +12,7 @@ export default function PaymentSuccess() {
   const createPaymentSuccess = async () => {
     const dto: CreatePaymentRequestDto = {
       method: 'CARD',
-      // method 가 백엔드에서 provider
       couponCount: Number(searchParams.get('count')),
-
-
-
-
     }
 
     const response = await createPayment(dto);
@@ -42,14 +37,8 @@ export default function PaymentSuccess() {
 
     const method = searchParams.get('method');
 
-
-
-    // TODO: 백엔드로 결제 검증 API 호출 가능
-    // 예: await verifyPayment({ paymentKey, orderId });
-
     console.log('결제 성공 정보:', { paymentKey, orderId, amount, method });
     createPaymentSuccess();
-    // 검증 후 문제 없으면 구매 페이지로 이동
 
     // navigate('/api/v1/purchases', { replace: true });
   }, [navigate, searchParams]);
