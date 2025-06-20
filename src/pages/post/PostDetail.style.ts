@@ -77,10 +77,7 @@ export const infoRow = css`
   color: #555;
 `;
 
-export const timestamp = css`
-  font-size: 12px;
-  color: #888;
-`;
+
 
 export const divider = css`
   margin: 16px 0;
@@ -123,9 +120,17 @@ export const commentList = css`
 `;
 
 export const commentItem = css`
+  display: flex;
+  align-items: center;
   padding: 8px 0;
   border-top: 1px solid #eee;
   font-size: 14px;
+`;
+
+export const timestamp = css`
+  font-size: 12px;
+  color: #888;
+  margin-left: auto;
 `;
 
 export const commentAuthor = css`
