@@ -12,10 +12,12 @@ import {
   buttonWrapperStyle,
   cancelButtonStyle,
   submitButtonStyle,
+  messageStyle,
 } from './SignUp.style';
 
-// 경로 맞게 수정된 회원가입 API 함수 import
 import { signUp } from '../../apis/auth/auth';
+import { checkUsername } from '../../apis/auth/CheckUsername';
+import { checkEmail } from '../../apis/auth/CheckEmail';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -30,12 +32,66 @@ function SignUp() {
     agreeToSMS: false,
   });
 
+  const [usernameMessage, setUsernameMessage] = useState('');
+  const [emailMessage, setEmailMessage] = useState('');
+  const [isUsernameAvailable, setIsUsernameAvailable] = useState<boolean | null>(null);
+  const [isEmailAvailable, setIsEmailAvailable] = useState<boolean | null>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setForm((prev) => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
+
+    if (name === 'username') {
+      setUsernameMessage('');
+      setIsUsernameAvailable(null);
+    }
+    if (name === 'email') {
+      setEmailMessage('');
+      setIsEmailAvailable(null);
+    }
+  };
+
+  const handleCheckUsername = async () => {
+    if (!form.username.trim()) {
+      setUsernameMessage('아이디를 입력해주세요.');
+      setIsUsernameAvailable(null);
+      alert('아이디를 입력해주세요.');
+      return;
+    }
+
+    try {
+      const available = await checkUsername(form.username);
+      setIsUsernameAvailable(available);
+      setUsernameMessage(available ? '사용 가능한 아이디입니다.' : '이미 사용 중인 아이디입니다.');
+      alert(available ? '사용 가능한 아이디입니다.' : '이미 사용 중인 아이디입니다.');
+    } catch {
+      setUsernameMessage('아이디 확인 중 오류가 발생했습니다.');
+      setIsUsernameAvailable(null);
+      alert('아이디 확인 중 오류가 발생했습니다.');
+    }
+  };
+
+  const handleCheckEmail = async () => {
+    if (!form.email.trim()) {
+      setEmailMessage('이메일을 입력해주세요.');
+      setIsEmailAvailable(null);
+      alert('이메일을 입력해주세요.');
+      return;
+    }
+
+    try {
+      const available = await checkEmail(form.email);
+      setIsEmailAvailable(available);
+      setEmailMessage(available ? '사용 가능한 이메일입니다.' : '이미 사용 중인 이메일입니다.');
+      alert(available ? '사용 가능한 이메일입니다.' : '이미 사용 중인 이메일입니다.');
+    } catch {
+      setEmailMessage('이메일 확인 중 오류가 발생했습니다.');
+      setIsEmailAvailable(null);
+      alert('이메일 확인 중 오류가 발생했습니다.');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,6 +99,16 @@ function SignUp() {
 
     if (form.password !== form.confirmPassword) {
       alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    if (isUsernameAvailable === false) {
+      alert('이미 사용 중인 아이디입니다. 다른 아이디를 사용해주세요.');
+      return;
+    }
+
+    if (isEmailAvailable === false) {
+      alert('이미 사용 중인 이메일입니다. 다른 이메일을 사용해주세요.');
       return;
     }
 
@@ -66,12 +132,19 @@ function SignUp() {
           <input
             name="username"
             css={inputStyle}
-            placeholder="ID를 입력해주세요."
+            placeholder="ID 를 입력해주세요."
             value={form.username}
             onChange={handleChange}
           />
-          <button css={buttonStyle} type="button">중복 확인</button>
+          <button css={buttonStyle} type="button" onClick={handleCheckUsername}>
+            중복 확인
+          </button>
         </div>
+        {usernameMessage && (
+          <div css={messageStyle(isUsernameAvailable)}>
+            {usernameMessage}
+          </div>
+        )}
 
         <div css={fieldGroupStyle}>
           <label css={labelStyle}>비밀번호</label>
@@ -79,7 +152,7 @@ function SignUp() {
             type="password"
             name="password"
             css={inputStyle}
-            placeholder="PW를 입력해주세요."
+            placeholder="PW 를 입력해주세요."
             value={form.password}
             onChange={handleChange}
           />
@@ -114,8 +187,15 @@ function SignUp() {
             value={form.email}
             onChange={handleChange}
           />
-          <button css={buttonStyle} type="button">중복 확인</button>
+          <button css={buttonStyle} type="button" onClick={handleCheckEmail}>
+            중복 확인
+          </button>
         </div>
+        {emailMessage && (
+          <div css={messageStyle(isEmailAvailable)}>
+            {emailMessage}
+          </div>
+        )}
 
         <div css={fieldGroupStyle}>
           <label css={labelStyle}>휴대폰 번호</label>
@@ -139,14 +219,12 @@ function SignUp() {
         </div>
 
         <div css={buttonWrapperStyle}>
-          <button
-            type="button"
-            css={cancelButtonStyle}
-            onClick={() => navigate('/signin')}
-          >
+          <button type="button" css={cancelButtonStyle} onClick={() => navigate('/signin')}>
             취소
           </button>
-          <button type="submit" css={submitButtonStyle}>회원가입</button>
+          <button type="submit" css={submitButtonStyle}>
+            회원가입
+          </button>
         </div>
       </form>
     </div>

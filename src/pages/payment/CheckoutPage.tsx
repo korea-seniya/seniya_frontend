@@ -24,7 +24,7 @@ interface Amount {
 export default function CheckoutPage() {
   const [amount, setAmount] = useState<Amount>({
     currency: "KRW",
-    value: 10,
+    value: 0,
   });
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState<TossPaymentsWidgets | null>(null);
@@ -53,6 +53,20 @@ export default function CheckoutPage() {
     fetchPaymentWidgets();
     // eslint-disable-next-line
   }, [clientKey, customerKey]);
+
+  useEffect(() => {
+    try {
+      const selectedPass = JSON.parse(window.name);
+      if (selectedPass && selectedPass.price) {
+        setAmount({
+          currency: "KRW",
+          value: selectedPass.price,
+        });
+      }
+    } catch (e) {
+      console.warn("수강권 정보를 불러올 수 없습니다.", e);
+    }
+  }, []);
 
   useEffect(() => {
     async function renderPaymentWidgets() {
@@ -101,7 +115,7 @@ export default function CheckoutPage() {
         <div id="payment-method" />
         {/* 이용약관 UI */}
         <div id="agreement" />
-        {/* 쿠폰 체크박스 */}
+        {/* 쿠폰 체크박스
         <div style={{ paddingLeft: "24px" }}>
           <div className="checkable typography--p">
             <label
@@ -128,7 +142,7 @@ export default function CheckoutPage() {
               <span className="checkable__label-text">5,000원 쿠폰 적용</span>
             </label>
           </div>
-        </div>
+        </div> */}
 
         {/* 결제하기 버튼 */}
         <button
@@ -138,17 +152,26 @@ export default function CheckoutPage() {
           // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
           // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
           onClick={async () => {
+
+            const selectedPass = JSON.parse(window.name);
+            const count = selectedPass?.count || 1;
+
+            const orderName = `수강권 ${count}개`;
+
+
             try {
               // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
               // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
               await widgets!.requestPayment({
                 orderId: generateRandomString(),
-                orderName: "토스 티셔츠 외 2건",
-                successUrl: window.location.origin + "/success",
+                // orderName에 "수강권" + couponCount 로 넣기
+                orderName: orderName,
+                successUrl: `${window.location.origin}/success?count=${count}`,
+                // successUrl: window.location.origin + "/success",
                 failUrl: window.location.origin + "/fail",
-                customerEmail: "customer123@gmail.com",
-                customerName: "김토스",
-                customerMobilePhone: "01012341234",
+                // customerEmail: "customer123@gmail.com",
+                // customerName: "김토스",
+                // customerMobilePhone: "01012341234",
               });
             } catch (error) {
               // 에러 처리하기

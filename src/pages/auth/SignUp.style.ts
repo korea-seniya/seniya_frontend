@@ -71,7 +71,7 @@ export const checkboxWrapperStyle = css`
   align-items: center;
   margin-top: 10px;
   font-size: 14px;
-
+  margin-left: 106px;
   input {
     margin-right: 6px;
   }
@@ -110,4 +110,13 @@ export const submitButtonStyle = css`
   &:hover {
     background-color: #4b5abc;
   }
+`;
+
+// 여기부터 메시지 스타일 추가
+export const messageStyle = (available: boolean | null) => css`
+  margin-left: 106px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: ${available === null ? 'black' : available ? 'green' : 'red'};
 `;

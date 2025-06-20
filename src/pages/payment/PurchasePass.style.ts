@@ -5,7 +5,6 @@ export const containerStyle = css`
   max-width: 800px;
   height: 700px;
   margin: 30px auto;
-  margin-top: 150px;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
@@ -29,21 +28,28 @@ export const passDivStyle = css`
   width: 70%;
   height: 80px;
   border: 2px solid #4658AE;
-  margin: 40px auto;  
+  margin: 40px auto;
   font-size: 30px;
   border-radius: 10px;
   display: flex;
-  line-height: 80px;
+  align-items: center;
+  padding: 0 20px;        
+  gap: 20px;              
+  justify-content: space-between;
 `;
+
 
 export const passCount = css`
   width: 50%;
+  display: flex;
+  align-items: center;
 `;
 
 export const passPrice = css`
   width: 50%;
+  text-align: right;
+  padding-right: 10px;
 `;
-
 
 
 
@@ -54,5 +60,6 @@ export const payBtn = css`
   color: #fff;
   border: none;
   border-radius: 10px;
+  font-size: 20px;
 `;
 
