@@ -1,0 +1,95 @@
+/** @jsxImportSource @emotion/react */
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getPostDetail } from '../../apis/post/Post';
+import {
+  pageWrapper, nameStyle, container, title, infoRow, divider, imageWrapper,
+  commentSection, commentList, commentItem, timestamp, commentAuthor
+} from './PostDetail.style';
+import type { PostDetailResponseDto } from './PostDetail';
+
+const BACKEND_URL = 'http://localhost:8080';
+
+function PostDetail ()  {
+  const { id } = useParams<{ id: string }>();  // URL에서 postId 가져오기
+  const [post, setPost] = useState<PostDetailResponseDto | null>(null);
+
+  useEffect(() => {
+    const fetchPostDetail = async () => {
+      if (!id) return;
+
+      try {
+        const response = await getPostDetail(Number(id));
+        console.log('응답 데이터:', response.data);
+
+        if (response.data) {
+          setPost(response.data);
+          console.log('imageUrls:', response.data.imageUrls);
+        }
+      } catch (error) {
+        console.error('게시글 조회 실패:', error);
+      }
+    };
+
+
+    fetchPostDetail();
+  }, [id]);
+
+  if (!post) return <div>로딩중...</div>;
+
+  return (
+    <div css={pageWrapper}>
+      <h1 css={nameStyle}>게시글</h1>
+
+      <div css={container}>
+        <h1 css={title}>{post.title}</h1>
+        <div css={infoRow}>
+          <span><strong>{post.username}</strong></span>
+          <span css={timestamp}>{new Date(post.createdAt).toLocaleString()}</span>
+        </div>
+
+        <div css={divider} />
+
+          <div css={imageWrapper}>
+          {post.imageUrls && post.imageUrls.length > 0 ? (
+            post.imageUrls.map((url: string, idx: number) => (
+              <img
+                key={idx}
+                src={`${BACKEND_URL}${url}`}   // 여기 수정됨!
+                alt={`image-${idx}`}
+              />
+            ))
+          ) : (
+            <p>이미지가 없습니다.</p>
+          )}
+        </div>
+
+        <div css={divider} />
+
+        <div>
+          <p>{post.content}</p>
+        </div>
+
+        <div css={divider} />
+
+        <div css={commentSection}>
+          <div css={commentList}>
+            {post.comments && post.comments.length > 0 ? (
+              post.comments.map((comment) => (
+                <div css={commentItem} key={comment.commentId}>
+                  <span css={commentAuthor}>{comment.username}</span>
+                  <span>{comment.content}</span>
+                  <span css={timestamp}>{new Date(comment.createdAt).toLocaleString()}</span>
+                </div>
+              ))
+            ) : (
+              <p>댓글이 없습니다.</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PostDetail;

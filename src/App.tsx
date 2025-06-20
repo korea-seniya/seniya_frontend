@@ -13,7 +13,9 @@ import InquiryListPage from "./pages/inquiry/InquiryListPage"
 //import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
 import SignUp from "./pages/auth/SignUp"
 import SignIn from "./pages/auth/SignIn"
-import PostDetailPage from "./pages/post/PostDetail"
+import PostUpdate from "./pages/post/PostUpdate"
+import PostDetail from "./pages/post/PostDetailPage"
+
 
 
 
@@ -21,7 +23,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/api/v1/posts' element={<PostDetailPage /> } />
+        <Route path='/api/v1/posts/:id' element={<PostDetail/> } />
         {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
         <Route path='/api/v1/inquiries' element={<InquiryCreate />} />
         <Route path='/api/v1/inquiry' element={<InquiryCreate />} />
