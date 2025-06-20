@@ -11,12 +11,17 @@ const INQUIRY_MODULE_URL = `${API_DOMAIN}/api/v1/inquiries`;
 export const CREATE_INQUIRY_URL = `${INQUIRY_MODULE_URL}`;
 export const GET_MY_INQUIRY_URL = `${INQUIRY_MODULE_URL}/me`;
 export const GET_ALL_INQUIRY_URL = `${INQUIRY_MODULE_URL}`;
-export const GET_INQUIRY_DETAIL_URL = (id: number | string) => `${INQUIRY_MODULE_URL}/${id}`;
+export const GET_INQUIRY_DETAIL_URL = (id: number) => `${INQUIRY_MODULE_URL}/${id}`;
 export const PUT_INQUIRY_URL = (id: number) => `${INQUIRY_MODULE_URL}/${id}`;
 export const DELETE_INQUIRY_URL = (id: number) => `${INQUIRY_MODULE_URL}/${id}`;
 export const ANSWER_INQUIRY_URL = (id: number) => `${INQUIRY_MODULE_URL}/${id}/response`;
 
-export const COURSE_LIST_URL = `${API_DOMAIN}/api/v1/courses`;
 export const USER_LIST_URL = `${API_DOMAIN}/api/v1/admin/users`;
 export const USER_DETAIL_URL = `${API_DOMAIN}/api/v1/admin/users`;
+export const COURSE_LIST_URL = `${API_DOMAIN}/api/v1/admin/courses`;
+export const PAYMENT_REQUEST_URL = `${API_DOMAIN}/api/v1/payments/request`;
+export const PAYMENT_LIST_URL = `${API_DOMAIN}/api/v1/payments`;
+export const PAYMENT_CONFIRM_URL = `${API_DOMAIN}/api/v1/payments/confirm`;
+
 export const POST_LIST_URL = `${API_DOMAIN}/api/v1/posts`;
+

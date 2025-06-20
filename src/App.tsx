@@ -7,15 +7,17 @@ import CheckoutPage from "./pages/payment/CheckoutPage"
 import PaymentConfirm from "./pages/admin/payment/PaymentConfirm"
 import UserList from "./pages/admin/user/UserList"
 import CreateCourse from "./pages/admin/course/CreateCourse"
-import PostCreate from "./pages/post/PostCreate"
-import PostListPage from "./pages/post/PostListPage"
-import InquiryListPage from "./pages/inquiry/InquiryListPage"
-//import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
-import SignUp from "./pages/auth/SignUp"
+import SignUp from './pages/auth/SignUp';
 import SignIn from "./pages/auth/SignIn"
 import PostUpdate from "./pages/post/PostUpdate"
 import PostDetail from "./pages/post/PostDetailPage"
-
+import InquiryListPage from "./pages/inquiry/InquiryListPage"
+import InquiryDetail from "./pages/inquiry/InquiryDetail"
+import InquiryAnswer from "./pages/inquiry/InquiryAnswer"
+import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
+import TrainerApplication from "./pages/trainer/TrainerApplication"
+import PaymentSuccess from "./pages/payment/SuccessPage"
+import PaymentFail from "./pages/payment/FailPage"
 
 
 
@@ -24,19 +26,27 @@ function App() {
     <>
       <Routes>
         <Route path='/api/v1/posts/:id' element={<PostDetail/> } />
-        {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
-        <Route path='/api/v1/inquiries' element={<InquiryCreate />} />
-        <Route path='/api/v1/inquiry' element={<InquiryCreate />} />
-        <Route path='/api/v1/inquiries' element={<InquiryListPage />} />
-        {/* <Route path='/api/v1/inquiries/${id}' element={<InquiryUpdate />} /> */}
         <Route path='signup' element={<SignUp />} />
-        <Route path='signin' element={<SignIn />} />
-        <Route path='/api/v1/create-course' element={<CreateCourse />} />
-        <Route path='/api/v1/courses' element={<CourseList />} />
+        <Route path='signIn' element={<SignIn />} />
+        
+        <Route path='/api/v1/inquiries' element={<InquiryListPage />} />
+        <Route path='/api/v1/inquiry' element={<InquiryCreate />} />
+        <Route path='/api/v1/inquiry/:id' element={<InquiryDetail />} />
+        <Route path='/api/v1/inquiry/:id/update' element={<InquiryUpdate />} />
+        <Route path='/api/v1/inquiry/:id/response' element={<InquiryAnswer />} />
+        
+        <Route path='/api/v1/trainer-application' element={<TrainerApplication />} />
+        {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
+
+        <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
+        <Route path='/api/v1/admin/courses' element={<CourseList />} />
+
         <Route path='/api/v1/purchases' element={<PurchasePass />} />
         <Route path='/api/v1/payments/request' element={<CheckoutPage />} />
-        <Route path='/api/v1/payments/confirm' element={<PaymentConfirm />} />
-        <Route path='/api/v1/users' element={<UserList />} />
+        <Route path="/success" element={<PaymentSuccess />} />
+        <Route path="/fail" element={<PaymentFail />} />
+        <Route path='/api/v1/payments' element={<PaymentConfirm />} />
+        <Route path='/api/v1/admin/users' element={<UserList />} />
       </Routes>
     </>
   );
