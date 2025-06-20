@@ -88,6 +88,15 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 margin: 0 10px 0 10px;
 `;
 
+const answerPStyle = css`
+  text-align: center;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 25px;
+  padding-right: 25px;
+`;
+
 const strongStyle = css`
   margin-right: 10px;
 `;
@@ -118,6 +127,7 @@ export {
   buttonWrapperStyle,
   answerDivStyle,
   lineStyle,
+  answerPStyle,
   strongStyle,
   textareaStyle
 };

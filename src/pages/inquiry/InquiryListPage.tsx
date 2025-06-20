@@ -15,9 +15,11 @@ import {
 } from "./InquiryList.style";
 import { getAllInquiriesRequest } from "../../apis/inquiry/Inquiry";
 import type { AllInquiryResponseDto } from "../../dtos/inquiry/response/inquiryList.response.dto";
+import { useNavigate } from "react-router-dom";
 
 function InquiryListPage() {
   const [inquiries, setInquiries] = useState<AllInquiryResponseDto[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const response = async () => {
@@ -28,6 +30,19 @@ function InquiryListPage() {
     };
     response();
   }, []);
+
+  const handleClickInquiry = (inquiry: AllInquiryResponseDto) => {
+    // if (inquiry.isPrivated === true) {
+    //   alert('비밀글 입니다');
+    //   return;
+    // }
+
+    // if (!api 요청으로 토큰 정보랑 지금 클릭한 게시글의 작성자 일치 여부를 boolean으로 반환 ) {
+      // return;
+    // }
+    // if(트레이너나 어드민이라면 answer User본인이라면 detail)
+    navigate(`/api/v1/inquiry/${inquiry.id}`);
+  };
 
   return (
     <div css={containerStyle}>
@@ -57,10 +72,14 @@ function InquiryListPage() {
         </thead>
         <tbody>
           {inquiries.map((inquiry, index) => (
-            <tr key={inquiry.id}>
+            <tr
+              key={inquiry.id}
+              onClick={() => handleClickInquiry(inquiry)}
+              style={{ cursor: "pointer" }}
+            >
               <td css={[tdStyle, leftAlign]}>{index + 1}</td>
               <td css={[tdStyle, leftAlign]}>
-                {inquiry.isPrivate !== true ? inquiry.title : "비밀글입니다."}
+                {inquiry.isPrivated !== true ? inquiry.title : "비밀글입니다."}
               </td>
               <td css={[tdStyle, rightAlign]}>
                 {inquiry.updatedAt !== null

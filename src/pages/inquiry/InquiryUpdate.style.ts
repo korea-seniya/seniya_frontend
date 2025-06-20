@@ -73,6 +73,14 @@ const buttonWrapperStyle = css`
   gap: 10px;
 `;
 
+const label2Style = css`
+  text-align: center;
+`;
+
+const checkboxStyle = css`
+  margin-right: 8px;
+`;
+
 export {
   containerStyle,
   titleStyle,
@@ -81,5 +89,7 @@ export {
   buttonStyle,
   contentStyle,
   divStyle,
-  buttonWrapperStyle
+  buttonWrapperStyle,
+  label2Style,
+  checkboxStyle
 };
