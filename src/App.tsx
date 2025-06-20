@@ -9,6 +9,8 @@ import UserList from "./pages/admin/user/UserList"
 import CreateCourse from "./pages/admin/course/CreateCourse"
 import SignUp from './pages/auth/SignUp';
 import SignIn from "./pages/auth/SignIn"
+import PostUpdate from "./pages/post/PostUpdate"
+import PostDetail from "./pages/post/PostDetailPage"
 import InquiryListPage from "./pages/inquiry/InquiryListPage"
 import InquiryDetail from "./pages/inquiry/InquiryDetail"
 import InquiryAnswer from "./pages/inquiry/InquiryAnswer"
@@ -16,7 +18,6 @@ import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
 import TrainerApplication from "./pages/trainer/TrainerApplication"
 import PaymentSuccess from "./pages/payment/SuccessPage"
 import PaymentFail from "./pages/payment/FailPage"
-import PostDetailPage from "./pages/post/PostDetail"
 
 
 
@@ -24,6 +25,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path='/api/v1/posts/:id' element={<PostDetail/> } />
         <Route path='signup' element={<SignUp />} />
         <Route path='signIn' element={<SignIn />} />
         
@@ -34,8 +36,6 @@ function App() {
         <Route path='/api/v1/inquiry/:id/response' element={<InquiryAnswer />} />
         
         <Route path='/api/v1/trainer-application' element={<TrainerApplication />} />
-        
-        <Route path='/api/v1/posts' element={<PostDetailPage /> } />
         {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
 
         <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
