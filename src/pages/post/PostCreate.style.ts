@@ -87,3 +87,31 @@ export const buttonStyle2 = css`
   font-weight: bold;
   cursor: pointer;
 `;
+
+export const selectedFileContainerStyle = css`
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  margin-top: 10px;
+`;
+
+export const selectedFileLabelStyle = css`
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 8px;
+`;
+
+export const selectedFileStyle = css`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const fileNameStyle = css`
+  padding: 4px 8px;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+`;

@@ -9,6 +9,8 @@ import UserList from "./pages/admin/user/UserList"
 import CreateCourse from "./pages/admin/course/CreateCourse"
 import SignUp from './pages/auth/SignUp';
 import SignIn from "./pages/auth/SignIn"
+import PostUpdate from "./pages/post/PostUpdate"
+import PostDetail from "./pages/post/PostDetailPage"
 import InquiryListPage from "./pages/inquiry/InquiryListPage"
 import InquiryDetail from "./pages/inquiry/InquiryDetail"
 import InquiryAnswer from "./pages/inquiry/InquiryAnswer"
@@ -22,12 +24,11 @@ import TrainerApplicationList from "./pages/trainer/application/TrainerApplicati
 import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplicatinoDetail"
 import TrainerProfileForm from "./pages/trainer/profile/TrainerProfile"
 
-
-
 function App() {
   return (
     <>
       <Routes>
+        <Route path='/api/v1/posts/:id' element={<PostDetail/> } />
         <Route path='signup' element={<SignUp />} />
         <Route path='signIn' element={<SignIn />} />
         
@@ -41,11 +42,9 @@ function App() {
         <Route path='/api/v1/trainer-application/me' element={<MyTrainerApplicationStatus />} />
         <Route path='/api/v1/trainer-applications' element={<TrainerApplicationList />} />
         <Route path='/api/v1/trainer-application/:id' element={<TrainerApplicationDetail />} />
+        
         <Route path="/api/v1/trainer-profile/create" element={<TrainerProfileForm isEdit={false} />} />
         <Route path="/api/v1/trainer-profile/edit" element={<TrainerProfileForm isEdit={true} />} />
-
-
-
         
         <Route path='/api/v1/posts' element={<PostDetailPage /> } />
         {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
