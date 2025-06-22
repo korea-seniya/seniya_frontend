@@ -37,6 +37,7 @@ export const CREATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const UPDATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const GET_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 
+export const QUICK_SEARCH_URL = `${API_DOMAIN}/`;
 
 
 
