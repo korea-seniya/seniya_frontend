@@ -26,7 +26,9 @@ import TrainerApplicationList from "./pages/trainer/application/TrainerApplicati
 import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplicatinoDetail"
 import TrainerProfileForm from "./pages/trainer/profile/TrainerProfile"
 import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
-
+import EmailSend from "./pages/user/EmailSend"
+import ResetPassword from './pages/user/ResetPassword';
+import EmailVerification from './pages/user/EmailVerification';
 
 function App() {
   return (
@@ -35,6 +37,9 @@ function App() {
         <Route path='/api/v1/posts/:id' element={<PostDetail />} />
         <Route path='signup' element={<SignUp />} />
         <Route path='signIn' element={<SignIn />} />
+        <Route path="/email-send" element={<EmailSend />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/verify-email" element={<EmailVerification />} />
 
         <Route path='/api/v1/inquiries' element={<InquiryListPage />} />
         <Route path='/api/v1/inquiry' element={<InquiryCreate />} />
