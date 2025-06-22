@@ -3,16 +3,29 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostDetail } from '../../apis/post/Post';
 import {
-  pageWrapper, nameStyle, container, title, infoRow, divider, imageWrapper,
-  commentSection, commentList, commentItem, timestamp, commentAuthor
+  pageWrapper,
+  nameStyle,
+  container,
+  title,
+  infoRow,
+  divider,
+  imageWrapper,
+  commentSection,
+  commentInput,
+  commentButton,
+  commentList,
+  commentItem,
+  timestamp,
+  commentAuthor,
 } from './PostDetail.style';
 import type { PostDetailResponseDto } from './PostDetail';
 
 const BACKEND_URL = 'http://localhost:8080';
 
-function PostDetail ()  {
-  const { id } = useParams<{ id: string }>();  // URL에서 postId 가져오기
+function PostDetail() {
+  const { id } = useParams<{ id: string }>(); // URL에서 postId 가져오기
   const [post, setPost] = useState<PostDetailResponseDto | null>(null);
+  const [commentText, setCommentText] = useState('');
 
   useEffect(() => {
     const fetchPostDetail = async () => {
@@ -31,9 +44,25 @@ function PostDetail ()  {
       }
     };
 
-
     fetchPostDetail();
   }, [id]);
+
+  const handleAddComment = () => {
+    if (!commentText.trim()) return;
+
+    // 임시로 로컬 상태에 댓글 추가 (실제로는 API 호출 필요)
+    const newComment = {
+      commentId: Date.now(),
+      username: '현재 사용자 이름', // 실제 로그인 유저 이름으로 교체 필요
+      content: commentText,
+      createdAt: new Date().toISOString(),
+    };
+
+    setPost((prev) =>
+      prev ? { ...prev, comments: [...(prev.comments || []), newComment] } : prev
+    );
+    setCommentText('');
+  };
 
   if (!post) return <div>로딩중...</div>;
 
@@ -44,18 +73,20 @@ function PostDetail ()  {
       <div css={container}>
         <h1 css={title}>{post.title}</h1>
         <div css={infoRow}>
-          <span><strong>{post.username}</strong></span>
+          <span>
+            <strong>{post.username}</strong>
+          </span>
           <span css={timestamp}>{new Date(post.createdAt).toLocaleString()}</span>
         </div>
 
         <div css={divider} />
 
-          <div css={imageWrapper}>
+        <div css={imageWrapper}>
           {post.imageUrls && post.imageUrls.length > 0 ? (
             post.imageUrls.map((url: string, idx: number) => (
               <img
                 key={idx}
-                src={`${BACKEND_URL}${url}`}   // 여기 수정됨!
+                src={`${BACKEND_URL}${url}`} // 여기 수정됨!
                 alt={`image-${idx}`}
               />
             ))
@@ -72,24 +103,36 @@ function PostDetail ()  {
 
         <div css={divider} />
 
+        {/* 댓글 입력창과 등록 버튼 */}
         <div css={commentSection}>
-          <div css={commentList}>
-            {post.comments && post.comments.length > 0 ? (
-              post.comments.map((comment) => (
-                <div css={commentItem} key={comment.commentId}>
-                  <span css={commentAuthor}>{comment.username}</span>
-                  <span>{comment.content}</span>
-                  <span css={timestamp}>{new Date(comment.createdAt).toLocaleString()}</span>
-                </div>
-              ))
-            ) : (
-              <p>댓글이 없습니다.</p>
-            )}
-          </div>
+          <input
+            css={commentInput}
+            placeholder="댓글을 남겨보세요."
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
+          />
+          <button css={commentButton} onClick={handleAddComment}>
+            등록
+          </button>
+        </div>
+
+        {/* 댓글 목록 */}
+        <div css={commentList}>
+          {post.comments && post.comments.length > 0 ? (
+            post.comments.map((comment) => (
+              <div css={commentItem} key={comment.commentId}>
+                <span css={commentAuthor}>{comment.username}</span>
+                <span>{comment.content}</span>
+                <span css={timestamp}>{new Date(comment.createdAt).toLocaleString()}</span>
+              </div>
+            ))
+          ) : (
+            <p>댓글이 없습니다.</p>
+          )}
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default PostDetail;
