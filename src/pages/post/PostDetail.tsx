@@ -22,12 +22,36 @@ import {
 } from './PostDetail.style';
 
 const PostDetailPage = () => {
-  const dummyComments = [
+  // 초기 더미 댓글들
+  const initialComments = [
     { author: '진창현', content: '와 민지님! 정말 잘하시네요. 한 수 배우고 싶어요!', date: '2025-03-23 13:31' },
     { author: '진우태', content: '저도 룰 시작할까요?', date: '2025-03-20 20:11', edited: true },
   ];
+
   const [searchType, setSearchType] = useState('title');
   const [searchText, setSearchText] = useState('');
+
+  // 댓글 상태를 따로 관리
+  const [comments, setComments] = useState(initialComments);
+
+  // 댓글 입력값 상태
+  const [commentInput, setCommentInput] = useState('');
+
+  // 댓글 등록 핸들러
+  const handleAddComment = () => {
+    const trimmedComment = commentInput.trim();
+    if (!trimmedComment) return; // 빈 댓글은 등록 안 함
+
+    const newComment = {
+      author: '익명', // 실제 앱에서는 로그인 유저명 넣기
+      content: trimmedComment,
+      date: new Date().toISOString().slice(0, 16).replace('T', ' '), // "YYYY-MM-DD HH:mm" 포맷
+      edited: false,
+    };
+
+    setComments([newComment, ...comments]); // 댓글 목록에 새 댓글 추가 (최상단)
+    setCommentInput(''); // 입력창 초기화
+  };
 
   return (
     <div css={pageWrapper}>
@@ -73,18 +97,29 @@ const PostDetailPage = () => {
         <div css={divider} />
 
         <div css={commentSection}>
-          <input css={commentInput} placeholder="댓글을 남겨보세요." />
-          <button>등록</button>
+          <input
+            css={commentInput}
+            placeholder="댓글을 남겨보세요."
+            value={commentInput}
+            onChange={(e) => setCommentInput(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleAddComment(); }}
+          />
+          <button onClick={handleAddComment}>등록</button>
+
           <div css={commentList}>
-            {dummyComments.map((c, index) => (
-              <div css={commentItem} key={index}>
-                <span css={commentAuthor}>{c.author}</span>
-                <span>{c.content}</span>
-                <span css={timestamp}>
-                  {c.date} {c.edited && <span style={{ marginLeft: 4 }}>수정</span>}
-                </span>
-              </div>
-            ))}
+            {comments.length > 0 ? (
+              comments.map((c, index) => (
+                <div css={commentItem} key={index}>
+                  <span css={commentAuthor}>{c.author}</span>
+                  <span>{c.content}</span>
+                  <span css={timestamp}>
+                    {c.date} {c.edited && <span style={{ marginLeft: 4 }}>수정</span>}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <p>댓글이 없습니다.</p>
+            )}
           </div>
         </div>
       </div>
