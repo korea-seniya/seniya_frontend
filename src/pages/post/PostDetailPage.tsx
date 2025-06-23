@@ -3,20 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostDetail } from '../../apis/post/Post';
 import {
-  pageWrapper,
-  nameStyle,
-  container,
-  title,
-  infoRow,
-  divider,
-  imageWrapper,
-  commentSection,
-  commentInput,
-  commentButton,
-  commentList,
-  commentItem,
-  timestamp,
-  commentAuthor,
+  pageWrapper, nameStyle, container, title, infoRow, divider, imageWrapper,
+  commentSection, commentList, commentItem, timestamp, commentAuthor, searchbarStyle, selectStyle, inputStyle,
+  buttonStyle
 } from './PostDetail.style';
 import type { PostDetailResponseDto } from './PostDetail';
 
@@ -25,7 +14,8 @@ const BACKEND_URL = 'http://localhost:8080';
 function PostDetail() {
   const { id } = useParams<{ id: string }>(); // URL에서 postId 가져오기
   const [post, setPost] = useState<PostDetailResponseDto | null>(null);
-  const [commentText, setCommentText] = useState('');
+  const [searchType, setSearchType] = useState('title');
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     const fetchPostDetail = async () => {
@@ -70,6 +60,26 @@ function PostDetail() {
     <div css={pageWrapper}>
       <h1 css={nameStyle}>게시글</h1>
 
+      <div css={searchbarStyle}>
+              <select
+                css={selectStyle}
+                value={searchType}
+                onChange={(e) => setSearchType(e.target.value)}
+              >
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="author">작성자</option>
+              </select>
+              <input
+                css={inputStyle}
+                type="text"
+                placeholder="검색어를 입력해주세요."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+              <button css={buttonStyle}>검색</button>
+            </div>
+
       <div css={container}>
         <h1 css={title}>{post.title}</h1>
         <div css={infoRow}>
@@ -86,7 +96,7 @@ function PostDetail() {
             post.imageUrls.map((url: string, idx: number) => (
               <img
                 key={idx}
-                src={`${BACKEND_URL}${url}`} // 여기 수정됨!
+                src={`${BACKEND_URL}${url}`}
                 alt={`image-${idx}`}
               />
             ))

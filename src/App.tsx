@@ -14,9 +14,15 @@ import InquiryListPage from "./pages/inquiry/InquiryListPage"
 import InquiryDetail from "./pages/inquiry/InquiryDetail"
 import InquiryAnswer from "./pages/inquiry/InquiryAnswer"
 import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
-
 import PaymentSuccess from "./pages/payment/SuccessPage"
 import PaymentFail from "./pages/payment/FailPage"
+import CourseListPage from "./pages/course/CourseListPage"
+import PostCreate from "./pages/post/PostCreate"
+import PostListPage from "./pages/post/PostListPage"
+import HealthDataCreate from "./pages/healthdata/HealthDataCreate"
+import HealthDataView from "./pages/healthdata/HealthDataView"
+import HealthDataUpdate from "./pages/healthdata/HealthDataUpdate"
+import GetUserInfo from "./pages/mypage/GetUserInfo"
 
 import TrainerApplication from "./pages/trainer/application/TrainerApplication"
 import Home from "./pages/main/Home"
@@ -35,7 +41,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/api/v1/posts/:id' element={<PostDetail />} />
+        <Route path='/api/v1/posts' element={<PostListPage/> } />
+       <Route path='/api/v1/posts:id' element={<PostDetail/> } />
         <Route path='signup' element={<SignUp />} />
         <Route path='signIn' element={<SignIn />} />
         <Route path="/email-send" element={<EmailSend />} />
@@ -57,10 +64,11 @@ function App() {
         <Route path='/api/v1/trainer-profile/me' element={<GetTrainerProfile />} />
         <Route path='/api/v1/trainer-profile/update' element={<PutTrainerProfile />} />
         
-      
-        
-        {/* <Route path='/api/v1/posts' element={<PostDetailPage /> } /> */}
-        {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
+        <Route path='/api/v1/healthdata' element={<HealthDataCreate />} />
+        <Route path='/api/v1/healthdata/me' element={<HealthDataView />} />
+        <Route path='/api/v1/healthdata/update' element={<HealthDataUpdate />} />
+
+        <Route path='/api/v1/users/me' element={<GetUserInfo />} />
         <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
         <Route path='/api/v1/admin/courses' element={<CourseList />} />
 
@@ -71,6 +79,7 @@ function App() {
         <Route path='/api/v1/payments' element={<PaymentConfirm />} />
         <Route path='/api/v1/admin/users' element={<UserList />} />
         <Route path='/' element={<Home />} />
+        <Route path='/api/v1/courses/public' element={<CourseListPage />} />
       </Routes>
     </>
   );
