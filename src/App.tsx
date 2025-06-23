@@ -36,15 +36,18 @@ import EmailVerification from './pages/user/EmailVerification';
 import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
 import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
 import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
+import MyParticipationList from "./pages/participation/MyParticipationList"
+
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path='/api/v1/posts/:id' element={<PostDetail />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/signin' element={<SignIn />} />
         <Route path='/api/v1/posts' element={<PostListPage/> } />
-       <Route path='/api/v1/posts:id' element={<PostDetail/> } />
-        <Route path='signup' element={<SignUp />} />
-        <Route path='signIn' element={<SignIn />} />
+
         <Route path="/email-send" element={<EmailSend />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-email" element={<EmailVerification />} />
@@ -63,6 +66,7 @@ function App() {
         <Route path='/api/v1/trainer-profile' element={<TrainerProfile />} />
         <Route path='/api/v1/trainer-profile/me' element={<GetTrainerProfile />} />
         <Route path='/api/v1/trainer-profile/update' element={<PutTrainerProfile />} />
+        <Route path='/myparticipation'element={<MyParticipationList />} />
         
         <Route path='/api/v1/healthdata' element={<HealthDataCreate />} />
         <Route path='/api/v1/healthdata/me' element={<HealthDataView />} />
