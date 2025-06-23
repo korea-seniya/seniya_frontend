@@ -77,11 +77,6 @@ export const infoRow = css`
   color: #555;
 `;
 
-export const timestamp = css`
-  font-size: 12px;
-  color: #888;
-`;
-
 export const divider = css`
   margin: 16px 0;
   border-bottom: 1px solid #eee;
@@ -108,14 +103,27 @@ export const actionRow = css`
 
 export const commentSection = css`
   margin-top: 24px;
+  display: flex;
+  align-items: center;
 `;
 
 export const commentInput = css`
-  width: calc(100% - 60px);
+  flex-grow: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  margin-right: 8px;
+  font-size: 14px;
+`;
+
+export const commentButton = css`
+  padding: 10px 16px;
+  margin-left: 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #5c3ec3;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
 `;
 
 export const commentList = css`
@@ -123,13 +131,21 @@ export const commentList = css`
 `;
 
 export const commentItem = css`
+  display: flex;
+  align-items: center;
   padding: 8px 0;
   border-top: 1px solid #eee;
   font-size: 14px;
+  gap: 8px;
+`;
+
+export const timestamp = css`
+  font-size: 12px;
+  color: #888;
+  margin-left: auto;
 `;
 
 export const commentAuthor = css`
   font-weight: bold;
-  margin-right: 8px;
 `;
 

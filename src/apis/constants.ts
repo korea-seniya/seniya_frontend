@@ -35,6 +35,20 @@ export const POST_DETAIL_URL = (id: number) => `${POST_LIST_URL}/${id}`;
 
 export const USER_COURSE_LIST_URL = `${API_DOMAIN}/api/v1/courses/public`;
 
+const TRAINER_APPLY_MODULE_URL = `${API_DOMAIN}/api/v1/trainer-applications`;
+export const CREATE_APPLY_URL = `${TRAINER_APPLY_MODULE_URL}`;
+export const MY_APPLY_URL = `${TRAINER_APPLY_MODULE_URL}/me`;
+export const ALL_APPLY_URL = `${TRAINER_APPLY_MODULE_URL}`;
+export const APPLY_DETAIL_URL = (id: number) => `${TRAINER_APPLY_MODULE_URL}/${id}`;
+export const APPLY_CHANGE_URL = (id: number) => `${TRAINER_APPLY_MODULE_URL}/${id}`;
+
+const TRAINER_PROFILE_MODULE_URL = `${API_DOMAIN}/api/v1/trainer-profiles`;
+export const CREATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
+export const UPDATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
+export const GET_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
+
+export const QUICK_SEARCH_URL = `${API_DOMAIN}/`;
+
 export const USER_URL = `${API_DOMAIN}/api/v1/users/me`;
 export const PUT_USER_URL = `${API_DOMAIN}/api/v1/users/me`;
 export const DELETE_USER_URL = `${API_DOMAIN}/api/v1/users/me`;
