@@ -24,11 +24,12 @@ import Home from "./pages/main/Home"
 import MyTrainerApplicationStatus from "./pages/trainer/application/MyTrainerApplicationStatus"
 import TrainerApplicationList from "./pages/trainer/application/TrainerApplicationList"
 import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplicatinoDetail"
-import TrainerProfileForm from "./pages/trainer/profile/TrainerProfile"
-import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
 import EmailSend from "./pages/user/EmailSend"
 import ResetPassword from './pages/user/ResetPassword';
 import EmailVerification from './pages/user/EmailVerification';
+import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
+import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
+import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
 
 function App() {
   return (
@@ -52,10 +53,11 @@ function App() {
         <Route path='/api/v1/trainer-application/me' element={<MyTrainerApplicationStatus />} />
         <Route path='/api/v1/trainer-applications' element={<TrainerApplicationList />} />
         <Route path='/api/v1/trainer-application/:id' element={<TrainerApplicationDetail />} />
+        <Route path='/api/v1/trainer-profile' element={<TrainerProfile />} />
+        <Route path='/api/v1/trainer-profile/me' element={<GetTrainerProfile />} />
+        <Route path='/api/v1/trainer-profile/update' element={<PutTrainerProfile />} />
         
-        <Route path="/api/v1/trainer-profile/create" element={<TrainerProfileForm isEdit={false} />} />
-        <Route path="/api/v1/trainer-profile/edit" element={<TrainerProfileForm isEdit={true} />} />
-        <Route path="/api/v1/trainer-profile" element={<GetTrainerProfile />} />
+      
         
         {/* <Route path='/api/v1/posts' element={<PostDetailPage /> } /> */}
         {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
