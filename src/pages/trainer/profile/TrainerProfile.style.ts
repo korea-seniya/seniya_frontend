@@ -3,7 +3,7 @@
 import { css } from "@emotion/react";
 
 const container = css`
-  max-width: 500px;
+  max-width: 600px;
   margin: 40px auto;
   padding: 20px;
   border-radius: 12px;
@@ -32,6 +32,23 @@ const imageBox = css`
   justify-content: center;
 `;
 
+const divStyle = css`
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+  text-align: center;
+  height: 50%;
+`;
+
+const inputStyle = css`
+  width: 90%;
+  height: 30px;
+  padding: 6px;
+  margin-top: 8px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+`;
+
 const imageButton = css`
   margin-top: 8px;
   padding: 4px;
@@ -43,12 +60,12 @@ const imageButton = css`
 
 const nameDiv = css`
   flex:3;
-  padding: 4px;
-  margin-top: 3px;
+  padding: 5px;
 `;
 
 const label = css`
   font-weight: bold;
+  margin-top: 5px;
 `;
 
 const required = css`
@@ -58,17 +75,18 @@ const required = css`
 
 const input = css`
   width: 100%;
+  height: 30px;
   padding: 6px;
-  margin-top: 4px;
+  margin-top: 8px;
   border: 1px solid #aaa;
   border-radius: 8px;
 `;
 
 const textArea = css`
   width: 100%;
-  height: 60px;
+  height: 80px;
   border: 1px solid #aaa;
-  border-radius: 4px;
+  border-radius: 8px;
   resize: none;
   padding: 6px;
 `;
@@ -76,7 +94,8 @@ const textArea = css`
 const select = css`
   width: 100%;
   padding: 6px;
-  margin-top: 4px;
+  height: 45px;
+  margin-top: 8px;
   border: 1px solid #aaa;
   border-radius: 8px;
 `;
@@ -85,17 +104,18 @@ const certRow = css`
   display: flex;
   gap: 8px;
   margin-top: 8px;
+  height: 45px;
 `;
 
 const certInput = css`
   flex: 1;
   padding: 6px;
   border: 1px solid #aaa;
-  border-radius: 4px;
+  border-radius: 8px;
 `;
 
 const plusButton = css`
-  background-color: #6c6;
+  background-color: #aaa;
   border: none;
   padding: 6px 10px;
   border-radius: 8px;
@@ -103,7 +123,7 @@ const plusButton = css`
 `;
 
 const minusButton = css`
-  background-color: #c66;
+  background-color: red;
   border: none;
   padding: 6px 10px;
   border-radius: 8px;
@@ -137,5 +157,7 @@ export {
   certRow,
   minusButton,
   plusButton,
-  submitButton
+  submitButton,
+  divStyle,
+  inputStyle
 }

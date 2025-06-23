@@ -19,6 +19,8 @@ import {
   minusButton,
   plusButton,
   submitButton,
+  divStyle,
+  inputStyle,
 } from "./TrainerProfile.style";
 import { createProfile } from "../../../apis/trainer/profile";
 import type { TrainerProfileRequestDto } from "../../../dtos/trainer/request/trainerProfile.request.dto";
@@ -121,15 +123,16 @@ function TrainerProfile() {
       </select>
 
       <div css={label}>경력</div>
+      <div css={divStyle}>
       <input
-        css={input}
+        css={inputStyle}
         value={experienceYears}
         onChange={onExperienceYearChange}
-        placeholder="연차"
-      />
+        /><p>년차</p>
+        </div>
 
       <div css={label}>
-        자격증 <span css={required}>필수</span>
+        자격증
       </div>
       {certificates.map((cert, index) => (
         <div key={index} css={certRow}>
