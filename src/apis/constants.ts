@@ -7,6 +7,11 @@ export const SIGN_IN_URL = `${AUTH_MODULE_URL}/login`;
 const FILE_MODULE_URL = `${API_DOMAIN}/api/v1/files`;
 export const UPLOAD_FILE_URL = `${FILE_MODULE_URL}/upload`;
 
+const HEALTH_DATA_URL = `${API_DOMAIN}/api/v1/health-data`;
+export const CREATE_HEALTHDATA_URL = `${HEALTH_DATA_URL}`;
+export const GET_HEALTHDATA_URL = `${HEALTH_DATA_URL}/me`;
+export const PUT_HEALTHDATA_URL = `${HEALTH_DATA_URL}/update`;
+
 const INQUIRY_MODULE_URL = `${API_DOMAIN}/api/v1/inquiries`;
 export const CREATE_INQUIRY_URL = `${INQUIRY_MODULE_URL}`;
 export const GET_MY_INQUIRY_URL = `${INQUIRY_MODULE_URL}/me`;
@@ -24,4 +29,12 @@ export const PAYMENT_LIST_URL = `${API_DOMAIN}/api/v1/payments`;
 export const PAYMENT_CONFIRM_URL = `${API_DOMAIN}/api/v1/payments/confirm`;
 
 export const POST_LIST_URL = `${API_DOMAIN}/api/v1/posts`;
+export const POST_SEARCH_BY_TITLE_URL = `${API_DOMAIN}/api/v1/posts/search-by-title`;
+export const POST_SEARCH_BY_ROLE_URL = `${API_DOMAIN}/api/v1/posts/search-by-role`;
+export const POST_DETAIL_URL = (id: number) => `${POST_LIST_URL}/${id}`;
 
+export const USER_COURSE_LIST_URL = `${API_DOMAIN}/api/v1/courses/public`;
+
+export const USER_URL = `${API_DOMAIN}/api/v1/users/me`;
+export const PUT_USER_URL = `${API_DOMAIN}/api/v1/users/me`;
+export const DELETE_USER_URL = `${API_DOMAIN}/api/v1/users/me`;
