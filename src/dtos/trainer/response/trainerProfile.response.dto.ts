@@ -1,10 +1,10 @@
 import type { Specialty } from "../specialty";
+import type { CertificateResponseDto } from "./certificate.response.dto";
 
 export interface TrainerProfileResponseDto {
   name: string;
   specialty: Specialty;
-  certificate: string;
-  certificationDate: string;
+  certificates?: CertificateResponseDto[];
   experienceYears: number;
   description: string;
   createdAt: string;

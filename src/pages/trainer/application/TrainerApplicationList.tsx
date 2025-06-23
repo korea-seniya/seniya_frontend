@@ -14,7 +14,7 @@ import type { TrainerApplicationResponseDto } from "../../../dtos/trainer/respon
 import { useNavigate } from "react-router-dom";
 
 function TrainerApplicationList() {
-  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFwcGx5dGVzdCIsInJvbGUiOiJUUkFJTkVSIiwiaWF0IjoxNzUwMzk1NDA3LCJleHAiOjE3NTAzOTkwMDd9.1ymDMtx4WwlQlzTgIAaWXSMpPRGEzbtAvSTr6ljTzWo");
+  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDY0OTUyOSwiZXhwIjoxNzUwNjUzMTI5fQ.STOzQakJyXq95kMHsH9QsB4VOogIi9cdJndfnNzq8q8");
 
   const [applications, setApplications] = useState<TrainerApplicationResponseDto[]>([]);
   const navigate = useNavigate();

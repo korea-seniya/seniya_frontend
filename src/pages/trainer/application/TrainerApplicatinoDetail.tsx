@@ -17,7 +17,7 @@ import {
 import type { TrainerApplicationDetailResponseDto } from "../../../dtos/trainer/response/trainerApplyDetail.response.dto";
 
 function TrainerApplicationDetail() {
-  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFwcGx5dGVzdCIsInJvbGUiOiJUUkFJTkVSIiwiaWF0IjoxNzUwMzk1NDA3LCJleHAiOjE3NTAzOTkwMDd9.1ymDMtx4WwlQlzTgIAaWXSMpPRGEzbtAvSTr6ljTzWo");
+  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDY0OTUyOSwiZXhwIjoxNzUwNjUzMTI5fQ.STOzQakJyXq95kMHsH9QsB4VOogIi9cdJndfnNzq8q8");
   
   const { id } = useParams<{ id: string }>();
   const ApplyId = Number(id);
