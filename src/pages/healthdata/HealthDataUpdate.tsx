@@ -16,7 +16,7 @@ import {
   unitStyle,
 } from './HealthData.style';
 
-const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImZocm1ka2RudCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMSwiaWF0IjoxNzUwNjY0MTk5LCJleHAiOjE3NTA2Njc3OTl9.d-yVsh0R8K5sT1bkRIgZYhHFzKy2G_nlOz44gPqnweM';
+const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuynhOyasO2DnCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMiwiaWF0IjoxNzUwNzYwOTE3LCJleHAiOjE3NTA3NjQ1MTd9.GSwd3mfGsiRQgr_HBQQVnXzxxnxTKX47XVUZlHv0Uwc';
 
 const HealthDataUpdate = () => {
   const [userName, setUserName] = useState('');

@@ -20,7 +20,7 @@ import {
 import type { GetMyInfoResponseDto } from '../../dtos/userInfo/response/getMyInfo.response.dto';
 import type { updateMyInfoRequestDto } from '../../dtos/userInfo/request/updateMyInfoRequest.dto';
 
-const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImZocm1ka2RudCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMSwiaWF0IjoxNzUwNjY0MTk5LCJleHAiOjE3NTA2Njc3OTl9.d-yVsh0R8K5sT1bkRIgZYhHFzKy2G_nlOz44gPqnweM'; // 실제 토큰 값
+const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuynhOyasO2DnCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMiwiaWF0IjoxNzUwNzM0NjI2LCJleHAiOjE3NTA3MzgyMjZ9.Gq4p5-3Vt0aa4D3ZRSe4wMNemAwFbFuRyeA3EXPaHfs';
 
 const GetUserInfo = () => {
   const [userInfo, setUserInfo] = useState<GetMyInfoResponseDto | null>(null);
@@ -66,7 +66,7 @@ const GetUserInfo = () => {
         alert('✅ 사용자 정보 수정 완료!');
         setUserInfo(response.data);
       } else {
-        alert(`❌ 수정 실패: ${response.message || '알 수 없는 오류'}`);
+        alert(`❌ 수정 실패: 이미 존재하는 정보`);
       }
     } catch (error) {
       console.error('수정 중 오류:', error);

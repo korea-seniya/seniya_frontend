@@ -15,34 +15,33 @@ import {
   unitStyle,
 } from './HealthData.style';
 
-const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImZocm1ka2RudCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMSwiaWF0IjoxNzUwNjY0MTk5LCJleHAiOjE3NTA2Njc3OTl9.d-yVsh0R8K5sT1bkRIgZYhHFzKy2G_nlOz44gPqnweM';
+const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuynhOyasO2DnCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMiwiaWF0IjoxNzUwNzYwOTE3LCJleHAiOjE3NTA3NjQ1MTd9.GSwd3mfGsiRQgr_HBQQVnXzxxnxTKX47XVUZlHv0Uwc';
 
 const HealthDataView = () => {
   const [userName, setUserName] = useState('');
   const [healthData, setHealthData] = useState<any>(null);
 
   useEffect(() => {
-    // 토큰에서 username 파싱
     try {
       const token = HARDCODED_TOKEN.slice(7);
       const base64Payload = token.split('.')[1];
       if (!base64Payload) throw new Error('토큰 형식 오류');
-      const payloadJson = atob(base64Payload);
-      const payload = JSON.parse(payloadJson);
-      setUserName(payload.username || '');
+      const decodedPayload = JSON.parse(
+      new TextDecoder().decode(Uint8Array.from(atob(base64Payload), c => c.charCodeAt(0)))
+    );
+      setUserName(decodedPayload.username || '');
     } catch (e) {
       console.error('JWT 파싱 실패', e);
       setUserName('');
     }
 
-    // getHealthData 호출 시 하드코딩 토큰 넘기기
     const fetchData = async () => {
-      const response = await getHealthData(HARDCODED_TOKEN);  // 토큰 직접 전달
+      const response = await getHealthData(HARDCODED_TOKEN);
       if (response.code === 'SU' && response.data) {
         setHealthData(response.data);
       } else {
-        console.error('🧨 조회 실패 응답:', response);
-        alert(`❌ 조회 실패: ${response.message || '알 수 없는 오류'}`);
+        console.error('조회 실패 응답:', response);
+        alert(`조회 실패`);
       }
     };
 

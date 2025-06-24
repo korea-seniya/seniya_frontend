@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   containerStyle,
   titleStyle,
@@ -15,23 +15,25 @@ import {
   selectedFileContainerStyle,
   selectedFileLabelStyle,
   selectedFileStyle,
-  fileNameStyle
-} from './PostCreate.style';
+  fileNameStyle,
+} from "./PostCreate.style";
 
-import { createPost } from '../../apis/post/Post';
+import { createPost } from "../../apis/post/Post";
+import { useNavigate } from "react-router-dom";
 
 function PostCreate() {
   useEffect(() => {
     localStorage.setItem(
       "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImZocm1ka2RudCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMSwiaWF0IjoxNzUwNjY0NzAyLCJleHAiOjE3NTA2NjgzMDJ9.VJlL6Aum-fhIHa9TW_sLeCn6sh-50B3ObhWv3raYSLY"
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuynhOyasO2DnCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMiwiaWF0IjoxNzUwNzQ5MTQzLCJleHAiOjE3NTA3NTI3NDN9.tWRdh83UMJw8DpwSATtxlcV2RT2L26iJGoREXzcGlg0"
     );
   }, []);
 
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const handleFileSelect = () => {
     fileInputRef.current?.click();
@@ -45,28 +47,30 @@ function PostCreate() {
   };
 
   const handleSubmit = async () => {
-  try {
-    const response = await createPost(title, content, selectedFiles);
+    try {
+      const response = await createPost(title, content, selectedFiles);
 
-    console.log('[handleSubmit] 게시글 등록 성공:', response);
+      console.log("[handleSubmit] 게시글 등록 성공:", response);
 
-    alert('게시글이 등록되었습니다.');
+      alert("게시글이 등록되었습니다.");
 
-    setTitle('');
-    setContent('');
-    setSelectedFiles([]);
-    if (fileInputRef.current) fileInputRef.current.value = '';
-  } catch (err: any) {
-    console.error('[handleSubmit] 요청 중 오류:', err);
+      navigate("/api/v1/posts")
 
-    if (err.response) {
-      console.error('[handleSubmit] 서버 응답 데이터:', err.response.data);
-      alert(err.response.data.message || '오류 발생 (서버 응답)');
-    } else {
-      alert(err.message || '오류 발생 (서버 응답 없음)');
+      setTitle("");
+      setContent("");
+      setSelectedFiles([]);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    } catch (err: any) {
+      console.error("[handleSubmit] 요청 중 오류:", err);
+
+      if (err.response) {
+        console.error("[handleSubmit] 서버 응답 데이터:", err.response.data);
+        alert(err.response.data.message || "오류 발생 (서버 응답)");
+      } else {
+        alert(err.message || "오류 발생 (서버 응답 없음)");
+      }
     }
-  }
-};
+  };
 
   return (
     <div>
@@ -78,35 +82,17 @@ function PostCreate() {
 
         <label css={labelStyle}>
           제목
-          <input
-            css={inputStyle}
-            type="text"
-            placeholder="제목을 입력하세요"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <input css={inputStyle} type="text" placeholder="제목을 입력하세요" value={title} onChange={(e) => setTitle(e.target.value)} />
         </label>
 
-        <textarea
-          css={contentStyle}
-          placeholder="내용을 입력하세요."
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+        <textarea css={contentStyle} placeholder="내용을 입력하세요." value={content} onChange={(e) => setContent(e.target.value)} />
 
         <div css={buttonArea}>
           <div css={buttonWrapperStyle1}>
             <button type="button" css={buttonStyle1} onClick={handleFileSelect}>
               이미지 선택
             </button>
-            <input
-              type="file"
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-              accept="image/*"
-              multiple
-            />
+            <input type="file" ref={fileInputRef} style={{ display: "none" }} onChange={handleFileChange} accept="image/*" multiple />
             {selectedFiles.length > 0 && (
               <div css={selectedFileContainerStyle}>
                 <div css={selectedFileLabelStyle}>선택된 파일:</div>
