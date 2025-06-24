@@ -13,13 +13,11 @@ import {
   buttonWrapperStyle,
 } from './NoticeCreate.style';
 
-import { userUserStore } from '../../stores/user.store';
-import { userAuthStore } from '../../stores/auth.store';
+import { useUserStore } from '../../stores/user.store';
 
 function NoticeCreate() {
   const navigate = useNavigate();
-  const isLogin = userAuthStore((state) => state.isLogin);
-  const user = userUserStore((state) => state.user);
+  const { isLogin, user } = useUserStore();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -46,7 +44,7 @@ function NoticeCreate() {
         body: JSON.stringify({
           title,
           content,
-          username: user?.username || '관리자', // 필요 시 백엔드에서 user 처리
+          username: user?.username || '관리자',
         }),
       });
 
@@ -54,7 +52,6 @@ function NoticeCreate() {
 
       alert('공지사항이 등록되었습니다.');
       navigate('/notices');
-
     } catch (error) {
       console.error(error);
       alert('공지사항 등록 중 오류가 발생했습니다.');
@@ -63,8 +60,7 @@ function NoticeCreate() {
 
   const handleCancel = () => {
     if (window.confirm('작성을 취소하시겠습니까?')) {
-      navigate('/notices'); 
-
+      navigate('/notices');
     }
   };
 

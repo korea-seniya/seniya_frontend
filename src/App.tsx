@@ -1,5 +1,4 @@
-
-import { Route, Routes } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import CourseList from "./pages/admin/course/CourseList"
 import InquiryCreate from "./pages/inquiry/InquiryCreate"
 import PurchasePass from "./pages/payment/PurchasePass"
@@ -41,12 +40,32 @@ import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
 import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
 import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
 import MyParticipationList from "./pages/participation/MyParticipationList"
-
+import { useUserStore } from "./stores/user.store"
+import React, { useEffect } from "react";
+import Cookies from "js-cookie";
+import RequireRole from "./stores/RequireRole";
+import Home from "./pages/main/Home";
+import NoticeUpdate from "./pages/notice/NoticeUpdate";
 
 function App() {
-  return (
-    <>
+    const loginUser = useUserStore((s) => s.loginUser);
+
+  useEffect(() => {
+    const userData = Cookies.get("user");
+    if (userData) {
+      try {
+        const parsed = JSON.parse(userData);
+        loginUser(parsed);
+      } catch (e) {
+        console.error("쿠키 파싱 오류", e);
+      }
+    }
+  }, []);
+
+  return (  
+
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path='/api/v1/posts/:id' element={<PostDetail />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signin' element={<SignIn />} />
@@ -54,7 +73,8 @@ function App() {
         <Route path='/api/v1/posts' element={<PostCreate/> } />
         <Route path="/notices" element={<NoticeList />} />
         <Route path="/notices/:id" element={<NoticeDetail />} />
-        <Route path="/notices/create" element={<NoticeCreate />} />
+        <Route path="/notices/:id/update" element={<NoticeUpdate />} />
+        <Route path="/notices/create" element={<RequireRole role={1}><NoticeCreate /></RequireRole>} />
 
         <Route path="/email-send" element={<EmailSend />} />
         <Route path="/reset-password" element={<ResetPassword />} />
@@ -93,7 +113,6 @@ function App() {
         {/* <Route path='/' element={<Home />} /> */}
         <Route path='/api/v1/courses' element={<CourseListPage />} />
       </Routes>
-    </>
   );
 }
 

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { axiosInstance } from '../../apis/axiosConfig';
 import {
   containerStyle,
   titleStyle,
@@ -10,23 +10,60 @@ import {
   buttonStyle,
   contentStyle,
   divStyle,
-  buttonWrapperStyle
+  buttonWrapperStyle,
 } from './NoticeUpdate.style';
 
 import { useUserStore } from '../../stores/user.store';
-import { userAuthStore } from '../../stores/auth.store';
 
 function NoticeUpdate() {
   const navigate = useNavigate();
-  const isLogin = userAuthStore((state) => state.isLogin);
+  const { id } = useParams<{ id: string }>();
   const user = useUserStore((state) => state.user);
 
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
   useEffect(() => {
-    if (!isLogin || !user || user.role_id !== 1) {
+    // 권한 확인
+    if (!user || user.role_id !== 1) {
       alert('관리자만 접근할 수 있습니다.');
       navigate('/');
+      return;
     }
-  }, [isLogin, user, navigate]);
+
+    // 기존 공지 불러오기
+    axiosInstance.get(`/api/v1/notices/${id}`)
+      .then((res) => {
+        const notice = res.data.data;
+        setTitle(notice.title);
+        setContent(notice.content);
+      })
+      .catch((err) => {
+        console.error('공지 불러오기 실패:', err);
+        alert('공지 불러오기 실패');
+        navigate('/notices');
+      });
+  }, [id, user, navigate]);
+
+  const handleUpdate = () => {
+    if (!title.trim() || !content.trim()) {
+      alert('제목과 내용을 모두 입력해주세요.');
+      return;
+    }
+
+    axiosInstance.put(`/api/v1/notices/${id}`, {
+      title,
+      content,
+    })
+      .then(() => {
+        alert('공지사항이 수정되었습니다.');
+        navigate(`/notices/${id}`);
+      })
+      .catch((err) => {
+        console.error('공지 수정 실패:', err);
+        alert('수정에 실패했습니다.');
+      });
+  };
 
   return (
     <div css={containerStyle}>
@@ -37,18 +74,22 @@ function NoticeUpdate() {
         <input
           css={inputStyle}
           type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder="제목을 입력하세요"
         />
       </div>
 
       <textarea
         css={contentStyle}
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
         placeholder="공지사항 내용을 입력해주세요"
       ></textarea>
 
       <div css={buttonWrapperStyle}>
-        <button css={buttonStyle}>작성완료</button>
-        <button css={buttonStyle}>취소</button>
+        <button css={buttonStyle} onClick={handleUpdate}>수정완료</button>
+        <button css={buttonStyle} onClick={() => navigate(-1)}>취소</button>
       </div>
     </div>
   );

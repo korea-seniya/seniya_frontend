@@ -15,15 +15,13 @@ import {
 } from './SignIn.style';
 
 import { signIn } from '../../apis/auth/auth';
-import { userUserStore } from '../../stores/user.store';
-import { userAuthStore } from '../../stores/auth.store';
+import { useUserStore } from '../../stores/user.store';
 
 function SignIn() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ username: '', password: '' });
 
-  const loginUser = userUserStore((state) => state.loginUser);
-  const setLogin = userAuthStore((state) => state.setLogin);
+  const loginUser = useUserStore((state) => state.loginUser);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -39,13 +37,15 @@ function SignIn() {
     try {
       const data = await signIn(form);
 
-      console.log('로그인 응답:', data); 
+      console.log('로그인 응답:', data);
+
       loginUser({
         username: data.username,
-        role_id: data.roleId
+        role_id: data.roleId,
+        token: data.token,
+        exprTime: data.exprTime
       });
 
-      setLogin(data.roleId);
       alert('로그인 성공!');
       navigate('/');
     } catch (err: any) {

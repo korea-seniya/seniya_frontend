@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import {
   containerStyle,
@@ -16,25 +17,36 @@ import {
 } from './NoticeList.style';
 
 import type { NoticeList as Notice } from './NoticeListData';
-import { dummyNotices } from './NoticeDummyData';
-import { userAuthStore } from '../../stores/auth.store';
+import { useUserStore } from '../../stores/user.store';
 
 const NoticeList = () => {
   const [notices, setNotices] = useState<Notice[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
-  const isLogin = userAuthStore((state) => state.isLogin);
-  const role_id = userAuthStore((state) => state.role_id);
-  const isAdmin = isLogin && role_id === 1;
+  const { isLogin, user } = useUserStore();
+  const isAdmin = isLogin && user?.role_id === 1;
 
   useEffect(() => {
-    setNotices(dummyNotices);
+    axios.get("http://localhost:8080/api/v1/notices") 
+      .then((res) => {
+        const data = res.data?.data;
+        if (Array.isArray(data)) {
+          setNotices(data);
+        } else {
+          console.error("데이터 형식 오류:", res.data);
+          setNotices([]); 
+        }
+      })
+      .catch((err) => {
+        console.error("공지사항 불러오기 실패:", err);
+        setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
-
-
-  useEffect(() => {
-    console.log('role_id:', role_id);
-  }, [isLogin, role_id, isAdmin]);
 
   return (
     <div css={containerStyle}>
@@ -53,32 +65,44 @@ const NoticeList = () => {
         <button css={buttonStyle}>검색</button>
       </div>
 
-      <table css={tableStyle}>
-        <thead>
-          <tr>
-            <th css={thStyle}>번호</th>
-            <th css={thStyle}>제목</th>
-            <th css={thStyle}>작성일</th>
-            <th css={thStyle}>작성자</th>
-          </tr>
-        </thead>
-        <tbody>
-          {notices.map((item) => (
-            <tr key={item.id}>
-              <td css={tdStyle}>{item.id}</td>
-              <td
-                css={tdStyle}
-                style={{ cursor: 'pointer', color: '#4f46e5' }}
-                onClick={() => navigate(`/notices/${item.id}`)}
-              >
-                {item.title}
-              </td>
-              <td css={tdStyle}>{item.createdAt}</td>
-              <td css={tdStyle}>{item.username}</td>
+      {loading ? (
+        <p>로딩 중...</p>
+      ) : error ? (
+        <p>공지사항을 불러오는 데 실패했습니다.</p>
+      ) : (
+        <table css={tableStyle}>
+          <thead>
+            <tr>
+              <th css={thStyle}>번호</th>
+              <th css={thStyle}>제목</th>
+              <th css={thStyle}>작성일</th>
+              <th css={thStyle}>작성자</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {notices.length > 0 ? (
+              notices.map((item) => (
+                <tr key={item.noticeId}>
+                  <td css={tdStyle}>{item.noticeId}</td>
+                  <td
+                    css={tdStyle}
+                    style={{ cursor: 'pointer', color: '#4f46e5' }}
+                    onClick={() => navigate(`/notices/${item.noticeId}`)}
+                  >
+                    {item.title}
+                  </td>
+                  <td css={tdStyle}>{item.createdAt.slice(0, 10)}</td>
+                  <td css={tdStyle}>{item.username}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td css={tdStyle} colSpan={4}>등록된 공지사항이 없습니다.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      )}
 
       {isAdmin && (
         <div css={bottomWrapperStyle}>
