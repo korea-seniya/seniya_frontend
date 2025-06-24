@@ -34,7 +34,7 @@ const HealthDataCreate = () => {
     drinker: false,
   });
 
-  const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImZocm1ka2RudCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMSwiaWF0IjoxNzUwNjY2MTc5LCJleHAiOjE3NTA2Njk3Nzl9.eZZRIGzPeIG-QLYSoc3YqwU8PY7PEchqhln_PZQaf1I';
+  const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImZocm1ka2RudCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMSwiaWF0IjoxNzUwNjgyODU3LCJleHAiOjE3NTA2ODY0NTd9.sY-6ZodgLuRWfzQIrANu4DR6ctx8kIG7UEmxqUGc5Ps';
 
 
   useEffect(() => {

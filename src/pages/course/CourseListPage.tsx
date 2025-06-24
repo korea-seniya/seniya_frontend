@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import type { CourseList } from './CourseList';
+import type { GetUserCourseDetailResponseDto } from '../../dtos/userCourse/response/GetUserCourseDetail.response.dto';
 import {
   nameStyle,
   searchbarStyle,
@@ -19,57 +21,93 @@ import {
   modalContentStyle,
   closeButtonStyle
 } from './CourseList.style';
-import { getCourseList } from '../../apis/course/courseList';
+import {
+  getCourseList,
+  searchCoursesByTrainer,
+  searchCoursesByCategory,
+  getCourseById
+} from '../../apis/course/courseList';
 
 function CourseListPage() {
   const [courses, setCourses] = useState<CourseList[]>([]);
-  const [searchType, setSearchType] = useState('title');
+  const [searchType, setSearchType] = useState<'trainer' | 'category'>('trainer');
   const [searchText, setSearchText] = useState('');
-  const [selectedCourse, setSelectedCourse] = useState<CourseList | null>(null);
+  const [selectedCourseDetail, setSelectedCourseDetail] = useState<GetUserCourseDetailResponseDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const categoryMap: Record<string, string> = {
+    수면: 'SLEEP',
+    재활: 'REHABILITATION',
+    운동: 'EXERCISE',
+    심리: 'PSYCHOLOGY',
+  };
 
   useEffect(() => {
-  const fetchCourses = async () => {
-    try {
-      const response = await getCourseList();
+    const trainerName = searchParams.get('trainerName') || '';
+    const category = searchParams.get('category') || '';
 
-      console.log('response (array):', response);
+    setSearchText(trainerName || category);
 
-      // response는 이미 배열이므로 바로 사용
-      if (Array.isArray(response) && response.length > 0) {
-        const mapped = response.map((item) => ({
-          courseId: item.courseId,
-          name: item.name,
-          title: item.title,
-          description: item.description,
-          classDate: item.classDate,
-          classStartTime: item.classStartTime,
-          classEndTime: item.classEndTime,
-          category: item.category,
-          classroom: item.classroom,
-        }));
-
-        setCourses(mapped);
-      } else {
+    const fetchCourses = async () => {
+      try {
+        if (searchType === 'trainer') {
+          if (!trainerName.trim()) {
+            const all = await getCourseList();
+            setCourses(all);
+          } else {
+            const result = await searchCoursesByTrainer(trainerName);
+            setCourses(result.data || []);
+          }
+        } else if (searchType === 'category') {
+          const englishCategory = categoryMap[category] || category.toUpperCase();
+          const result = await searchCoursesByCategory(englishCategory);
+          setCourses(result.data || []);
+        }
+      } catch (error) {
+        alert('검색 실패');
         setCourses([]);
       }
-    } catch (error) {
-      console.error('수업 목록 불러오기 실패:', error);
-      setCourses([]);
+    };
+
+    fetchCourses();
+  }, [searchParams, searchType]);
+
+  const handleSearch = () => {
+    if (searchText.trim() === '') {
+      setSearchParams({});
+      return;
+    }
+
+    if (searchType === 'trainer') {
+      setSearchParams({ trainerName: searchText });
+    } else if (searchType === 'category') {
+      setSearchParams({ category: searchText });
     }
   };
 
-  fetchCourses();
-}, []);
-
-
-  const openModal = (course: CourseList) => {
-    setSelectedCourse(course);
-    setIsModalOpen(true);
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+  const openModal = async (course: CourseList) => {
+    try {
+      const response = await getCourseById(course.courseId);
+      if (response.data) {
+        setSelectedCourseDetail(response.data);
+        setIsModalOpen(true);
+      } else {
+        alert('상세 정보를 불러오지 못했습니다.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('상세 정보 조회 중 오류가 발생했습니다.');
+    }
   };
 
   const closeModal = () => {
-    setSelectedCourse(null);
+    setSelectedCourseDetail(null);
     setIsModalOpen(false);
   };
 
@@ -81,20 +119,20 @@ function CourseListPage() {
         <select
           css={selectStyle}
           value={searchType}
-          onChange={(e) => setSearchType(e.target.value)}
+          onChange={(e) => setSearchType(e.target.value as 'trainer' | 'category')}
         >
-          <option value="title">제목</option>
           <option value="trainer">트레이너</option>
           <option value="category">카테고리</option>
         </select>
         <input
           css={inputStyle}
           type="text"
-          placeholder="검색어를 입력해주세요."
+          placeholder={searchType === 'trainer' ? '트레이너 이름으로 검색' : '카테고리 입력 (수면, 재활, 운동, 심리)'}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
+          onKeyDown={onKeyDown}
         />
-        <button css={buttonStyle}>검색</button>
+        <button css={buttonStyle} onClick={handleSearch}>검색</button>
       </div>
 
       <div css={tableWrapper}>
@@ -117,9 +155,7 @@ function CourseListPage() {
             <div css={tableCell}>{course.category}</div>
             <div css={tableCell}>{course.title}</div>
             <div css={tableCell}>{course.description}</div>
-            <div css={tableCell}>
-              {course.classStartTime} ~ {course.classEndTime}
-            </div>
+            <div css={tableCell}>{course.classStartTime} ~ {course.classEndTime}</div>
             <div css={tableCell}>{course.classDate.slice(0, 10)}</div>
             <div css={tableCell}>{course.classroom}</div>
             <div css={tableCell}>{course.name}</div>
@@ -132,19 +168,16 @@ function CourseListPage() {
         <div css={separatorLine}></div>
       </div>
 
-      {isModalOpen && selectedCourse && (
+      {isModalOpen && selectedCourseDetail && (
         <div css={modalOverlayStyle} onClick={closeModal}>
           <div css={modalContentStyle} onClick={(e) => e.stopPropagation()}>
-            <h2>{selectedCourse.title}</h2>
-            <p>카테고리: {selectedCourse.category}</p>
-            <p>설명: {selectedCourse.description}</p>
-            <p>
-              시간: {selectedCourse.classStartTime} ~ {selectedCourse.classEndTime}
-            </p>
-            <p>날짜: {selectedCourse.classDate}</p>
-            <p>강의장: {selectedCourse.classroom}</p>
-            <p>트레이너: {selectedCourse.name}</p>
-
+            <h2>{selectedCourseDetail.title}</h2>
+            <p>카테고리: {selectedCourseDetail.category}</p>
+            <p>설명: {selectedCourseDetail.description}</p>
+            <p>시간: {selectedCourseDetail.classStartTime} ~ {selectedCourseDetail.classEndTime}</p>
+            <p>날짜: {selectedCourseDetail.classDate}</p>
+            <p>강의장: {selectedCourseDetail.classroom}</p>
+            <p>트레이너: {selectedCourseDetail.trainerName}</p>
             <button css={closeButtonStyle} onClick={closeModal}>닫기</button>
           </div>
         </div>
