@@ -25,7 +25,7 @@ import HealthDataUpdate from "./pages/healthdata/HealthDataUpdate"
 import GetUserInfo from "./pages/mypage/GetUserInfo"
 
 import TrainerApplication from "./pages/trainer/application/TrainerApplication"
-import Home from "./pages/main/Home"
+// import Home from "./pages/main/Home"
 
 import MyTrainerApplicationStatus from "./pages/trainer/application/MyTrainerApplicationStatus"
 import TrainerApplicationList from "./pages/trainer/application/TrainerApplicationList"
@@ -42,7 +42,7 @@ function App() {
     <>
       <Routes>
         <Route path='/api/v1/posts' element={<PostListPage/> } />
-       <Route path='/api/v1/posts:id' element={<PostDetail/> } />
+        <Route path='/api/v1/posts/:id' element= {<PostDetail/> } />
         <Route path='signup' element={<SignUp />} />
         <Route path='signIn' element={<SignIn />} />
         <Route path="/email-send" element={<EmailSend />} />
@@ -78,8 +78,8 @@ function App() {
         <Route path="/fail" element={<PaymentFail />} />
         <Route path='/api/v1/payments' element={<PaymentConfirm />} />
         <Route path='/api/v1/admin/users' element={<UserList />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/api/v1/courses/public' element={<CourseListPage />} />
+        {/* <Route path='/' element={<Home />} /> */}
+        <Route path='/api/v1/courses' element={<CourseListPage />} />
       </Routes>
     </>
   );
