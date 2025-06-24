@@ -37,11 +37,9 @@ import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplica
 import EmailSend from "./pages/user/EmailSend"
 import ResetPassword from './pages/user/ResetPassword';
 import EmailVerification from './pages/user/EmailVerification';
-import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
-import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
-import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
-import MyParticipationList from "./pages/participation/MyParticipationList"
-
+import CreateTrainerProfile from "./pages/trainer/profile/CreateTrainerProfile"
+import ViewTrainerProfile from "./pages/trainer/profile/ViewTrainerProfile"
+import EditTrainerProfile from "./pages/trainer/profile/EditTrainerProfile"
 
 function App() {
   return (
@@ -67,19 +65,21 @@ function App() {
         <Route path='/api/v1/inquiry/:id/response' element={<InquiryAnswer />} />
 
         <Route path='/api/v1/trainer-application' element={<TrainerApplication />} />
-
         <Route path='/api/v1/trainer-application/me' element={<MyTrainerApplicationStatus />} />
         <Route path='/api/v1/trainer-applications' element={<TrainerApplicationList />} />
         <Route path='/api/v1/trainer-application/:id' element={<TrainerApplicationDetail />} />
-        <Route path='/api/v1/trainer-profile' element={<TrainerProfile />} />
-        <Route path='/api/v1/trainer-profile/me' element={<GetTrainerProfile />} />
-        <Route path='/api/v1/trainer-profile/update' element={<PutTrainerProfile />} />
+
+        <Route path='/api/v1/trainer-profile/create' element={<CreateTrainerProfile />} />
+        <Route path='/api/v1/trainer-profile/view' element={<ViewTrainerProfile />} />
+        <Route path='/api/v1/trainer-profile/edit' element={<EditTrainerProfile />} />
+
+        {/* <Route path='/api/v1/posts' element={<PostDetailPage /> } /> */}
+        {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
         <Route path='/myparticipation'element={<MyParticipationList />} />
         
         <Route path='/api/v1/healthdata' element={<HealthDataCreate />} />
         <Route path='/api/v1/healthdata/me' element={<HealthDataView />} />
         <Route path='/api/v1/healthdata/update' element={<HealthDataUpdate />} />
-
         <Route path='/api/v1/users/me' element={<GetUserInfo />} />
         <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
         <Route path='/api/v1/admin/courses' element={<CourseList />} />

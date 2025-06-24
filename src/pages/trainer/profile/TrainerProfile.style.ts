@@ -1,163 +1,147 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 
-import { css } from "@emotion/react";
-
-const container = css`
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
-  background-color: #fff;
+export const container = css`
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
 `;
 
-const imageNameDiv = css`
+export const imageNameDiv = css`
   display: flex;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 30px;
 `;
 
-const imageDiv = css`
-  flex: 1;
+export const imageDiv = css`
   display: flex;
   flex-direction: column;
-  margin: auto;
-`;
-
-const imageBox = css`
-  width: 100%;
-  height: 150px;
-  border: 1px solid #aaa;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
 `;
 
-const divStyle = css`
+export const imageBox = css`
+  width: 150px;
+  height: 150px;
+  border: 2px dashed #ccc;
+  border-radius: 50%;
   display: flex;
-  margin: auto;
-  justify-content: space-between;
-  text-align: center;
-  height: 50%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #f9f9f9;
 `;
 
-const inputStyle = css`
-  width: 90%;
-  height: 30px;
-  padding: 6px;
-  margin-top: 8px;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-`;
-
-const imageButton = css`
-  margin-top: 8px;
-  padding: 4px;
-  background-color: #6666cc;
+export const imageButton = css`
+  padding: 8px 15px;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
 
-const nameDiv = css`
-  flex:3;
-  padding: 5px;
-`;
-
-const label = css`
-  font-weight: bold;
-  margin-top: 5px;
-`;
-
-const required = css`
-  color: red;
-  font-size: 12px;
-`;
-
-const input = css`
-  width: 100%;
-  height: 30px;
-  padding: 6px;
-  margin-top: 8px;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-`;
-
-const textArea = css`
-  width: 100%;
-  height: 80px;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-  resize: none;
-  padding: 6px;
-`;
-
-const select = css`
-  width: 100%;
-  padding: 6px;
-  height: 45px;
-  margin-top: 8px;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-`;
-
-const certRow = css`
+export const nameDiv = css`
+  flex-grow: 1;
   display: flex;
-  gap: 8px;
-  margin-top: 8px;
-  height: 45px;
+  flex-direction: column;
+  gap: 15px;
 `;
 
-const certInput = css`
-  flex: 1;
-  padding: 6px;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-`;
-
-const plusButton = css`
-  background-color: #aaa;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 8px;
+export const label = css`
   font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
 `;
 
-const minusButton = css`
-  background-color: red;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-weight: bold;
-`;
-
-const submitButton = css`
-  margin-top: 20px;
+export const input = css`
   width: 100%;
   padding: 10px;
-  background-color: #5b4bcc;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
 `;
 
-export {
-  container,
-  imageNameDiv,
-  imageBox,
-  imageButton,
-  imageDiv,
-  nameDiv,
-  label,
-  required,
-  input,
-  textArea,
-  select,
-  certInput,
-  certRow,
-  minusButton,
-  plusButton,
-  submitButton,
-  divStyle,
-  inputStyle
-}
+export const textArea = css`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  min-height: 80px;
+  resize: vertical;
+  box-sizing: border-box;
+`;
+
+export const select = css`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: white;
+  box-sizing: border-box;
+`;
+
+export const certRow = css`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+`;
+
+export const certInput = css`
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+export const submitButton = css`
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 20px;
+  &:hover {
+    background-color: #218838;
+  }
+`;
+
+export const addCertButton = css`
+  padding: 8px 15px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  &:hover {
+    background-color: #5a6268;
+  }
+`;
+
+export const removeCertButton = css`
+  padding: 6px 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #c82333;
+  }
+`;
