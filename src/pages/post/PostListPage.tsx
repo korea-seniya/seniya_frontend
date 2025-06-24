@@ -1,24 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { useUserStore } from '../../stores/user.store';
+
 import type { PostList } from './PostList';
 import {
-  nameStyle,
-  searchbarStyle,
-  selectStyle,
-  inputStyle,
-  buttonStyle,
-  tableWrapper,
-  postRow,
-  noticeBadge,
-  boldTitle,
-  postMeta,
-  postTitle,
-  postNumber,
-  postContainer,
-  separatorLine,
-  postListTotal
+  nameStyle, searchbarStyle, selectStyle, inputStyle, buttonStyle, tableWrapper,
+  postRow, noticeBadge, boldTitle, postMeta, postNumber, postContainer, separatorLine, postListTotal
 } from './PostList.style';
+
 import { getPostList, searchPosts, searchPostsByRole } from '../../apis/post/Post';
 
 function PostListPage() {
@@ -28,30 +19,40 @@ function PostListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const convertRoleName = (input: string): string => {
-    const roleMap: Record<string, string> = {
-      관리자: 'ADMIN',
-      admin: 'ADMIN',
-      ADMIN: 'ADMIN',
-      회원: 'USER',
-      사용자: 'USER',
-      user: 'USER',
-      USER: 'USER',
-      트레이너: 'TRAINER',
-      trainer: 'TRAINER',
-      TRAINER: 'TRAINER',
-    };
-
-    const key = input.trim().toLowerCase();
-    for (const [k, v] of Object.entries(roleMap)) {
-      if (k.toLowerCase() === key) {
-        return v;
-      }
-    }
-    return input.toUpperCase();
-  };
+  const { user, loginUser } = useUserStore();
 
   useEffect(() => {
+    const userData = Cookies.get('user');
+
+    if (!userData) {
+      alert('로그인이 필요합니다.');
+      navigate('/signin');
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(userData);
+      console.log('[PostListPage] 쿠키 user:', parsed);
+      if (!user) {
+        loginUser(parsed);
+      }
+      fetchPosts(parsed); // 게시글 조회 시작
+    } catch (err) {
+      console.error('[PostListPage] 쿠키 파싱 실패:', err);
+      navigate('/signin');
+    }
+  }, [searchParams]);
+
+  const convertRoleName = (input: string): string => {
+    const roleMap: Record<string, string> = {
+      관리자: 'ADMIN', 회원: 'USER', 사용자: 'USER', 트레이너: 'TRAINER',
+      admin: 'ADMIN', user: 'USER', trainer: 'TRAINER',
+      ADMIN: 'ADMIN', USER: 'USER', TRAINER: 'TRAINER'
+    };
+    return roleMap[input.trim().toLowerCase()] || input.toUpperCase();
+  };
+
+  const fetchPosts = async (parsedUser: any) => {
     const keyword = searchParams.get('keyword') || '';
     const type = searchParams.get('type') || 'title';
 
@@ -59,15 +60,15 @@ function PostListPage() {
     setSearchText(keyword);
 
     if (keyword.trim() === '') {
-      fetchAllPosts();
+      await fetchAllPosts();
     } else {
       if (type === 'role') {
-        fetchPostsByRole(keyword);
+        await fetchPostsByRole(keyword);
       } else {
-        fetchSearchedPosts(keyword);
+        await fetchSearchedPosts(keyword);
       }
     }
-  }, [searchParams]);
+  };
 
   const fetchAllPosts = async () => {
     try {
@@ -110,7 +111,7 @@ function PostListPage() {
     }
   };
 
-    const fetchPostsByRole = async (roleInput: string) => {
+  const fetchPostsByRole = async (roleInput: string) => {
     try {
       const roleName = convertRoleName(roleInput);
       const response = await searchPostsByRole(roleName);
@@ -131,6 +132,7 @@ function PostListPage() {
       setPosts([]);
     }
   };
+
   const handleSearch = () => {
     if (searchText.trim() === '') {
       searchParams.delete('keyword');
@@ -141,16 +143,14 @@ function PostListPage() {
     }
   };
 
+  if (!user) return <div>로그인한 회원만 접근할 수 있습니다.</div>;
+
   return (
     <div css={postContainer}>
       <h1 css={nameStyle}>게시판</h1>
 
       <div css={searchbarStyle}>
-        <select
-          css={selectStyle}
-          value={searchType}
-          onChange={(e) => setSearchType(e.target.value)}
-        >
+        <select css={selectStyle} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
           <option value="title">제목</option>
           <option value="role">권한</option>
         </select>
@@ -180,10 +180,12 @@ function PostListPage() {
               <>
                 <span css={postNumber}>{post.id}</span>
                 <span
-                    css={boldTitle}
-                    onClick={() => navigate(`/api/v1/posts/${post.id}`)}
-                    style={{ cursor: 'pointer' }}
-                  >{post.title}</span>
+                  css={boldTitle}
+                  onClick={() => navigate(`/api/v1/posts/${post.id}`)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {post.title}
+                </span>
               </>
             )}
             <div css={postMeta}>

@@ -36,9 +36,9 @@ import EmailSend from "./pages/user/EmailSend"
 import ResetPassword from './pages/user/ResetPassword';
 import EmailVerification from './pages/user/EmailVerification';
 
-import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
-import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
-import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
+// import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
+// import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
+// import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
 import PostDetailPage from "./pages/post/PostDetailPage"
 import PostUpdate from "./pages/post/PostUpdate"        
 import MyParticipationList from "./pages/participation/MyParticipationList"
@@ -46,7 +46,6 @@ import { useUserStore } from "./stores/user.store"
 import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import RequireRole from "./stores/RequireRole";
-import Home from "./pages/main/Home";
 import NoticeUpdate from "./pages/notice/NoticeUpdate";
 import CreateTrainerProfile from "./pages/trainer/profile/CreateTrainerProfile"
 import ViewTrainerProfile from "./pages/trainer/profile/ViewTrainerProfile"

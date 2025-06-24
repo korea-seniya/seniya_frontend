@@ -39,11 +39,17 @@ function SignIn() {
 
       console.log('로그인 응답:', data);
 
+      // 응답 구조 분해
+      const { token, exprTime, roleId, user } = data;
+      const { username, name } = user;
+
+      // Zustand store에 저장
       loginUser({
-        username: data.username,
-        role_id: data.roleId,
-        token: data.token,
-        exprTime: data.exprTime
+        username,
+        role_id: roleId,
+        token,
+        exprTime,
+        name
       });
 
       alert('로그인 성공!');

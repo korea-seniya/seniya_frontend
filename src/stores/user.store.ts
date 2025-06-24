@@ -6,6 +6,7 @@ interface User {
   role_id: number | null;
   token: string;
   exprTime: number;
+  name: string;
 }
 
 interface UserState {
