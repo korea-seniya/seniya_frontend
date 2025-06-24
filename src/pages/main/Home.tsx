@@ -17,6 +17,9 @@ import TermsSection from "../../components/main/termsSection/TermsSection";
    const goToLogin = () => {
     navigate("/signin");
   };
+    const goToPosts = () => {
+    navigate("/api/v1/posts");
+  };
 
 
 
@@ -37,6 +40,12 @@ import TermsSection from "../../components/main/termsSection/TermsSection";
           style={{ padding: "0.5rem 1rem", fontSize: "1rem" }}
         >
           로그인하러가기
+        </button>
+        <button
+          onClick={goToPosts}
+          style={{ padding: "0.5rem 1rem", fontSize: "1rem" }}
+        >
+          게시글 보러가기
         </button>
       </div>
 
