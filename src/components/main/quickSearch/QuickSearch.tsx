@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
 import * as style from './QuickSearch.style';
-import type { css } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 
 function UserIcon() {
   return (
@@ -37,14 +37,33 @@ function SearchIcon() {
 }
 
 function QuickSearch() {
+  const [category, setCategory] = useState('');
+  const [trainer, setTrainer] = useState('');
+  const [classDate, setClassDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+
+    if (category) params.append('category', category);
+    if (trainer) params.append('trainer', trainer);
+    if (classDate) params.append('classDate', classDate);
+    if (startTime) params.append('classStartTime', startTime);
+    if (endTime) params.append('classEndTime', endTime);
+
+    navigate(`/api/v1/courses/public?${params.toString()}`);
+  };
 
   return (
     <div css={style.filterContainer}>
       <div css={style.filterBox}>
-        <UserIcon />
-        <select css={style.select}>
+        <select
+          css={style.select}
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option value="">카테고리</option>
           <option value="SLEEP">SLEEP</option>
           <option value="REHABILITATION">REHABILITATION</option>
@@ -54,23 +73,41 @@ function QuickSearch() {
       </div>
 
       <div css={style.filterBox}>
-        <UserIcon />
-        <input type="text" placeholder="강사" css={style.input} />
+        <input
+          type="text"
+          placeholder="강사"
+          value={trainer}
+          onChange={(e) => setTrainer(e.target.value)}
+          css={style.input}
+        />
       </div>
 
       <div css={style.filterBox}>
-        <UserIcon />
-        <input type="date" css={style.input} />
+        <input
+          type="date"
+          value={classDate}
+          onChange={(e) => setClassDate(e.target.value)}
+          css={style.input}
+        />
       </div>
 
       <div css={style.filterBox}>
-        <UserIcon />
-        <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} css={style.time} />
+        <input
+          type="time"
+          value={startTime}
+          onChange={(e) => setStartTime(e.target.value)}
+          css={style.time}
+        />
         <span css={style.tilde}>~</span>
         <input
-          type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} css={style.time} />
+          type="time"
+          value={endTime}
+          onChange={(e) => setEndTime(e.target.value)}
+          css={style.time}
+        />
       </div>
-      <div>
+
+      <div onClick={handleSearch} style={{ cursor: 'pointer' }}>
         <SearchIcon />
       </div>
     </div>

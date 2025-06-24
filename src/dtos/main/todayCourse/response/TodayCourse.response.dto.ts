@@ -1,5 +1,4 @@
-export interface QuickSearchResponseDto {
-  courseId: number;
+export interface TodayCourseResponseDto {
   id: number;
   name: string;
   trainerId: number;

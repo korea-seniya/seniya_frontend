@@ -96,3 +96,24 @@ export {
   statusStyle,
   selectStyle
 };
+
+export const bottomWrapperStyle = css`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+`;
+
+export const writeButtonStyle = css`
+  background-color: #5b21b6;
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #4c1d95;
+  }
+`;

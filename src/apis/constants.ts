@@ -1,4 +1,4 @@
-const API_DOMAIN = import.meta.env.REACT_APP_API_DOMAIN || "http://localhost:8080";
+export const API_DOMAIN = import.meta.env.REACT_APP_API_DOMAIN || "http://localhost:8080";
 
 const AUTH_MODULE_URL = `${API_DOMAIN}/api/v1/auth`;
 export const SIGN_UP_URL = `${AUTH_MODULE_URL}/signup`;
@@ -51,7 +51,8 @@ export const CREATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const UPDATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const GET_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 
-export const QUICK_SEARCH_URL = `${API_DOMAIN}/`;
+export const QUICK_SEARCH_URL = `${API_DOMAIN}/api/v1/courses`;
+export const TODAY_COURSE_URL = `${API_DOMAIN}/api/v1/courses/today`;
 
 export const USER_URL = `${API_DOMAIN}/api/v1/users/me`;
 export const PUT_USER_URL = `${API_DOMAIN}/api/v1/users/me`;
