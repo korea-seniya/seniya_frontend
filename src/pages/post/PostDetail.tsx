@@ -1,57 +1,71 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getPostDetail } from '../../apis/post/Post';
 import {
-  pageWrapper,
-  nameStyle,
-  searchbarStyle,
-  selectStyle,
-  inputStyle,
-  buttonStyle,
-  container,
-  title,
-  infoRow,
-  divider,
-  imageWrapper,
-  commentSection,
-  commentInput,
-  commentList,
-  commentItem,
-  timestamp,
-  commentAuthor,
-  actionRow,
+  pageWrapper, nameStyle, container, title, infoRow, divider, imageWrapper,
+  commentSection, commentList, commentItem, timestamp, commentAuthor, searchbarStyle,
+  selectStyle, inputStyle, buttonStyle, commentInput, commentButton
 } from './PostDetail.style';
+import type { PostDetailResponseDto } from './PostDetail';
 
-const PostDetailPage = () => {
-  // 초기 더미 댓글들
-  const initialComments = [
-    { author: '진창현', content: '와 민지님! 정말 잘하시네요. 한 수 배우고 싶어요!', date: '2025-03-23 13:31' },
-    { author: '진우태', content: '저도 룰 시작할까요?', date: '2025-03-20 20:11', edited: true },
-  ];
+import { userUserStore } from '../../stores/user.store';
+import { userAuthStore } from '../../stores/auth.store';
 
+const BACKEND_URL = 'http://localhost:8080';
+
+function PostDetail() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+
+  const isLogin = userAuthStore((state) => state.isLogin);
+  const user = userUserStore((state) => state.user);
+
+  const [post, setPost] = useState<PostDetailResponseDto | null>(null);
   const [searchType, setSearchType] = useState('title');
   const [searchText, setSearchText] = useState('');
+  const [commentText, setCommentText] = useState('');
 
-  // 댓글 상태를 따로 관리
-  const [comments, setComments] = useState(initialComments);
+  
+  useEffect(() => {
+    if (!isLogin || !user) {
+      alert('로그인이 필요합니다.');
+      navigate('/signin');
+    }
+  }, [isLogin, user, navigate]);
 
-  // 댓글 입력값 상태
-  const [commentInput, setCommentInput] = useState('');
+  useEffect(() => {
+    const fetchPostDetail = async () => {
+      if (!id) return;
+      try {
+        const response = await getPostDetail(Number(id));
+        if (response.data) {
+          setPost(response.data);
+        }
+      } catch (error) {
+        console.error('게시글 조회 실패:', error);
+      }
+    };
+    fetchPostDetail();
+  }, [id]);
 
-  // 댓글 등록 핸들러
   const handleAddComment = () => {
-    const trimmedComment = commentInput.trim();
-    if (!trimmedComment) return; // 빈 댓글은 등록 안 함
+    if (!commentText.trim()) return;
 
     const newComment = {
-      author: '익명', // 실제 앱에서는 로그인 유저명 넣기
-      content: trimmedComment,
-      date: new Date().toISOString().slice(0, 16).replace('T', ' '), // "YYYY-MM-DD HH:mm" 포맷
-      edited: false,
+      commentId: Date.now(),
+      username: user?.username || '익명',
+      content: commentText,
+      createdAt: new Date().toISOString(),
     };
 
-    setComments([newComment, ...comments]); // 댓글 목록에 새 댓글 추가 (최상단)
-    setCommentInput(''); // 입력창 초기화
+    setPost((prev) =>
+      prev ? { ...prev, comments: [...(prev.comments || []), newComment] } : prev
+    );
+    setCommentText('');
   };
+
+  if (!post) return <div>로딩중...</div>;
 
   return (
     <div css={pageWrapper}>
@@ -78,20 +92,34 @@ const PostDetailPage = () => {
       </div>
 
       <div css={container}>
-        <h1 css={title}>조민지 솔랭 6연승 인증샷 올립니다. 너무 이지하네요</h1>
+        <h1 css={title}>{post.title}</h1>
         <div css={infoRow}>
-          <span><strong>조민지</strong></span>
-          <span css={timestamp}>2025.05.28 17:39</span>
+          <span>
+            <strong>{post.username}</strong>
+          </span>
+          <span css={timestamp}>{new Date(post.createdAt).toLocaleString()}</span>
         </div>
 
         <div css={divider} />
 
         <div css={imageWrapper}>
-          <img src="/images/lol-match-sample.png" alt="인증샷" />
+          {post.imageUrls && post.imageUrls.length > 0 ? (
+            post.imageUrls.map((url: string, idx: number) => (
+              <img
+                key={idx}
+                src={`${BACKEND_URL}${url}`}
+                alt={`image-${idx}`}
+              />
+            ))
+          ) : (
+            <p>이미지가 없습니다.</p>
+          )}
         </div>
 
-        <div css={actionRow}>
-          <span style={{ cursor: 'pointer', color: '#888' }}>수정</span> | <span style={{ cursor: 'pointer', color: '#888' }}>삭제</span>
+        <div css={divider} />
+
+        <div>
+          <p>{post.content}</p>
         </div>
 
         <div css={divider} />
@@ -100,31 +128,30 @@ const PostDetailPage = () => {
           <input
             css={commentInput}
             placeholder="댓글을 남겨보세요."
-            value={commentInput}
-            onChange={(e) => setCommentInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleAddComment(); }}
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
           />
-          <button onClick={handleAddComment}>등록</button>
+          <button css={commentButton} onClick={handleAddComment}>
+            등록
+          </button>
+        </div>
 
-          <div css={commentList}>
-            {comments.length > 0 ? (
-              comments.map((c, index) => (
-                <div css={commentItem} key={index}>
-                  <span css={commentAuthor}>{c.author}</span>
-                  <span>{c.content}</span>
-                  <span css={timestamp}>
-                    {c.date} {c.edited && <span style={{ marginLeft: 4 }}>수정</span>}
-                  </span>
-                </div>
-              ))
-            ) : (
-              <p>댓글이 없습니다.</p>
-            )}
-          </div>
+        <div css={commentList}>
+          {post.comments && post.comments.length > 0 ? (
+            post.comments.map((comment) => (
+              <div css={commentItem} key={comment.commentId}>
+                <span css={commentAuthor}>{comment.username}</span>
+                <span>{comment.content}</span>
+                <span css={timestamp}>{new Date(comment.createdAt).toLocaleString()}</span>
+              </div>
+            ))
+          ) : (
+            <p>댓글이 없습니다.</p>
+          )}
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default PostDetailPage;
+export default PostDetail;
