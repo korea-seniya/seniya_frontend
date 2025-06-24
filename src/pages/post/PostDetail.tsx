@@ -21,8 +21,7 @@ import {
   actionRow,
 } from './PostDetail.style';
 
-const PostDetailPage = () => {
-  // 초기 더미 댓글들
+function PostDetail ()  {
   const initialComments = [
     { author: '진창현', content: '와 민지님! 정말 잘하시네요. 한 수 배우고 싶어요!', date: '2025-03-23 13:31' },
     { author: '진우태', content: '저도 룰 시작할까요?', date: '2025-03-20 20:11', edited: true },
@@ -31,26 +30,24 @@ const PostDetailPage = () => {
   const [searchType, setSearchType] = useState('title');
   const [searchText, setSearchText] = useState('');
 
-  // 댓글 상태를 따로 관리
+
   const [comments, setComments] = useState(initialComments);
 
-  // 댓글 입력값 상태
   const [commentInput, setCommentInput] = useState('');
 
-  // 댓글 등록 핸들러
   const handleAddComment = () => {
     const trimmedComment = commentInput.trim();
-    if (!trimmedComment) return; // 빈 댓글은 등록 안 함
+    if (!trimmedComment) return;
 
     const newComment = {
-      author: '익명', // 실제 앱에서는 로그인 유저명 넣기
+      author: '익명',
       content: trimmedComment,
-      date: new Date().toISOString().slice(0, 16).replace('T', ' '), // "YYYY-MM-DD HH:mm" 포맷
+      date: new Date().toISOString().slice(0, 16).replace('T', ' '),
       edited: false,
     };
 
-    setComments([newComment, ...comments]); // 댓글 목록에 새 댓글 추가 (최상단)
-    setCommentInput(''); // 입력창 초기화
+    setComments([newComment, ...comments]);
+    setCommentInput('');
   };
 
   return (
@@ -127,4 +124,4 @@ const PostDetailPage = () => {
   );
 };
 
-export default PostDetailPage;
+export default PostDetail;

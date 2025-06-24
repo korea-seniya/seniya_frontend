@@ -9,7 +9,6 @@ import UserList from "./pages/admin/user/UserList"
 import CreateCourse from "./pages/admin/course/CreateCourse"
 import SignUp from './pages/auth/SignUp';
 import SignIn from "./pages/auth/SignIn"
-import PostDetail from "./pages/post/PostDetailPage"
 import InquiryListPage from "./pages/inquiry/InquiryListPage"
 import InquiryDetail from "./pages/inquiry/InquiryDetail"
 import InquiryAnswer from "./pages/inquiry/InquiryAnswer"
@@ -36,15 +35,23 @@ import EmailVerification from './pages/user/EmailVerification';
 import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
 import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
 import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
+import PostDetailPage from "./pages/post/PostDetailPage"
+import PostUpdate from "./pages/post/PostUpdate"
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path='/api/v1/post' element={<PostCreate/> } />
         <Route path='/api/v1/posts' element={<PostListPage/> } />
-        <Route path='/api/v1/posts/:id' element= {<PostDetail/> } />
+        <Route path='/api/v1/posts/:id' element= {<PostDetailPage/> } />
+        <Route path='/api/v1/posts/:id/update' element= {<PostUpdate/> } />
+
+        <Route path='/api/v1/users/me' element= {<GetUserInfo/> } />
+
         <Route path='signup' element={<SignUp />} />
         <Route path='signIn' element={<SignIn />} />
+
         <Route path="/email-send" element={<EmailSend />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-email" element={<EmailVerification />} />
@@ -69,6 +76,7 @@ function App() {
         <Route path='/api/v1/healthdata/update' element={<HealthDataUpdate />} />
 
         <Route path='/api/v1/users/me' element={<GetUserInfo />} />
+
         <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
         <Route path='/api/v1/admin/courses' element={<CourseList />} />
 
@@ -79,6 +87,7 @@ function App() {
         <Route path='/api/v1/payments' element={<PaymentConfirm />} />
         <Route path='/api/v1/admin/users' element={<UserList />} />
         {/* <Route path='/' element={<Home />} /> */}
+
         <Route path='/api/v1/courses' element={<CourseListPage />} />
       </Routes>
     </>

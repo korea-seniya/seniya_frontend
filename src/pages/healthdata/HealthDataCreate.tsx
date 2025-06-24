@@ -15,10 +15,11 @@ import {
   requiredMarkStyle,
   unitStyle,
 } from './HealthData.style';
+import { useNavigate } from 'react-router-dom';
 
 const HealthDataCreate = () => {
   const [userName, setUserName] = useState('');
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     weight: '',
     height: '',
@@ -34,7 +35,7 @@ const HealthDataCreate = () => {
     drinker: false,
   });
 
-  const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImZocm1ka2RudCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMSwiaWF0IjoxNzUwNjgyODU3LCJleHAiOjE3NTA2ODY0NTd9.sY-6ZodgLuRWfzQIrANu4DR6ctx8kIG7UEmxqUGc5Ps';
+  const HARDCODED_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuynhOyasO2DnCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMiwiaWF0IjoxNzUwNzUzOTYxLCJleHAiOjE3NTA3NTc1NjF9.sSsvvGrX3UOudqqos-RPu6r1UVKxLhoIvd4QL8zLgs8';
 
 
   useEffect(() => {
@@ -44,9 +45,10 @@ const HealthDataCreate = () => {
     const token = HARDCODED_TOKEN.slice(7);
     const base64Payload = token.split('.')[1];
     if (!base64Payload) throw new Error('잘못된 토큰 형식');
-    const payloadJson = atob(base64Payload);
-    const payload = JSON.parse(payloadJson);
-    setUserName(payload.username || '');
+    const decodedPayload = JSON.parse(
+      new TextDecoder().decode(Uint8Array.from(atob(base64Payload), c => c.charCodeAt(0)))
+    );
+    setUserName(decodedPayload.username || '');
   } catch (e) {
     setUserName('');
   }
@@ -116,6 +118,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
           smoker: true,
           drinker: false,
         });
+        navigate("/api/v1/healthdata/me")
       } else {
         alert(`❌ 등록 실패: ${response.message || '알 수 없는 오류'}`);
       }
