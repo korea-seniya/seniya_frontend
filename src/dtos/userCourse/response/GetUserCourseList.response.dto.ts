@@ -1,8 +1,6 @@
-export interface QuickSearchResponseDto {
+export interface GetUserCourseListResponseDto {
   courseId: number;
-  id: number;
   name: string;
-  trainerId: number;
   title: string;
   description: string;
   classDate: string;
@@ -10,6 +8,4 @@ export interface QuickSearchResponseDto {
   classEndTime: string;
   category: string;
   classroom: string;
-  createdAt: string;
-  updatedAt: string;
 }

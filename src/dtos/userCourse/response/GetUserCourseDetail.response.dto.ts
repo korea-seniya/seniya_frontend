@@ -1,15 +1,13 @@
-export interface QuickSearchResponseDto {
-  courseId: number;
-  id: number;
-  name: string;
+export interface GetUserCourseDetailResponseDto {
   trainerId: number;
+  trainerName: string;
   title: string;
   description: string;
   classDate: string;
   classStartTime: string;
   classEndTime: string;
   category: string;
-  classroom: string;
   createdAt: string;
   updatedAt: string;
+  classroom: string
 }

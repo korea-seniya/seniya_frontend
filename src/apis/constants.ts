@@ -33,7 +33,11 @@ export const POST_SEARCH_BY_TITLE_URL = `${API_DOMAIN}/api/v1/posts/search-by-ti
 export const POST_SEARCH_BY_ROLE_URL = `${API_DOMAIN}/api/v1/posts/search-by-role`;
 export const POST_DETAIL_URL = (id: number) => `${POST_LIST_URL}/${id}`;
 
-export const USER_COURSE_LIST_URL = `${API_DOMAIN}/api/v1/courses/public`;
+export const USER_COURSE_LIST_URL = `${API_DOMAIN}/api/v1/courses`;
+export const COURSE_SEARCH_BY_TRAINER_URL = (trainerName: string) =>
+  `${API_DOMAIN}/api/v1/courses/public?trainerName=${trainerName}`;
+export const COURSE_SEARCH_BY_CATEGORY_URL = (category: string) =>
+  `${API_DOMAIN}/api/v1/courses/public?category=${category}`;
 
 const TRAINER_APPLY_MODULE_URL = `${API_DOMAIN}/api/v1/trainer-applications`;
 export const CREATE_APPLY_URL = `${TRAINER_APPLY_MODULE_URL}`;
@@ -47,7 +51,8 @@ export const CREATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const UPDATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const GET_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 
-export const QUICK_SEARCH_URL = `${API_DOMAIN}/`;
+export const QUICK_SEARCH_URL = `${API_DOMAIN}/api/v1/courses`;
+export const TODAY_COURSE_URL = `${API_DOMAIN}/api/v1/courses/today`;
 
 export const USER_URL = `${API_DOMAIN}/api/v1/users/me`;
 export const PUT_USER_URL = `${API_DOMAIN}/api/v1/users/me`;

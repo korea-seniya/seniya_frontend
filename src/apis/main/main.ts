@@ -3,16 +3,24 @@ import type { QuickSearchRequestDto } from "../../dtos/main/quickSearch/request/
 import type { QuickSearchResponseDto } from "../../dtos/main/quickSearch/response/QuickSearch.response.dto";
 import type ResponseDto from "../../dtos/response.dto";
 import { axiosInstance, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
-import { QUICK_SEARCH_URL } from "../constants";
+import { QUICK_SEARCH_URL, TODAY_COURSE_URL } from "../constants";
+import type { TodayCourseResponseDto } from "../../dtos/main/todayCourse/response/TodayCourse.response.dto";
 
 export const tmp = '';
+
+interface QuickSearchParams {
+  category?: string;
+  trainer?: string;
+  classDate?: string;
+  classStartTime?: string;
+  classEndTime?: string;
+}
 
 export const quickSearch = async (
   dto: QuickSearchRequestDto
 ): Promise<ResponseDto<QuickSearchResponseDto[]>> => {
   try {
-    // 불필요한 빈 값은 제외하고 params 구성
-    const params: Record<string, string> = {};
+    const params: QuickSearchParams = {};
     if (dto.category) params.category = dto.category;
     if (dto.trainer) params.trainer = dto.trainer;
     if (dto.classDate) params.classDate = dto.classDate;
@@ -28,3 +36,12 @@ export const quickSearch = async (
     return responseErrorHandler(error as AxiosError<ResponseDto>);
   }
 };
+
+export const getTodayCourse = async (): Promise<ResponseDto<TodayCourseResponseDto[]>> => {
+  try {
+    const response = await axiosInstance.get(TODAY_COURSE_URL);
+    return responseSuccessHandler(response);
+  } catch (error) {
+    return responseErrorHandler(error as AxiosError<ResponseDto>);
+  }
+}

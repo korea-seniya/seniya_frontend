@@ -22,7 +22,7 @@ function PurchasePass() {
     }
 
     const selectedPass = passOptions[selectedIndex];
-    localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluMTIzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUwMzg1NDQzLCJleHAiOjE3NTA0MjE0NDN9.rvojBr2XGVVfStAwwwYetIQlSu6b9dr9_1RiY6iGVu4");
+    localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluMTIzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUwNzI0MjAxLCJleHAiOjE3NTA3NjAyMDF9.RJVzUdClFq5r7I59qUyH51awlBn7j5kumRxVGsAO_7Q");
 
     const newWindow = window.open('/api/v1/payments/request', '_blank', 'width=600,height=800');
 
