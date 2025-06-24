@@ -29,38 +29,38 @@ function CourseListPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-  const fetchCourses = async () => {
-    try {
-      const response = await getCourseList();
+    const fetchCourses = async () => {
+      try {
+        const response = await getCourseList();
 
-      console.log('response (array):', response);
+        console.log('response (array):', response);
 
-      // response는 이미 배열이므로 바로 사용
-      if (Array.isArray(response) && response.length > 0) {
-        const mapped = response.map((item) => ({
-          courseId: item.courseId,
-          name: item.name,
-          title: item.title,
-          description: item.description,
-          classDate: item.classDate,
-          classStartTime: item.classStartTime,
-          classEndTime: item.classEndTime,
-          category: item.category,
-          classroom: item.classroom,
-        }));
+        // response는 이미 배열이므로 바로 사용
+        if (Array.isArray(response) && response.length > 0) {
+          const mapped = response.map((item) => ({
+            courseId: item.courseId,
+            name: item.name,
+            title: item.title,
+            description: item.description,
+            classDate: item.classDate,
+            classStartTime: item.classStartTime,
+            classEndTime: item.classEndTime,
+            category: item.category,
+            classroom: item.classroom,
+          }));
 
-        setCourses(mapped);
-      } else {
+          setCourses(mapped);
+        } else {
+          setCourses([]);
+        }
+      } catch (error) {
+        console.error('수업 목록 불러오기 실패:', error);
         setCourses([]);
       }
-    } catch (error) {
-      console.error('수업 목록 불러오기 실패:', error);
-      setCourses([]);
-    }
-  };
+    };
 
-  fetchCourses();
-}, []);
+    fetchCourses();
+  }, []);
 
 
   const openModal = (course: CourseList) => {
@@ -154,3 +154,4 @@ function CourseListPage() {
 }
 
 export default CourseListPage;
+

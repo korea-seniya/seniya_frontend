@@ -23,9 +23,9 @@ function UserDetailModal(props: UserModalProps) {
           <div css={style.row}>
             <span>이름: {user.name}</span>
             <span>전화번호: {user.phone}</span>
-            <span>총 수강권 구매 수량: {user.totalCouponCount}</span>
-            <span>총 결제 금액: {user.totalAmount}</span>
-            <span>잔여 수강권: {user.availableCouponCount}</span>
+            <span>총 수강권 구매 수량: {user?.totalCouponCount}</span>
+            <span>총 결제 금액: {user?.totalAmount}</span>
+            <span>잔여 수강권: {user?.availableCouponCount}</span>
           </div>
 
           <div css={style.buttonGroup}>
