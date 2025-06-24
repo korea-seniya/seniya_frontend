@@ -16,7 +16,7 @@ import type { TrainerApplicationStatusResponseDto } from "../../../dtos/trainer/
 function MyTrainerApplicationStatus() {
   localStorage.setItem(
     "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDY0OTUyOSwiZXhwIjoxNzUwNjUzMTI5fQ.STOzQakJyXq95kMHsH9QsB4VOogIi9cdJndfnNzq8q8"
+    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc1MjIyOCwiZXhwIjoxNzUwNzU1ODI4fQ.DHMcidMNr9jLlp_cvPtlskr8fUhT71sWa4TNQaofRWo"
   );
 
   const [status, setStatus] =

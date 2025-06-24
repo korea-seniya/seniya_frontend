@@ -1,7 +1,7 @@
 import type { Specialty } from "../specialty";
 import type { CertificateResponseDto } from "./certificate.response.dto";
 
-export interface TrainerProfileResponseDto {
+export interface TrainerProfileCreateResponseDto {
   name: string;
   specialty: Specialty;
   certificates?: CertificateResponseDto[];
@@ -9,5 +9,4 @@ export interface TrainerProfileResponseDto {
   description: string;
   profileImageUrl: string | null;
   createdAt: string;
-  updatedAt?: string;
 }

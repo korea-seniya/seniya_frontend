@@ -1,4 +1,4 @@
-const API_DOMAIN = import.meta.env.REACT_APP_API_DOMAIN || "http://localhost:8080";
+export const API_DOMAIN = import.meta.env.REACT_APP_API_DOMAIN || "http://localhost:8080";
 
 const AUTH_MODULE_URL = `${API_DOMAIN}/api/v1/auth`;
 export const SIGN_UP_URL = `${AUTH_MODULE_URL}/signup`;
