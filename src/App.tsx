@@ -24,6 +24,10 @@ import HealthDataView from "./pages/healthdata/HealthDataView"
 import HealthDataUpdate from "./pages/healthdata/HealthDataUpdate"
 import GetUserInfo from "./pages/mypage/GetUserInfo"
 
+import NoticeList from './pages/notice/NoticeList';
+import NoticeDetail from './pages/notice/NoticeDetail';
+import NoticeCreate from './pages/notice/NoticeCreate';
+
 import TrainerApplication from "./pages/trainer/application/TrainerApplication"
 import Home from "./pages/main/Home"
 
@@ -47,6 +51,10 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/api/v1/posts' element={<PostListPage/> } />
+        <Route path='/api/v1/posts' element={<PostCreate/> } />
+        <Route path="/notices" element={<NoticeList />} />
+        <Route path="/notices/:id" element={<NoticeDetail />} />
+        <Route path="/notices/create" element={<NoticeCreate />} />
 
         <Route path="/email-send" element={<EmailSend />} />
         <Route path="/reset-password" element={<ResetPassword />} />

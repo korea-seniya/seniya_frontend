@@ -1,72 +1,103 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-export const loginContainerStyle = css`
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 40px;
-  border-radius: 24px;
-  background-color: #fff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+export const containerStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
 `;
 
-export const loginTitleStyle = css`
-  font-size: 32px;
+export const cardStyle = css`
+  display: flex;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  width: 800px;
+  height: 380px;
+  overflow: hidden;
+`;
+
+export const leftStyle = css`
+  flex: 1;
+  background: #f9f9f9;
+  padding: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+`;
+
+export const rightStyle = css`
+  flex: 1;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const titleStyle = css`
+  font-size: 24px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `;
 
-export const loginWrapperStyle = css`
+export const inputWrapperStyle = css`
   display: flex;
-  justify-content: space-between;
-  gap: 40px;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0 16px;
+  margin-bottom: 12px;
+  height: 52px;
 `;
 
-export const snsLoginStyle = css`
-  flex: 1;
+export const iconStyle = css`
+  margin-right: 8px;
   font-size: 18px;
-  padding-top: 16px;
-`;
-
-export const formWrapperStyle = css`
-  flex: 1;
-`;
-
-export const inputGroupStyle = css`
-  margin-bottom: 16px;
+  color: #888;
 `;
 
 export const inputStyle = css`
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
 `;
-
 
 export const loginButtonStyle = css`
   width: 100%;
-  padding: 14px;
-  background-color: #6b4eff;
+  padding: 12px 0;
+  font-size: 15px;
+  background: #6b46c1;
   color: white;
-  font-size: 16px;
-  font-weight: bold;
   border: none;
-  border-radius: 9999px;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 10px rgba(107, 78, 255, 0.3);
+  border-radius: 25px;
+  font-weight: bold;
   cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 6px;
+
+  &:hover {
+    background: #553c9a;
+  }
 `;
 
 export const signUpButtonStyle = css`
   width: 100%;
-  padding: 14px;
-  background-color: white;
-  color: #6b4eff;
-  font-size: 16px;
+  padding: 11px 0;
+  font-size: 15px;
+  background: white;
+  border: 2px solid #6b46c1;
+  color: #6b46c1;
+  border-radius: 25px;
   font-weight: bold;
-  border: 2px solid #6b4eff;
-  border-radius: 9999px;
   cursor: pointer;
+
+  &:hover {
+    background: #f3f0ff;
+  }
 `;

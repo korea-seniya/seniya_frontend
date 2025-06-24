@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   containerStyle,
   titleStyle,
@@ -10,19 +11,33 @@ import {
   tableStyle,
   thStyle,
   tdStyle,
+  bottomWrapperStyle,
+  writeButtonStyle,
 } from './NoticeList.style';
-import type { NoticeList } from './NoticeList';
+
+import type { NoticeList as Notice } from './NoticeListData';
 import { dummyNotices } from './NoticeDummyData';
+import { userAuthStore } from '../../stores/auth.store';
 
-const [notices, setNotices] = useState<NoticeList[]>([]);
+const NoticeList = () => {
+  const [notices, setNotices] = useState<Notice[]>([]);
+  const navigate = useNavigate();
 
-useEffect(() => {
-  setNotices(dummyNotices);
-}, []);
+  const isLogin = userAuthStore((state) => state.isLogin);
+  const role_id = userAuthStore((state) => state.role_id);
+  const isAdmin = isLogin && role_id === 1;
 
-function NoticeList() {
+  useEffect(() => {
+    setNotices(dummyNotices);
+  }, []);
+
+
+  useEffect(() => {
+    console.log('role_id:', role_id);
+  }, [isLogin, role_id, isAdmin]);
+
   return (
-  <div css={containerStyle}>
+    <div css={containerStyle}>
       <h1 css={titleStyle}>공지사항</h1>
 
       <div css={searchWrapperStyle}>
@@ -30,7 +45,6 @@ function NoticeList() {
           <option value="title">제목</option>
           <option value="username">작성자</option>
         </select>
-
         <input
           type="text"
           placeholder="검색어를 입력해주세요."
@@ -49,18 +63,35 @@ function NoticeList() {
           </tr>
         </thead>
         <tbody>
-          {notices.map((item, index) => (
-            <tr key={index}>
+          {notices.map((item) => (
+            <tr key={item.id}>
               <td css={tdStyle}>{item.id}</td>
-              <td css={tdStyle}>{item.title}</td>
+              <td
+                css={tdStyle}
+                style={{ cursor: 'pointer', color: '#4f46e5' }}
+                onClick={() => navigate(`/notices/${item.id}`)}
+              >
+                {item.title}
+              </td>
               <td css={tdStyle}>{item.createdAt}</td>
               <td css={tdStyle}>{item.username}</td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {isAdmin && (
+        <div css={bottomWrapperStyle}>
+          <button
+            css={writeButtonStyle}
+            onClick={() => navigate('/notices/create')}
+          >
+            작성하기
+          </button>
+        </div>
+      )}
     </div>
   );
-}
+};
 
-export default NoticeList
+export default NoticeList;

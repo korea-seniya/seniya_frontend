@@ -10,15 +10,30 @@ import {
 } from './MyParticipationList.style';
 
 import participationApi from '../../apis/participation/participation';
-import type { Participation } from './participation'; 
+import type { Participation } from './participation';
 import CancelModal from './CancelModal';
 
+import { useNavigate } from 'react-router-dom';
+import { userUserStore } from '../../stores/user.store';
+import { userAuthStore } from '../../stores/auth.store';
+
 function MyParticipationList() {
+  const navigate = useNavigate();
+  const isLogin = userAuthStore((state) => state.isLogin);
+  const user = userUserStore((state) => state.user);
+
   const [participations, setParticipations] = useState<Participation[]>([]);
   const [selected, setSelected] = useState<Participation | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // 신청 목록 조회
+  useEffect(() => {
+    if (!isLogin || !user) {
+      alert('로그인이 필요합니다.');
+      navigate('/signin');
+    }
+  }, [isLogin, user, navigate]);
+
+  
   const fetchParticipations = async () => {
     try {
       const list = await participationApi.getMyParticipations();
@@ -96,7 +111,7 @@ function MyParticipationList() {
         </table>
       )}
 
-      {/* 모달 */}
+      {/* 취소 확인 모달 */}
       <CancelModal
         participation={selected}
         onCancel={() => setSelected(null)}
