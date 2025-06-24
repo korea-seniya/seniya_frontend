@@ -51,7 +51,8 @@ export const CREATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const UPDATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const GET_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 
-export const QUICK_SEARCH_URL = `${API_DOMAIN}/`;
+export const QUICK_SEARCH_URL = `${API_DOMAIN}/api/v1/courses`;
+export const TODAY_COURSE_URL = `${API_DOMAIN}/api/v1/courses/today`;
 
 export const USER_URL = `${API_DOMAIN}/api/v1/users/me`;
 export const PUT_USER_URL = `${API_DOMAIN}/api/v1/users/me`;
