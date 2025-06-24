@@ -1,4 +1,5 @@
 export interface QuickSearchResponseDto {
+  courseId: number;
   id: number;
   name: string;
   trainerId: number;
