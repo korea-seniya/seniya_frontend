@@ -9,8 +9,8 @@ import {
 } from './PostDetail.style';
 import type { PostDetailResponseDto } from './PostDetail';
 
-import { userUserStore } from '../../stores/user.store';
-import { userAuthStore } from '../../stores/auth.store';
+import { useUserStore } from '../../stores/user.store';
+import { useAuthStore } from '../../stores/auth.store';
 
 const BACKEND_URL = 'http://localhost:8080';
 
@@ -18,8 +18,8 @@ function PostDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const isLogin = userAuthStore((state) => state.isLogin);
-  const user = userUserStore((state) => state.user);
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const user = useUserStore((state) => state.user);
 
   const [post, setPost] = useState<PostDetailResponseDto | null>(null);
   const [searchType, setSearchType] = useState('title');

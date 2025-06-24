@@ -1,4 +1,5 @@
 import axios, { AxiosError, type AxiosResponse } from "axios";
+import Cookies from "js-cookie";
 import type ResponseDto from "../dtos/response.dto";
 
 export const axiosInstance = axios.create({
@@ -6,11 +7,23 @@ export const axiosInstance = axios.create({
   timeout: 5000,
 });
 
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = Cookies.get("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+
 export const responseSuccessHandler = <T = any>(response: AxiosResponse<ResponseDto<T>>) => {
   return response.data;
 };
 
-/** 에러 핸들링 함수 (unknown 타입 대응 포함) */
 export const responseErrorHandler = (error: unknown) => {
   if (axios.isAxiosError(error)) {
     if (!error.response) {
@@ -23,7 +36,6 @@ export const responseErrorHandler = (error: unknown) => {
     return error.response.data;
   }
 
-  // Axios 에러가 아닌 경우
   return {
     code: 'UNKNOWN_ERROR',
     message: '알 수 없는 오류가 발생했습니다.',
@@ -31,9 +43,6 @@ export const responseErrorHandler = (error: unknown) => {
   };
 };
 
-//& function: Authorization Bearer 헤더 //
 export const bearerAuthorization = (accessToken: string) => ({
   headers: { 'Authorization': `Bearer ${accessToken}` },
 });
-
-//? EX) axios.get(URL, bearerAuthorization(token));

@@ -1,20 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { NavLink } from 'react-router-dom';
 import * as style from './header.style';
-import { userUserStore } from '../stores/user.store';
-import { userAuthStore } from '../stores/auth.store';
+import { useUserStore } from '../stores/user.store';
 
 function Header() {
   const links = ['센터 소개', '수업', '트레이너', '게시판', '고객센터'];
 
-  const user = userUserStore((state) => state.user);
-  const isLogin = userAuthStore((state) => state.isLogin);
-  const logoutUser = userUserStore((state) => state.logoutUser);
-  const setLogout = userAuthStore((state) => state.setLogout);
+const { user, isLogin, logoutUser } = useUserStore();
+
 
   const handleLogout = () => {
     logoutUser();
-    setLogout();
     alert('로그아웃 되었습니다.');
   };
 

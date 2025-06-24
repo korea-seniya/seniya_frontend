@@ -14,13 +14,11 @@ import type { Participation } from './participation';
 import CancelModal from './CancelModal';
 
 import { useNavigate } from 'react-router-dom';
-import { userUserStore } from '../../stores/user.store';
-import { userAuthStore } from '../../stores/auth.store';
+import { useUserStore } from '../../stores/user.store';
 
 function MyParticipationList() {
   const navigate = useNavigate();
-  const isLogin = userAuthStore((state) => state.isLogin);
-  const user = userUserStore((state) => state.user);
+  const { isLogin, user } = useUserStore();
 
   const [participations, setParticipations] = useState<Participation[]>([]);
   const [selected, setSelected] = useState<Participation | null>(null);
@@ -33,7 +31,6 @@ function MyParticipationList() {
     }
   }, [isLogin, user, navigate]);
 
-  
   const fetchParticipations = async () => {
     try {
       const list = await participationApi.getMyParticipations();
@@ -44,7 +41,6 @@ function MyParticipationList() {
     }
   };
 
-  // 수업 신청 취소
   const confirmCancel = async () => {
     if (!selected) return;
     try {
@@ -111,7 +107,6 @@ function MyParticipationList() {
         </table>
       )}
 
-      {/* 취소 확인 모달 */}
       <CancelModal
         participation={selected}
         onCancel={() => setSelected(null)}
