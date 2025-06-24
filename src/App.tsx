@@ -41,7 +41,6 @@ import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
 import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
 import PostDetailPage from "./pages/post/PostDetailPage"
 import PostUpdate from "./pages/post/PostUpdate"        
-
 import MyParticipationList from "./pages/participation/MyParticipationList"
 import { useUserStore } from "./stores/user.store"
 import React, { useEffect } from "react";
