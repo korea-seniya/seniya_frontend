@@ -8,7 +8,6 @@ import {
   selectStyle, inputStyle, buttonStyle, commentInput, commentButton
 } from './PostDetail.style';
 import type { PostDetailResponseDto } from './PostDetail';
-
 import { useUserStore } from '../../stores/user.store';
 import { useAuthStore } from '../../stores/auth.store';
 
@@ -153,5 +152,4 @@ function PostDetail() {
     </div>
   );
 }
-
 export default PostDetail;

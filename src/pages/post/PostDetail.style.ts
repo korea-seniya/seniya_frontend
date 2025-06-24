@@ -84,6 +84,8 @@ export const divider = css`
 
 export const imageWrapper = css`
   display: flex;
+  flex-direction: column;
+  gap: 20px;
   justify-content: center;
   margin: 16px 0;
 

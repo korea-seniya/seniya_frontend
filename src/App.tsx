@@ -8,7 +8,6 @@ import UserList from "./pages/admin/user/UserList"
 import CreateCourse from "./pages/admin/course/CreateCourse"
 import SignUp from './pages/auth/SignUp';
 import SignIn from "./pages/auth/SignIn"
-import PostDetail from "./pages/post/PostDetailPage"
 import InquiryListPage from "./pages/inquiry/InquiryListPage"
 import InquiryDetail from "./pages/inquiry/InquiryDetail"
 import InquiryAnswer from "./pages/inquiry/InquiryAnswer"
@@ -28,7 +27,7 @@ import NoticeDetail from './pages/notice/NoticeDetail';
 import NoticeCreate from './pages/notice/NoticeCreate';
 
 import TrainerApplication from "./pages/trainer/application/TrainerApplication"
-// import Home from "./pages/main/Home"
+import Home from "./pages/main/Home"
 
 import MyTrainerApplicationStatus from "./pages/trainer/application/MyTrainerApplicationStatus"
 import TrainerApplicationList from "./pages/trainer/application/TrainerApplicationList"
@@ -40,6 +39,8 @@ import EmailVerification from './pages/user/EmailVerification';
 import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
 import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
 import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
+import PostDetailPage from "./pages/post/PostDetailPage"
+import PostUpdate from "./pages/post/PostUpdate"        
 import MyParticipationList from "./pages/participation/MyParticipationList"
 import { useUserStore } from "./stores/user.store"
 import React, { useEffect } from "react";
@@ -50,7 +51,6 @@ import NoticeUpdate from "./pages/notice/NoticeUpdate";
 import CreateTrainerProfile from "./pages/trainer/profile/CreateTrainerProfile"
 import ViewTrainerProfile from "./pages/trainer/profile/ViewTrainerProfile"
 import EditTrainerProfile from "./pages/trainer/profile/EditTrainerProfile"
-
 
 function App() {
     const loginUser = useUserStore((s) => s.loginUser);
@@ -71,11 +71,17 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path='/api/v1/posts/:id' element={<PostDetail />} />
+        
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signin' element={<SignIn />} />
+        
+        <Route path='/api/v1/post' element={<PostCreate/> } />
         <Route path='/api/v1/posts' element={<PostListPage/> } />
-        <Route path='/api/v1/posts' element={<PostCreate/> } />
+        <Route path='/api/v1/posts/:id' element= {<PostDetailPage/> } />
+        <Route path='/api/v1/posts/:id/update' element= {<PostUpdate/> } />
+        
+        <Route path='/api/v1/users/me' element= {<GetUserInfo/> } />
+        
         <Route path="/notices" element={<NoticeList />} />
         <Route path="/notices/:id" element={<NoticeDetail />} />
         <Route path="/notices/:id/update" element={<NoticeUpdate />} />
@@ -100,14 +106,12 @@ function App() {
         <Route path='/api/v1/trainer-profile/view' element={<ViewTrainerProfile />} />
         <Route path='/api/v1/trainer-profile/edit' element={<EditTrainerProfile />} />
 
-        {/* <Route path='/api/v1/posts' element={<PostDetailPage /> } /> */}
-        {/* <Route path='/api/v1/posts' element={<PostListPage /> } /> */}
         <Route path='/myparticipation'element={<MyParticipationList />} />
         
         <Route path='/api/v1/healthdata' element={<HealthDataCreate />} />
         <Route path='/api/v1/healthdata/me' element={<HealthDataView />} />
         <Route path='/api/v1/healthdata/update' element={<HealthDataUpdate />} />
-        <Route path='/api/v1/users/me' element={<GetUserInfo />} />
+
         <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
         <Route path='/api/v1/admin/courses' element={<CourseList />} />
 
@@ -117,7 +121,7 @@ function App() {
         <Route path="/fail" element={<PaymentFail />} />
         <Route path='/api/v1/payments' element={<PaymentConfirm />} />
         <Route path='/api/v1/admin/users' element={<UserList />} />
-        {/* <Route path='/' element={<Home />} /> */}
+
         <Route path='/api/v1/courses' element={<CourseListPage />} />
       </Routes>
   );
