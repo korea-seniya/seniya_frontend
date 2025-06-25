@@ -206,7 +206,7 @@ function PostDetailPage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

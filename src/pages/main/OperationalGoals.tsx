@@ -1,11 +1,29 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as style from './OperationalGoals.style';
 import Header from '../../components/header';
 import backgroundImage from '../../components/커플노인.jpg';
 import { css } from '@emotion/react';
 
 function OperationalGoals() {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
+
   return (
     <>
       <Header />
@@ -13,20 +31,25 @@ function OperationalGoals() {
       <div css={style.wrapper}>
         <section css={style.topSection}>
           <span css={style.sectionTag}>TEAM Seniya</span>
-          <h1 css={style.pageTitle}>운영목표</h1>
+          <h1 css={style.pageTitle}>운영 목표</h1>
         </section>
       </div>
 
       <section css={style.heroSection(backgroundImage)}>
         <div css={style.heroText}>
-            <span css={css`font-style: italic;`}><h2>Dignity in Aging,</h2>
-          <h2>Care with Heart</h2></span>
+          <span css={css`font-style: italic;`}>
+            <h2>Dignity in Aging,</h2>
+            <h2>Care with Heart</h2>
+          </span>
         </div>
       </section>
 
-      {/* 3. 세부 내용 */}
       <div css={style.wrapper}>
-        <section css={style.detailSection}>
+        <section
+          ref={sectionRef}
+          css={[style.detailSection, style.fadeUp]}
+          className={isVisible ? 'show' : ''}
+        >
           <div css={style.detailRow}>
             <div css={style.detailLabel}>Mission</div>
             <div css={style.detailContent}>
@@ -45,7 +68,7 @@ function OperationalGoals() {
             <div css={style.detailLabel}>Vision</div>
             <div css={style.detailContent}>
               <p css={style.detailMain}>
-                 “요양을 넘어 삶을 돌보는 기업”<br />
+                “요양을 넘어 삶을 돌보는 기업”<br />
                 전문성과 기술을 바탕으로 케어의 새로운 기준을 제시하는 글로벌 리더로 성장합니다.
               </p>
             </div>

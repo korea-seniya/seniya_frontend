@@ -12,8 +12,8 @@ const navItems = [
     label: '센터소개',
     subItems: [
       { name: '인사말', path: '/information' },
-      { name: '운영목표', path: '/operationalgoals' },
-      { name: '시설안내', path: '/' },
+      { name: '운영 목표', path: '/operationalgoals' },
+      { name: '시설 안내', path: '/facility' },
       { name: '오시는 길', path: '/' },
     ],
   },
@@ -41,7 +41,7 @@ const navItems = [
   {
     label: '게시판',
     subItems: [
-      { name: '자유게시판', path: '/api/v1/posts' },
+      { name: '자유게시판', path: '/posts' },
       { name: '공지사항', path: '/notices' },
       { name: '인증샷 게시판', path: '/api/v1/posts' },
     ],

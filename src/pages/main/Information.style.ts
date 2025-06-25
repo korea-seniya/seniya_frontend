@@ -47,6 +47,14 @@ export const highlight = css`
   line-height: 1.3;
   font-weight: 500;
   font-style: italic;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 0;
+  transform: translateY(40px);
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
 export const contentBlock = css`
@@ -70,7 +78,6 @@ export const imageStyle = css`
   flex: 1.5;
   margin-top: 20px;
   margin-left: 1.5rem;
-  
 `;
 
 export const textBlock = css`
@@ -81,10 +88,21 @@ export const textBlock = css`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-right : 1.5rem;
+  margin-right: 1.5rem;
 `;
+
 export const emphasizedText = css`
   font-size: 1.2rem;
   font-weight: 700;
   color: #111;
+`;
+export const fadeUp = css`
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
