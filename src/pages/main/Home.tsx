@@ -10,18 +10,18 @@ import VideoSection from "../../components/main/videoSection/VideoSection";
 
 
 
-// function Home() {
-//   return (
-//     <>
-//       <Banner />
-//       <QuickSearch />
-//       <PopularSection />
-//       <VideoSection />
-//       <NoticeSection />
-//       <TermsSection />
-//       <Footer />
-//     </>
-//   );
-// }
+function Home() {
+  return (
+    <>
+      <Banner />
+      <QuickSearch />
+      <PopularSection />
+      <VideoSection />
+      <NoticeSection />
+      <TermsSection />
+      <Footer />
+    </>
+  );
+}
 
-// export default Home;
+export default Home;

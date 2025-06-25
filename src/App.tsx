@@ -25,7 +25,6 @@ import HealthDataUpdate from "./pages/healthdata/HealthDataUpdate"
 import GetUserInfo from "./pages/mypage/GetUserInfo"
 
 import TrainerApplication from "./pages/trainer/application/TrainerApplication"
-// import Home from "./pages/main/Home"
 
 import MyTrainerApplicationStatus from "./pages/trainer/application/MyTrainerApplicationStatus"
 import TrainerApplicationList from "./pages/trainer/application/TrainerApplicationList"
@@ -37,6 +36,7 @@ import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
 import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
 import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
 import MyParticipationList from "./pages/participation/MyParticipationList"
+import Home from "./pages/main/Home"
 
 
 function App() {
@@ -46,7 +46,7 @@ function App() {
         <Route path='/api/v1/posts/:id' element={<PostDetail />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signin' element={<SignIn />} />
-        <Route path='/api/v1/posts' element={<PostListPage/> } />
+        <Route path='/api/v1/posts' element={<PostListPage />} />
 
         <Route path="/email-send" element={<EmailSend />} />
         <Route path="/reset-password" element={<ResetPassword />} />
@@ -66,8 +66,8 @@ function App() {
         <Route path='/api/v1/trainer-profile' element={<TrainerProfile />} />
         <Route path='/api/v1/trainer-profile/me' element={<GetTrainerProfile />} />
         <Route path='/api/v1/trainer-profile/update' element={<PutTrainerProfile />} />
-        <Route path='/myparticipation'element={<MyParticipationList />} />
-        
+        <Route path='/myparticipation' element={<MyParticipationList />} />
+
         <Route path='/api/v1/healthdata' element={<HealthDataCreate />} />
         <Route path='/api/v1/healthdata/me' element={<HealthDataView />} />
         <Route path='/api/v1/healthdata/update' element={<HealthDataUpdate />} />
@@ -82,7 +82,7 @@ function App() {
         <Route path="/fail" element={<PaymentFail />} />
         <Route path='/api/v1/payments' element={<PaymentConfirm />} />
         <Route path='/api/v1/admin/users' element={<UserList />} />
-        {/* <Route path='/' element={<Home />} /> */}
+        <Route path='/' element={<Home />} />
         <Route path='/api/v1/courses' element={<CourseListPage />} />
       </Routes>
     </>

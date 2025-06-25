@@ -1,3 +1,5 @@
+import type { Course } from "../../../types/course.type";
+
 export interface GetUserDetailResponseDto {
   name: string;
   phone: string;
@@ -5,5 +7,5 @@ export interface GetUserDetailResponseDto {
   totalAmount: number;
   totalCouponCount: number;
   availableCouponCount: number;
-  courses: any;// 지금은 null임
+  courses: Course[];// 지금은 null임
 }

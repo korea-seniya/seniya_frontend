@@ -17,7 +17,9 @@ export const modal = css`
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
-  min-width: 400px;
+  min-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
 `;
 
 export const form = css`
@@ -30,6 +32,28 @@ export const row = css`
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+`;
+
+export const table = css`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+`;
+
+export const thead = css`
+  background-color: #4658AE;
+  color: #fff;
+`;
+
+export const th = css`
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ccc;
+`;
+
+export const td = css`
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 `;
 
 export const buttonGroup = css`

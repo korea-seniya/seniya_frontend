@@ -9,7 +9,7 @@ import type { GetUserCourseDetailResponseDto } from "../../dtos/userCourse/respo
 export const getCourseList = async (): Promise<GetUserCourseListResponseDto[]> => {
   try {
     const response = await axiosInstance.get(USER_COURSE_LIST_URL);
-    const result = responseSuccessHandler(response); 
+    const result = responseSuccessHandler(response);
     if (result && Array.isArray(result.data)) {
       return result.data;
     }
@@ -20,10 +20,19 @@ export const getCourseList = async (): Promise<GetUserCourseListResponseDto[]> =
   }
 }
 
+export const getAdminCourseList = async (): Promise<ResponseDto<GetCourseListResponseDto[]>> => {
+  try {
+    const response = await axiosInstance.get(COURSE_LIST_URL);
+    return responseSuccessHandler(response);
+  } catch (error) {
+    return responseErrorHandler(error as AxiosError<ResponseDto>);
+  }
+}
+
 export const searchCoursesByTrainer = async (trainerName: string): Promise<ResponseDto<GetUserCourseListResponseDto[]>> => {
   try {
     const response = await axiosInstance.get('/api/v1/courses', {
-      params: {trainerName},
+      params: { trainerName },
     });
     return responseSuccessHandler(response);
   } catch (error) {
@@ -34,7 +43,7 @@ export const searchCoursesByTrainer = async (trainerName: string): Promise<Respo
 export const searchCoursesByCategory = async (category: string): Promise<ResponseDto<GetUserCourseListResponseDto[]>> => {
   try {
     const response = await axiosInstance.get('/api/v1/courses', {
-      params: {category},
+      params: { category },
     });
     return responseSuccessHandler(response);
   } catch (error) {

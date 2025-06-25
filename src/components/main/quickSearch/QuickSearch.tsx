@@ -53,7 +53,7 @@ function QuickSearch() {
     if (startTime) params.append('classStartTime', startTime);
     if (endTime) params.append('classEndTime', endTime);
 
-    navigate(`/api/v1/courses/public?${params.toString()}`);
+    navigate(`/api/v1/courses?${params.toString()}`);
   };
 
   return (

@@ -3,10 +3,11 @@ import type { TrainerProfile } from "./trainerProfile.type";
 // types/course.type.ts
 export interface Course {
   courseId: number;
-  trainerProfile: TrainerProfile;
+  trainerName: string;
+  trainerId: number;
   title: string;
   description: string;
-  date: string;
+  courseDate: string;
   startTime: string;
   endTime: string;
   category: string;
