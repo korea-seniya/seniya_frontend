@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 
 function Home() {
   const navigate = useNavigate();
-  const { user, loginUser, logoutUser } = useUserStore(); // ✅ logoutUser 가져오기
+  const { user, loginUser, logoutUser } = useUserStore(); 
 
   useEffect(() => {
     const userData = Cookies.get("user");
@@ -34,10 +34,9 @@ function Home() {
     }
   }, [user]);
 
-  const handleLogout = () => {
-    logoutUser();                 // zustand 상태 초기화
-    Cookies.remove("user");       // 쿠키 삭제
-    Cookies.remove("token");      // 토큰도 제거하는 게 안전
+  const handleLogout = () => {   // zustand 상태 초기화
+    Cookies.remove("user");     
+    Cookies.remove("token");   
     alert("로그아웃 되었습니다.");
     navigate("/");
   };

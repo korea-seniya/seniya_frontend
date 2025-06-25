@@ -24,14 +24,12 @@ function NoticeUpdate() {
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    // 권한 확인
     if (!user || user.role_id !== 1) {
       alert('관리자만 접근할 수 있습니다.');
       navigate('/');
       return;
     }
 
-    // 기존 공지 불러오기
     axiosInstance.get(`/api/v1/notices/${id}`)
       .then((res) => {
         const notice = res.data.data;

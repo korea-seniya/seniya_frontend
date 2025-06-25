@@ -36,7 +36,7 @@ function PostListPage() {
       if (!user) {
         loginUser(parsed);
       }
-      fetchPosts(parsed); // 게시글 조회 시작
+      fetchPosts(parsed); 
     } catch (err) {
       console.error('[PostListPage] 쿠키 파싱 실패:', err);
       navigate('/signin');

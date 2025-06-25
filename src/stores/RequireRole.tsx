@@ -3,7 +3,7 @@ import { useUserStore } from "../stores/user.store";
 import { Navigate } from "react-router-dom";
 
 interface Props {
-  role: number;  // 허용할 role_id (props로 App.tsx 등에서 명시)
+  role: number; 
   children: ReactNode;
 }
 

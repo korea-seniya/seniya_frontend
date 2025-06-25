@@ -28,7 +28,6 @@ function PostDetailPage() {
   const { user, loginUser } = useUserStore();
   const navigate = useNavigate();
 
-  // 유저 복구 + 로그인 체크
   useEffect(() => {
     const userData = Cookies.get('user');
 
@@ -49,7 +48,6 @@ function PostDetailPage() {
     }
   }, [user]);
 
-  // 게시글 불러오기
   useEffect(() => {
     const fetchPostDetail = async () => {
       if (!id || !user) return;
@@ -67,7 +65,6 @@ function PostDetailPage() {
     fetchPostDetail();
   }, [id, user]);
 
-  // 🔥 댓글 등록 (DB 저장 포함)
   const handleAddComment = async () => {
     const userData = Cookies.get('user');
     const currentUser = user || (userData ? JSON.parse(userData) : null);
