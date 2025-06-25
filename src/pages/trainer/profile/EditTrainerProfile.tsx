@@ -38,11 +38,6 @@ const mapCertToRequestDto = (
 });
 
 function EditTrainerProfile() {
-  localStorage.setItem(
-    "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc1MjIyOCwiZXhwIjoxNzUwNzU1ODI4fQ.DHMcidMNr9jLlp_cvPtlskr8fUhT71sWa4TNQaofRWo"
-  );
-
   const [profileData, setProfileData] =
     useState<updateTrainerProfileRequestDto>({
       specialty: Specialty.EXERCISE,
