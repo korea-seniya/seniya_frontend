@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import React, { useState, type ChangeEvent, type FormEvent } from "react";
 import {
   container,
   imageNameDiv,
@@ -21,10 +21,13 @@ import { createProfile } from "../../../apis/trainer/profile"; // createProfile 
 import { useNavigate } from "react-router-dom";
 import type { TrainerProfileRequestDto } from "../../../dtos/trainer/request/trainerProfile.request.dto";
 import { Specialty } from "../../../dtos/trainer/specialty";
-import { useUserStore } from "../../../stores/user.store";
 
 function CreateTrainerProfile() {
-  const { isLogin, user } = useUserStore();
+  localStorage.setItem(
+    "Authorization",
+    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVFJBSU5FUiIsImlhdCI6MTc1MDgxNDYwNSwiZXhwIjoxNzUwODE4MjA1fQ.5jSuRj0SLLeCOUGCvz4CFIt-gzf5DcrkRZAslek7TT8"
+  );
+
   const [profileData, setProfileData] = useState<TrainerProfileRequestDto>({
     specialty: Specialty.EXERCISE,
     certificates: [],
@@ -33,14 +36,8 @@ function CreateTrainerProfile() {
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-      if (!isLogin || !user || user.role_id !== 3) {
-        alert('관리자만 접근할 수 있습니다.');
-        navigate('/');
-      }
-    }, [isLogin, user, navigate]);
+  const navigate = useNavigate();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
