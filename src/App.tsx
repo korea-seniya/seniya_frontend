@@ -42,6 +42,7 @@ import PaymentFail from "./pages/payment/FailPage";
 import PaymentConfirm from "./pages/admin/payment/PaymentConfirm";
 import UserList from "./pages/admin/user/UserList";
 import CourseListPage from "./pages/course/CourseListPage";
+import EmailVerification from "./pages/user/EmailVerification";
 
 
 
