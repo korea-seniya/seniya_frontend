@@ -6,8 +6,11 @@ import Header from '../../../components/header';
 import AdminSidebar from '../../../components/admin/AdminSidebar';
 import type { CreateCourseRequestDto } from '../../../dtos/course/request/CreateCourse.request.dto';
 import { createCourse } from '../../../apis/course/courseDetail';
+import { useNavigate } from 'react-router-dom';
 
 function CreateCourse() {
+  const navigate = useNavigate();
+
 
   const [form, setForm] = useState({
     title: '',
@@ -70,6 +73,8 @@ function CreateCourse() {
           classroom: '',
           trainerId: 0
         });
+        alert('수업 생성 완료')
+        navigate('/api/v1/admin/courses')
       } else {
         console.log(response.message);
       }

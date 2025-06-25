@@ -58,7 +58,7 @@ function Header() {
 
   return (
     <div css={style.headerContainer}>
-      <div css={style.logoContainer} onClick={() => navigate('/')}>
+      <div css={style.logoContainer} onClick={() => navigate('/admin/users')}>
         로고
       </div>
 

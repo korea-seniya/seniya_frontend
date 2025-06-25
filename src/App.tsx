@@ -34,19 +34,15 @@ import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplica
 import EmailSend from "./pages/user/EmailSend"
 import ResetPassword from './pages/user/ResetPassword';
 import EmailVerification from './pages/user/EmailVerification';
-import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
-import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
-import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
-import MyParticipationList from "./pages/participation/MyParticipationList"
-import Home from "./pages/main/Home"
-
-
 // import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
 // import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
 // import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
-import PostDetailPage from "./pages/post/PostDetailPage"
-import PostUpdate from "./pages/post/PostUpdate"        
 import MyParticipationList from "./pages/participation/MyParticipationList"
+import Home from "./pages/main/Home"
+
+import PostDetailPage from "./pages/post/PostDetailPage"
+import PostUpdate from "./pages/post/PostUpdate"
+// import MyParticipationList from "./pages/participation/MyParticipationList"
 import { useUserStore } from "./stores/user.store"
 import React, { useEffect } from "react";
 import Cookies from "js-cookie";
@@ -57,7 +53,7 @@ import ViewTrainerProfile from "./pages/trainer/profile/ViewTrainerProfile"
 import EditTrainerProfile from "./pages/trainer/profile/EditTrainerProfile"
 
 function App() {
-    const loginUser = useUserStore((s) => s.loginUser);
+  const loginUser = useUserStore((s) => s.loginUser);
 
   useEffect(() => {
     const userData = Cookies.get("user");
@@ -71,72 +67,67 @@ function App() {
     }
   }, []);
 
-  return (  
+  return (
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='/signin' element={<SignIn />} />
-        
-        <Route path='/api/v1/post' element={<PostCreate/> } />
-        <Route path='/api/v1/posts' element={<PostListPage/> } />
-        <Route path='/api/v1/posts/:id' element= {<PostDetailPage/> } />
-        <Route path='/api/v1/posts/:id/update' element= {<PostUpdate/> } />
-        
-        <Route path='/api/v1/users/me' element= {<GetUserInfo/> } />
-        
-        <Route path="/notices" element={<NoticeList />} />
-        <Route path="/notices/:id" element={<NoticeDetail />} />
-        <Route path="/notices/:id/update" element={<NoticeUpdate />} />
-        <Route path="/notices/create" element={<RequireRole role={1}><NoticeCreate /></RequireRole>} />
+    <Routes>
+      <Route path="/" element={<Home />} />
 
-        <Route path="/email-send" element={<EmailSend />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/verify-email" element={<EmailVerification />} />
+      <Route path='/signup' element={<SignUp />} />
+      <Route path='/signin' element={<SignIn />} />
 
-        <Route path='/api/v1/inquiries' element={<InquiryListPage />} />
-        <Route path='/api/v1/inquiry' element={<InquiryCreate />} />
-        <Route path='/api/v1/inquiry/:id' element={<InquiryDetail />} />
-        <Route path='/api/v1/inquiry/:id/update' element={<InquiryUpdate />} />
-        <Route path='/api/v1/inquiry/:id/response' element={<InquiryAnswer />} />
+      <Route path='/post' element={<PostCreate />} />
+      <Route path='/posts' element={<PostListPage />} />
+      <Route path='/posts' element={<PostDetailPage />} />
+      <Route path='/posts' element={<PostUpdate />} />
 
-        <Route path='/api/v1/trainer-application' element={<TrainerApplication />} />
-        <Route path='/api/v1/trainer-application/me' element={<MyTrainerApplicationStatus />} />
-        <Route path='/api/v1/trainer-applications' element={<TrainerApplicationList />} />
-        <Route path='/api/v1/trainer-application/:id' element={<TrainerApplicationDetail />} />
+      <Route path='/users/me' element={<GetUserInfo />} />
 
-        <Route path='/api/v1/trainer-profile' element={<TrainerProfile />} />
-        <Route path='/api/v1/trainer-profile/me' element={<GetTrainerProfile />} />
-        <Route path='/api/v1/trainer-profile/update' element={<PutTrainerProfile />} />
-        <Route path='/myparticipation' element={<MyParticipationList />} />
+      <Route path="/notices" element={<NoticeList />} />
+      <Route path="/notices/:id" element={<NoticeDetail />} />
+      <Route path="/notices/:id/update" element={<NoticeUpdate />} />
+      <Route path="/notices/create" element={<RequireRole role={1}><NoticeCreate /></RequireRole>} />
+
+      <Route path="/email-send" element={<EmailSend />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/verify-email" element={<EmailVerification />} />
+
+      <Route path='/inquiries' element={<InquiryListPage />} />
+      <Route path='/inquiry' element={<InquiryCreate />} />
+      <Route path='/inquiry/:id' element={<InquiryDetail />} />
+      <Route path='/inquiry/:id/update' element={<InquiryUpdate />} />
+      <Route path='/inquiry/:id/response' element={<InquiryAnswer />} />
+
+      <Route path='/trainer-application' element={<TrainerApplication />} />
+      <Route path='/trainer-application/me' element={<MyTrainerApplicationStatus />} />
+      <Route path='/trainer-applications' element={<TrainerApplicationList />} />
+      <Route path='/trainer-application/:id' element={<TrainerApplicationDetail />} />
+
+      <Route path='/myparticipation' element={<MyParticipationList />} />
 
 
-        <Route path='/api/v1/trainer-profile/create' element={<CreateTrainerProfile />} />
-        <Route path='/api/v1/trainer-profile/view' element={<ViewTrainerProfile />} />
-        <Route path='/api/v1/trainer-profile/edit' element={<EditTrainerProfile />} />
+      <Route path='/trainer-profile/create' element={<CreateTrainerProfile />} />
+      <Route path='/trainer-profile/view' element={<ViewTrainerProfile />} />
+      <Route path='/trainer-profile/edit' element={<EditTrainerProfile />} />
 
-        <Route path='/myparticipation'element={<MyParticipationList />} />
-        
+      <Route path='/myparticipation' element={<MyParticipationList />} />
 
-        <Route path='/api/v1/healthdata' element={<HealthDataCreate />} />
-        <Route path='/api/v1/healthdata/me' element={<HealthDataView />} />
-        <Route path='/api/v1/healthdata/update' element={<HealthDataUpdate />} />
 
-        <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
-        <Route path='/api/v1/admin/courses' element={<CourseList />} />
+      <Route path='/healthdata' element={<HealthDataCreate />} />
+      <Route path='/healthdata/me' element={<HealthDataView />} />
+      <Route path='/healthdata/update' element={<HealthDataUpdate />} />
 
-        <Route path='/api/v1/purchases' element={<PurchasePass />} />
-        <Route path='/api/v1/payments/request' element={<CheckoutPage />} />
-        <Route path="/success" element={<PaymentSuccess />} />
-        <Route path="/fail" element={<PaymentFail />} />
-        <Route path='/api/v1/payments' element={<PaymentConfirm />} />
-        <Route path='/api/v1/admin/users' element={<UserList />} />
+      <Route path='/admin/create-course' element={<CreateCourse />} />
+      <Route path='/admin/courses' element={<CourseList />} />
 
-        <Route path='/' element={<Home />} />
+      <Route path='/purchases' element={<PurchasePass />} />
+      <Route path='/payments/request' element={<CheckoutPage />} />
+      <Route path="/success" element={<PaymentSuccess />} />
+      <Route path="/fail" element={<PaymentFail />} />
+      <Route path='/payments' element={<PaymentConfirm />} />
+      <Route path='/admin/users' element={<UserList />} />
 
-        <Route path='/api/v1/courses' element={<CourseListPage />} />
-      </Routes>
+      <Route path='/courses' element={<CourseListPage />} />
+    </Routes>
   );
 }
 

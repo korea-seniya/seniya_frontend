@@ -1,7 +1,7 @@
 import type { Course } from "../../../types/course.type";
 
 export interface GetUserDetailResponseDto {
-  name: string;
+  userName: string;
   phone: string;
   roleName: string;
   totalAmount: number;
