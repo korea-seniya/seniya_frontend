@@ -26,6 +26,13 @@ const navItems = [
     label: '트레이너',
     subItems: [
       { name: '트레이너 소개', path: '/' },
+      { name: '트레이너 프로필 조회', path: '/api/v1/trainer-profile/view'},
+      { name: '트레이너 프로필 생성', path: '/api/v1/trainer-profile/create'},
+      { name: '트레이너 프로필 수정', path: '/api/v1/trainer-profile/edit'},
+      { name: '트레이너 권한 신청', path:'/api/v1/trainer-application'},
+      { name: '트레이너 권한 신청목록', path:'/api/v1/trainer-applications'},
+      { name: '트레이너 권한 조회', path:'/api/v1/trainer-application/me'},
+      { name: '트레이너 권한 변경', path:'/api/v1/trainer-application/:id'},
     ],
   },
   {
@@ -39,8 +46,11 @@ const navItems = [
   {
     label: '고객센터',
     subItems: [
-      { name: '문의', path: '/api/v1/inquiries' },
-      { name: '자주 묻는 질문', path: '/api/v1/inquiries' },
+      { name: '문의 목록', path: '/api/v1/inquiries' },
+      { name: '문의 생성', path: '/api/v1/inquiry' },
+      { name: '문의 디테일', path: '/api/v1/inquiry/:id' },
+      { name: '문의 수정', path: '/api/v1/inquiry/:id/update' },
+      { name: '문의 답변', path: '/api/v1/inquiry/:id/response' },
     ],
   },
 ];
