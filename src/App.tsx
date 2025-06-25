@@ -27,7 +27,6 @@ import NoticeDetail from './pages/notice/NoticeDetail';
 import NoticeCreate from './pages/notice/NoticeCreate';
 
 import TrainerApplication from "./pages/trainer/application/TrainerApplication"
-import Home from "./pages/main/Home"
 
 import MyTrainerApplicationStatus from "./pages/trainer/application/MyTrainerApplicationStatus"
 import TrainerApplicationList from "./pages/trainer/application/TrainerApplicationList"
@@ -35,6 +34,12 @@ import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplica
 import EmailSend from "./pages/user/EmailSend"
 import ResetPassword from './pages/user/ResetPassword';
 import EmailVerification from './pages/user/EmailVerification';
+import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
+import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
+import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
+import MyParticipationList from "./pages/participation/MyParticipationList"
+import Home from "./pages/main/Home"
+
 
 // import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
 // import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
@@ -101,12 +106,19 @@ function App() {
         <Route path='/api/v1/trainer-applications' element={<TrainerApplicationList />} />
         <Route path='/api/v1/trainer-application/:id' element={<TrainerApplicationDetail />} />
 
+        <Route path='/api/v1/trainer-profile' element={<TrainerProfile />} />
+        <Route path='/api/v1/trainer-profile/me' element={<GetTrainerProfile />} />
+        <Route path='/api/v1/trainer-profile/update' element={<PutTrainerProfile />} />
+        <Route path='/myparticipation' element={<MyParticipationList />} />
+
+
         <Route path='/api/v1/trainer-profile/create' element={<CreateTrainerProfile />} />
         <Route path='/api/v1/trainer-profile/view' element={<ViewTrainerProfile />} />
         <Route path='/api/v1/trainer-profile/edit' element={<EditTrainerProfile />} />
 
         <Route path='/myparticipation'element={<MyParticipationList />} />
         
+
         <Route path='/api/v1/healthdata' element={<HealthDataCreate />} />
         <Route path='/api/v1/healthdata/me' element={<HealthDataView />} />
         <Route path='/api/v1/healthdata/update' element={<HealthDataUpdate />} />
@@ -120,6 +132,8 @@ function App() {
         <Route path="/fail" element={<PaymentFail />} />
         <Route path='/api/v1/payments' element={<PaymentConfirm />} />
         <Route path='/api/v1/admin/users' element={<UserList />} />
+
+        <Route path='/' element={<Home />} />
 
         <Route path='/api/v1/courses' element={<CourseListPage />} />
       </Routes>

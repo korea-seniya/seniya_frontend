@@ -23,55 +23,54 @@ import {
 } from './CourseList.style';
 import {
   getCourseList,
-  searchCoursesByTrainer,
-  searchCoursesByCategory,
   getCourseById
 } from '../../apis/course/courseList';
+import { quickSearch } from '../../apis/main/main';
 
 function CourseListPage() {
-  const [courses, setCourses] = useState<CourseList[]>([]);
+  const [allCourses, setAllCourses] = useState<CourseList[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<CourseList[]>([]);
   const [searchType, setSearchType] = useState<'trainer' | 'category'>('trainer');
   const [searchText, setSearchText] = useState('');
   const [selectedCourseDetail, setSelectedCourseDetail] = useState<GetUserCourseDetailResponseDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const categoryMap: Record<string, string> = {
-    수면: 'SLEEP',
-    재활: 'REHABILITATION',
-    운동: 'EXERCISE',
-    심리: 'PSYCHOLOGY',
-  };
-
   useEffect(() => {
-    const trainerName = searchParams.get('trainerName') || '';
-    const category = searchParams.get('category') || '';
-
-    setSearchText(trainerName || category);
-
     const fetchCourses = async () => {
+      const category = searchParams.get('category') || '';
+      const trainer = searchParams.get('trainer') || '';
+      const classDate = searchParams.get('classDate') || '';
+      const classStartTime = searchParams.get('classStartTime') || '';
+      const classEndTime = searchParams.get('classEndTime') || '';
+
+      const hasFilter = category || trainer || classDate || classStartTime || classEndTime;
+
       try {
-        if (searchType === 'trainer') {
-          if (!trainerName.trim()) {
-            const all = await getCourseList();
-            setCourses(all);
+        if (hasFilter) {
+          const dto = { category, trainer, classDate, classStartTime, classEndTime };
+          const response = await quickSearch(dto);
+          if (response.code === 'SU' && Array.isArray(response.data)) {
+            setFilteredCourses(response.data as CourseList[]);
+            setAllCourses(response.data as CourseList[]);
           } else {
-            const result = await searchCoursesByTrainer(trainerName);
-            setCourses(result.data || []);
+            setFilteredCourses([]);
+            setAllCourses([]);
           }
-        } else if (searchType === 'category') {
-          const englishCategory = categoryMap[category] || category.toUpperCase();
-          const result = await searchCoursesByCategory(englishCategory);
-          setCourses(result.data || []);
+        } else {
+          const response = await getCourseList();
+          setFilteredCourses(response);
+          setAllCourses(response);
         }
       } catch (error) {
-        alert('검색 실패');
-        setCourses([]);
+        console.error('수업 목록 또는 검색 실패:', error);
+        setFilteredCourses([]);
+        setAllCourses([]);
       }
     };
 
     fetchCourses();
-  }, [searchParams, searchType]);
+  }, [searchParams]);
 
   const handleSearch = () => {
     if (searchText.trim() === '') {
@@ -80,10 +79,15 @@ function CourseListPage() {
     }
 
     if (searchType === 'trainer') {
-      setSearchParams({ trainerName: searchText });
+      setSearchParams({ trainer: searchText });
     } else if (searchType === 'category') {
       setSearchParams({ category: searchText });
     }
+  };
+
+  const handleReset = () => {
+    setSearchText('');
+    setSearchParams({});
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -91,6 +95,7 @@ function CourseListPage() {
       handleSearch();
     }
   };
+
   const openModal = async (course: CourseList) => {
     try {
       const response = await getCourseById(course.courseId);
@@ -127,16 +132,21 @@ function CourseListPage() {
         <input
           css={inputStyle}
           type="text"
-          placeholder={searchType === 'trainer' ? '트레이너 이름으로 검색' : '카테고리 입력 (수면, 재활, 운동, 심리)'}
+          placeholder={
+            searchType === 'trainer'
+              ? '트레이너 이름으로 검색'
+              : '카테고리 입력 (수면, 재활, 운동, 심리)'
+          }
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={onKeyDown}
         />
         <button css={buttonStyle} onClick={handleSearch}>검색</button>
+        <button css={buttonStyle} onClick={handleReset}>전체 목록 보기</button>
       </div>
 
       <div css={tableWrapper}>
-        <div css={postListTotal}>전체 {courses.length}건</div>
+        <div css={postListTotal}>전체 {filteredCourses.length}건</div>
         <div css={separatorLine}></div>
 
         <div css={tableHeader}>
@@ -150,17 +160,24 @@ function CourseListPage() {
           <div css={tableCell}>상세보기</div>
         </div>
 
-        {courses.map((course) => (
-          <div key={course.courseId} css={tableRow}>
+        {filteredCourses.map((course, index) => (
+          <div
+            key={course.courseId ?? `${course.title}-${index}`}
+            css={tableRow}
+          >
             <div css={tableCell}>{course.category}</div>
             <div css={tableCell}>{course.title}</div>
             <div css={tableCell}>{course.description}</div>
-            <div css={tableCell}>{course.classStartTime} ~ {course.classEndTime}</div>
+            <div css={tableCell}>
+              {course.classStartTime} ~ {course.classEndTime}
+            </div>
             <div css={tableCell}>{course.classDate.slice(0, 10)}</div>
             <div css={tableCell}>{course.classroom}</div>
             <div css={tableCell}>{course.name}</div>
             <div css={tableCell}>
-              <button css={detailButtonStyle} onClick={() => openModal(course)}>상세보기</button>
+              <button css={detailButtonStyle} onClick={() => openModal(course)}>
+                상세보기
+              </button>
             </div>
           </div>
         ))}

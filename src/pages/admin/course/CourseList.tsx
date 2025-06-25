@@ -7,7 +7,7 @@ import CourseModal from '../../../components/admin/course/courseDetailModal';
 import Header from '../../../components/header';
 import AdminSidebar from '../../../components/admin/AdminSidebar';
 import type { GetCourseListResponseDto } from '../../../dtos/course/response/GetCourseList.response.dto';
-import { getCourseList } from '../../../apis/course/courseList';
+import { getAdminCourseList, getCourseList } from '../../../apis/course/courseList';
 import type { GetCourseDetailResponseDto } from '../../../dtos/course/response/GetCourseDetail.response.dto';
 import { deleteCourse, getCourseDetail, updateCourse } from '../../../apis/course/courseDetail';
 import type { UpdateCourseRequestDto } from '../../../dtos/course/request/UpdateCourse.request.dto';
@@ -31,7 +31,7 @@ function CourseList() {
   useEffect(() => {
     async function fetchCourses() {
       try {
-        const response = await getCourseList();
+        const response = await getAdminCourseList();
         if (response.code === "SU" && Array.isArray(response.data)) {
           setCourses(response.data);
           console.log(response.data);
