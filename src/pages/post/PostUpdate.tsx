@@ -24,12 +24,10 @@ import { useParams } from 'react-router-dom';
 function PostUpdate() {
   const { id } = useParams<{ id: string }>();
 
-
-  // 토큰을 테스트용으로 localStorage에 저장
   useEffect(() => {
     localStorage.setItem(
       "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InF3ZXIxMjM0NTYiLCJyb2xlIjoiVVNFUiIsInVzZXJJZCI6MTAsImlhdCI6MTc1MDU4OTA3NCwiZXhwIjoxNzUwNTkyNjc0fQ.WJ9hNRU7elPsgTvRVvxPevgLUN7D0MqYWUJXN7Dj_LI"
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuynhOyasO2DnCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMiwiaWF0IjoxNzUwNzUwMTE4LCJleHAiOjE3NTA3NTM3MTh9.sJYFH25OlUFfnrxSGsaB8zHzJ3-IIR9QYSa5tQ0hAKg"
     );
   }, []);
 
@@ -50,7 +48,6 @@ function PostUpdate() {
       if (res.data) {
         setTitle(res.data.title);
         setContent(res.data.content);
-        // 기존 첨부파일 관련 로직 필요 시 여기 추가
       }
     } catch (error) {
       console.error('게시글 조회 실패:', error);

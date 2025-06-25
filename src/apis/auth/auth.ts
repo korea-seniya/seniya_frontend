@@ -41,8 +41,16 @@ export async function signUp(form: SignUpForm) {
 // 로그인 API
 export async function signIn(form: SignInForm) {
   try {
-    const response = await axios.post(`${API_BASE_URL}/signin`, form);
-    return response.data;
+    const response = await axios.post(
+      `${API_BASE_URL}/signin`,
+      JSON.stringify(form),
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    return response.data.data; 
   } catch (error: any) {
     throw new Error(error.response?.data?.message || '로그인 실패');
   }

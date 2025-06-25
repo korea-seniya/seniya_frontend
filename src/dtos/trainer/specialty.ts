@@ -1,1 +1,6 @@
-export type Specialty = "SLEEP" | "REHABILITATION" | "EXERCISE" | "PSYCHOLOGY";
+export enum Specialty {
+  EXERCISE = "EXERCISE",
+  SLEEP = "SLEEP",
+  REHABILITATION = "REHABILITATION",
+  PSYCHOLOGY = "PSYCHOLOGY",
+}

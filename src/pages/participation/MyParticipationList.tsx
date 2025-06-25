@@ -10,15 +10,27 @@ import {
 } from './MyParticipationList.style';
 
 import participationApi from '../../apis/participation/participation';
-import type { Participation } from './participation'; 
+import type { Participation } from './participation';
 import CancelModal from './CancelModal';
 
+import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../stores/user.store';
+
 function MyParticipationList() {
+  const navigate = useNavigate();
+  const { isLogin, user } = useUserStore();
+
   const [participations, setParticipations] = useState<Participation[]>([]);
   const [selected, setSelected] = useState<Participation | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // 신청 목록 조회
+  useEffect(() => {
+    if (!isLogin || !user) {
+      alert('로그인이 필요합니다.');
+      navigate('/signin');
+    }
+  }, [isLogin, user, navigate]);
+
   const fetchParticipations = async () => {
     try {
       const list = await participationApi.getMyParticipations();
@@ -29,7 +41,6 @@ function MyParticipationList() {
     }
   };
 
-  // 수업 신청 취소
   const confirmCancel = async () => {
     if (!selected) return;
     try {
@@ -96,7 +107,6 @@ function MyParticipationList() {
         </table>
       )}
 
-      {/* 모달 */}
       <CancelModal
         participation={selected}
         onCancel={() => setSelected(null)}

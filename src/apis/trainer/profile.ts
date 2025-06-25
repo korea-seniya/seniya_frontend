@@ -5,15 +5,28 @@ import {
   responseErrorHandler,
   responseSuccessHandler,
 } from "../axiosConfig";
-import { CREATE_PROFILE_URL, GET_PROFILE_URL, UPDATE_PROFILE_URL } from "../constants";
+import {
+  CREATE_PROFILE_URL,
+  GET_PROFILE_URL,
+  UPDATE_PROFILE_URL,
+} from "../constants";
 import type { TrainerProfileRequestDto } from "../../dtos/trainer/request/trainerProfile.request.dto";
 import type { TrainerProfileResponseDto } from "../../dtos/trainer/response/trainerProfile.response.dto";
+import type { updateTrainerProfileRequestDto } from "../../dtos/trainer/request/updateTrainerProfile.request.dto";
+import type { TrainerProfileCreateResponseDto } from "../../dtos/trainer/response/trainerProfileCreate.response.dto";
 
+// 프로필 생성 함수
 export const createProfile = async (
-  dto: TrainerProfileRequestDto
-): Promise<ResponseDto<void>> => {
+  dto: TrainerProfileRequestDto,
+  file?: File | null
+): Promise<ResponseDto<TrainerProfileCreateResponseDto>> => {
   try {
-    const response = await axiosInstance.post(CREATE_PROFILE_URL, dto, {
+    const formData = new FormData();
+    formData.append("dto", new Blob([JSON.stringify(dto)], { type: "application/json" }));
+    if (file) {
+      formData.append("file", file);
+    }
+    const response = await axiosInstance.post(CREATE_PROFILE_URL, formData, {
       headers: {
         Authorization: localStorage.getItem("Authorization"),
       },
@@ -40,10 +53,16 @@ export const getMyProfile = async (): Promise<
 };
 
 export const updateProfile = async (
-  dto: TrainerProfileRequestDto
-): Promise<ResponseDto<void>> => {
+  dto: updateTrainerProfileRequestDto,
+  file?: File | null
+): Promise<ResponseDto<TrainerProfileResponseDto>> => {
   try {
-    const response = await axiosInstance.put(UPDATE_PROFILE_URL, dto, {
+    const formData = new FormData();
+    formData.append("dto", new Blob([JSON.stringify(dto)], { type: "application/json" }));
+    if (file) {
+      formData.append("file", file);
+    }
+    const response = await axiosInstance.put(UPDATE_PROFILE_URL, formData, {
       headers: {
         Authorization: localStorage.getItem("Authorization"),
       },

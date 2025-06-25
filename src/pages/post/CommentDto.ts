@@ -1,6 +1,6 @@
 export interface CommentDto {
   commentId: number;
-  username: string;
+  name: string;
   content: string;
   createdAt: string;
 }

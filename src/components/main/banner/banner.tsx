@@ -2,11 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import * as style from './banner.style';
 
-import smileBanner from '../../../assets/빵긋웃는노인.jpg';
-import stretchingBanner from '../../../assets/기지개노인.jpg';
-import danceBanner from '../../../assets/댄스파티노인.jpg';
-import hulahoopBanner from '../../../assets/훌라후프노인.jpg';
-import sleepBanner from '../../../assets/수면치료노인.jpg';
+ import smileBanner from '../../../assets/빵긋웃는노인.jpg';
+ import stretchingBanner from '../../../assets/기지개노인.jpg';
+ import danceBanner from '../../../assets/댄스파티노인.jpg';
+ import hulahoopBanner from '../../../assets/훌라후프노인.jpg';
+ import sleepBanner from '../../../assets/수면치료노인.jpg';
+
 
 const banners = [smileBanner, stretchingBanner, danceBanner, hulahoopBanner, sleepBanner];
 function Banner() {

@@ -1,7 +1,9 @@
+import type { ReactNode } from "react";
+
 export interface NoticeList {
-  id: number;
+  content: ReactNode;
+  noticeId: number;
   title: string;
   username: string;
   createdAt: string;
-  // updatedAt: string;
 }
