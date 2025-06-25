@@ -56,7 +56,6 @@ function Home() {
       <TermsSection />
       */}
 
-
       <Footer />
     </>
   );

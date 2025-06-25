@@ -35,14 +35,14 @@ function Banner() {
     <div>
       <h2>메인페이지</h2>
       <div css={style.bannerContainer}>
-        {/* {banners.map((banner, index) => (
+        {banners.map((banner, index) => (
           <img
             key={index}
             src={banner}
             alt=""
             css={style.bannerImage(index === current)}
           />
-        ))} */}
+        ))}
         <button css={style.arrowLeft} onClick={prevSlide}>‹</button>
         <button css={style.arrowRight} onClick={nextSlide}>›</button>
       </div>

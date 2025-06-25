@@ -20,6 +20,7 @@ import {
 
 import { createPost } from "../../apis/post/Post";
 import { useNavigate } from "react-router-dom";
+import Header from '../../components/header'; 
 
 function PostCreate() {
   useEffect(() => {
@@ -49,12 +50,8 @@ function PostCreate() {
   const handleSubmit = async () => {
     try {
       const response = await createPost(title, content, selectedFiles);
-
-      console.log("[handleSubmit] 게시글 등록 성공:", response);
-
       alert("게시글이 등록되었습니다.");
-
-      navigate("/api/v1/posts")
+      navigate("/api/v1/posts");
 
       setTitle("");
       setContent("");
@@ -62,9 +59,7 @@ function PostCreate() {
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (err: any) {
       console.error("[handleSubmit] 요청 중 오류:", err);
-
       if (err.response) {
-        console.error("[handleSubmit] 서버 응답 데이터:", err.response.data);
         alert(err.response.data.message || "오류 발생 (서버 응답)");
       } else {
         alert(err.message || "오류 발생 (서버 응답 없음)");
@@ -73,7 +68,8 @@ function PostCreate() {
   };
 
   return (
-    <div>
+    <>
+      <Header />
       <h1 css={nameStyle}>게시판</h1>
       <div css={containerStyle}>
         <header>
@@ -114,7 +110,7 @@ function PostCreate() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
