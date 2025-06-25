@@ -20,6 +20,7 @@ import {
 
 import { getPostDetail, updatePost } from '../../apis/post/Post';
 import { useParams } from 'react-router-dom';
+import Header from '../../components/header';
 
 function PostUpdate() {
   const { id } = useParams<{ id: string }>();
@@ -65,7 +66,7 @@ function PostUpdate() {
     }
   };
 
-  const handleSubmit = async () => {1
+  const handleSubmit = async () => {
     console.log('handleSubmit 시작');
     console.log('postId:', id, 'title:', title, 'content:', content, 'files:', selectedFiles);
 
@@ -76,7 +77,6 @@ function PostUpdate() {
       console.log('게시글 수정 성공:', res);
       alert('게시글이 수정되었습니다.');
 
-      // 초기화
       setSelectedFiles([]);
       if (fileInputRef.current) fileInputRef.current.value = '';
     } catch (error) {
@@ -86,7 +86,8 @@ function PostUpdate() {
   };
 
   return (
-    <div>
+    <>
+      <Header /> 
       <h1 css={nameStyle}>게시판 수정</h1>
       <div css={containerStyle}>
         <header>
@@ -145,7 +146,7 @@ function PostUpdate() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

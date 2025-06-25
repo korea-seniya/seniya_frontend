@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 
 export const containerStyle = css`
-  max-width: 800px;
+  max-width: 1200px;
   margin: 3rem auto;
   padding: 2rem;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 `;
 
@@ -35,6 +35,9 @@ export const contentStyle = css`
   line-height: 1.75;
   color: #333;
   min-height: 150px;
+  background-color:rgb(243, 243, 243);
+  padding: 1rem;        
+  border-radius: 8px;
 `;
 
 export const actionStyle = css`

@@ -2,10 +2,12 @@
 import { css } from '@emotion/react';
 
 const containerStyle = css`
-  max-width: 800px;
-  margin: 60px auto;
-  padding: 40px;
-  background-color: #ffffff;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 `;
 
 const titleStyle = css`

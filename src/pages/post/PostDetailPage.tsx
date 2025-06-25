@@ -7,6 +7,8 @@ import { getPostDetail } from '../../apis/post/Post';
 import { addComment } from '../../apis/comment/Comment';
 import { useUserStore } from '../../stores/user.store';
 
+import Header from '../../components/header';
+
 import {
   pageWrapper, nameStyle, container, title, infoRow, divider, imageWrapper,
   commentSection, commentList, commentItem, timestamp, commentAuthor, searchbarStyle, selectStyle, inputStyle,
@@ -79,20 +81,17 @@ function PostDetailPage() {
       return;
     }
 
-      try {
-    await addComment(Number(id), commentText, currentUser.token);
-
-    const updated = await getPostDetail(Number(id));
-    if (updated && updated.data) {
-      setPost(updated.data);
+    try {
+      await addComment(Number(id), commentText, currentUser.token);
+      const updated = await getPostDetail(Number(id));
+      if (updated && updated.data) {
+        setPost(updated.data);
+      }
+      setCommentText('');
+    } catch (error) {
+      console.error('댓글 등록 실패:', error);
+      alert('댓글 등록에 실패했습니다.');
     }
-
-    setCommentText('');
-  } catch (error) {
-    console.error('댓글 등록 실패:', error);
-    alert('댓글 등록에 실패했습니다.');
-  }
-
   };
 
   const handleSearch = () => {
@@ -103,75 +102,78 @@ function PostDetailPage() {
   if (!post) return <div>로딩중...</div>;
 
   return (
-    <div css={pageWrapper}>
-      <h1 css={nameStyle} onClick={() => navigate(`/api/v1/posts`)} style={{ cursor: 'pointer' }}>
-        게시판
-      </h1>
+    <>
+      <Header /> 
+      <div css={pageWrapper}>
+        <h1 css={nameStyle} onClick={() => navigate(`/api/v1/posts`)} style={{ cursor: 'pointer' }}>
+          게시판
+        </h1>
 
-      <div css={searchbarStyle}>
-        <select css={selectStyle} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
-          <option value="title">제목</option>
-          <option value="content">내용</option>
-          <option value="author">작성자</option>
-        </select>
-        <input
-          css={inputStyle}
-          type="text"
-          placeholder="검색어를 입력해주세요."
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
-        <button css={buttonStyle} onClick={handleSearch}>검색</button>
-      </div>
-
-      <div css={container}>
-        <h1 css={title}>{post.title}</h1>
-        <div css={infoRow}>
-          <span><strong>{post.username}</strong></span>
-          <span css={timestamp}>{new Date(post.createdAt).toLocaleString()}</span>
-        </div>
-
-        <div css={divider} />
-
-        <div css={imageWrapper}>
-          {post.imageUrls?.length ? (
-            post.imageUrls.map((url, idx) => (
-              <img key={idx} src={`${BACKEND_URL}${url}`} alt={`image-${idx}`} />
-            ))
-          ) : (
-            <p>이미지가 없습니다.</p>
-          )}
-        </div>
-
-        <div css={divider} />
-        <p>{post.content}</p>
-        <div css={divider} />
-
-        <div css={commentSection}>
+        <div css={searchbarStyle}>
+          <select css={selectStyle} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+            <option value="title">제목</option>
+            <option value="content">내용</option>
+            <option value="author">작성자</option>
+          </select>
           <input
-            css={commentInput}
-            placeholder="댓글을 남겨보세요."
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
+            css={inputStyle}
+            type="text"
+            placeholder="검색어를 입력해주세요."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
           />
-          <button css={commentButton} onClick={handleAddComment}>등록</button>
+          <button css={buttonStyle} onClick={handleSearch}>검색</button>
         </div>
 
-        <div css={commentList}>
-          {post.comments?.length ? (
-            post.comments.map((comment) => (
-              <div css={commentItem} key={comment.commentId}>
-                <span css={commentAuthor}>{comment.name}</span>
-                <span>{comment.content}</span>
-                <span css={timestamp}>{new Date(comment.createdAt).toLocaleString()}</span>
-              </div>
-            ))
-          ) : (
-            <p>댓글이 없습니다.</p>
-          )}
+        <div css={container}>
+          <h1 css={title}>{post.title}</h1>
+          <div css={infoRow}>
+            <span><strong>{post.username}</strong></span>
+            <span css={timestamp}>{new Date(post.createdAt).toLocaleString()}</span>
+          </div>
+
+          <div css={divider} />
+
+          <div css={imageWrapper}>
+            {post.imageUrls?.length ? (
+              post.imageUrls.map((url, idx) => (
+                <img key={idx} src={`${BACKEND_URL}${url}`} alt={`image-${idx}`} />
+              ))
+            ) : (
+              <p>이미지가 없습니다.</p>
+            )}
+          </div>
+
+          <div css={divider} />
+          <p>{post.content}</p>
+          <div css={divider} />
+
+          <div css={commentSection}>
+            <input
+              css={commentInput}
+              placeholder="댓글을 남겨보세요."
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+            />
+            <button css={commentButton} onClick={handleAddComment}>등 록</button>
+          </div>
+
+          <div css={commentList}>
+            {post.comments?.length ? (
+              post.comments.map((comment) => (
+                <div css={commentItem} key={comment.commentId}>
+                  <span css={commentAuthor}>{comment.name}</span>
+                  <span>{comment.content}</span>
+                  <span css={timestamp}>{new Date(comment.createdAt).toLocaleString()}</span>
+                </div>
+              ))
+            ) : (
+              <p>댓글이 없습니다.</p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
