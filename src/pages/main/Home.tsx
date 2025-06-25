@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import Banner from "../../components/main/banner/banner";
 import Footer from "../../components/main/footer/Footer";
+import Header from "../../components/header";
 import NoticeSection from "../../components/main/noticeSection/NoticeSection";
 import PopularSection from "../../components/main/popularSection/PopularSection";
 import QuickSearch from "../../components/main/quickSearch/QuickSearch";
@@ -41,12 +42,11 @@ function Home() {
     navigate("/");
   };
 
-  const goToNotices = () => navigate("/notices");
-  const goToLogin = () => navigate("/signin");
-  const goToPosts = () => navigate("/api/v1/posts");
 
   return (
-    <>
+  <>
+      <Header />
+
       {/* 
       <Banner />
       <QuickSearch />
@@ -55,22 +55,7 @@ function Home() {
       <NoticeSection />
       <TermsSection />
       */}
-      <div style={{ textAlign: "center", margin: "2rem 0" }}>
-        <button onClick={goToNotices} style={{ padding: "0.5rem 1rem", fontSize: "1rem" }}>
-          공지사항 보러가기
-        </button>
-        <button onClick={goToLogin} style={{ padding: "0.5rem 1rem", fontSize: "1rem" }}>
-          로그인하러가기
-        </button>
-        <button onClick={goToPosts} style={{ padding: "0.5rem 1rem", fontSize: "1rem" }}>
-          게시글 보러가기
-        </button>
-        {user && (
-          <button onClick={handleLogout} style={{ marginLeft: "1rem", color: "red" }}>
-            로그아웃
-          </button>
-        )}
-      </div>
+
 
       <Footer />
     </>
