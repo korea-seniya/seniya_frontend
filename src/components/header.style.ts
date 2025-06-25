@@ -2,7 +2,7 @@
 import { css } from '@emotion/react';
 
 export const headerContainer = css`
-  background-color: #f8f9fa;
+  background-color: rgba(248, 249, 250, 0.33);
   width: 100%;
   display: flex;
   align-items: center;
@@ -11,6 +11,7 @@ export const headerContainer = css`
   font-size: 18px;
   position: relative;
   z-index: 100;
+  border-bottom: 1px solid #dee2e6;
 `;
 
 export const logoContainer = css`
@@ -30,7 +31,7 @@ export const navContainer = css`
   width: 70%;
   display: flex;
   justify-content: center;
-  gap: 60px;
+  column-gap: 60px; 
   position: relative;
 `;
 
@@ -40,15 +41,27 @@ export const navItemWrapper = css`
   cursor: pointer;
 
   &:hover {
-    background-color: #e9ecef;
+    background-color: rgba(233, 236, 239, 0.48);
+  }
+`;
+
+export const navItemWithDivider = css`
+  &::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 30%;
+    bottom: 30%;
+    width: 1px;
+    background-color: #ced4da;
   }
 `;
 
 export const navLabel = css`
   font-size: 20px;
   font-weight: bold;
+  color: rgb(70, 70, 70);
 `;
-
 
 export const subMenuContainer = css`
   position: absolute;
@@ -60,18 +73,13 @@ export const subMenuContainer = css`
   display: flex;
   flex-direction: column;
   z-index: 99;
-
-.nav-item-wrapper:hover & {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
 `;
 
 export const subMenuItem = css`
-  padding: 0.5rem 1rem;
+  padding: 1rem 1.5rem; 
   white-space: nowrap;
   cursor: pointer;
+  color: rgb(65, 65, 65);
 
   &:hover {
     background-color: #f1f1f1;
@@ -91,31 +99,12 @@ export const userContainer = css`
     margin-right: 8px;
   }
 
-  button {
-    padding: 4px 8px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-
   a {
     text-decoration: none;
+    color: inherit;
   }
 `;
 
-export const logoutButton = css`
-  background-color: transparent;
-  border: 1px solid #6c757d;
-  color: #343a40;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: background-color 0.3s, color 0.3s;
-
-  &:hover {
-    background-color: #6c757d;
-    color: #fff;
-  }
-`;
 export const iconImage = css`
   width: 32px;
   height: 32px;
@@ -128,8 +117,14 @@ export const iconImage = css`
     transform: scale(1.1);
   }
 `;
+
 export const logoutIconImage = css`
   width: 32px;
   height: 32px;
   cursor: pointer;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
