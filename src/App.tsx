@@ -43,9 +43,11 @@ import PaymentConfirm from "./pages/admin/payment/PaymentConfirm";
 import UserList from "./pages/admin/user/UserList";
 import CourseListPage from "./pages/course/CourseListPage";
 import EmailVerification from "./pages/user/EmailVerification";
+
 import Information from "./pages/main/Information";
 import OperationalGoals from "./pages/main/OperationalGoals";
 import Facility from "./pages/main/Facility";
+
 
 
 
