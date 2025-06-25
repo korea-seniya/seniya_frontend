@@ -14,7 +14,7 @@ const navItems = [
       { name: '인사말', path: '/information' },
       { name: '운영 목표', path: '/operationalgoals' },
       { name: '시설 안내', path: '/facility' },
-      { name: '오시는 길', path: '/' },
+      { name: '오시는 길', path: '/location' },
     ],
   },
   {

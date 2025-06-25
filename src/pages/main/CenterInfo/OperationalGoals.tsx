@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from 'react';
 import * as style from './OperationalGoals.style';
-import Header from '../../components/header';
-import backgroundImage from '../../components/커플노인.jpg';
+import Header from '../../../components/header';
+import backgroundImage from '../../../pages/main/images/커플노인.jpg';
 import { css } from '@emotion/react';
 
 function OperationalGoals() {

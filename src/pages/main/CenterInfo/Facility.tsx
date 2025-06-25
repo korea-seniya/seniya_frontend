@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from 'react';
 import * as style from './Facility.style';
-import Header from '../../components/header';
-import buildingImage from '../../components/시니야건물.png';
+import Header from '../../../components/header';
+import buildingImage from '../../../pages/main/images/시니야건물.png';
 
 function Facility() {
   const titleRef = useRef(null);

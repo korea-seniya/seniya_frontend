@@ -39,7 +39,6 @@ export const navItemWrapper = css`
   position: relative;
   padding: 0.5rem 1rem;
   cursor: pointer;
-
   &:hover {
     background-color: rgba(233, 236, 239, 0.48);
   }
@@ -67,8 +66,9 @@ export const subMenuContainer = css`
   position: absolute;
   top: 100%;
   left: 0;
+  border-radius: 8px;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0;
   display: flex;
   flex-direction: column;
