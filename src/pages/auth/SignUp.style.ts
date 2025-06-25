@@ -39,22 +39,22 @@ export const inputStyle = css`
 
   &:focus {
     outline: none;
-    border-color: #5B6DC6;
+    border-color: #6b46c1;
   }
 `;
 
 export const buttonStyle = css`
   margin-left: 10px;
   padding: 10px 16px;
-  font-size: 14px;
+  font-size: 13px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #5B6DC6;
+  background-color: #6b46c1;
   color: white;
 
   &:hover {
-    background-color: #4b5abc;
+    background-color:#553c9a;
   }
 `;
 
@@ -86,8 +86,8 @@ export const buttonWrapperStyle = css`
 
 export const cancelButtonStyle = css`
   padding: 10px 30px;
-  border: 2px solid #5B6DC6;
-  color: #5B6DC6;
+  border: 2px solid #6b46c1;
+  color: #6b46c1;
   background: white;
   font-weight: bold;
   border-radius: 999px;
@@ -100,7 +100,7 @@ export const cancelButtonStyle = css`
 
 export const submitButtonStyle = css`
   padding: 10px 30px;
-  background-color: #5B6DC6;
+  background-color: #6b46c1;
   color: white;
   font-weight: bold;
   border: none;
@@ -108,11 +108,10 @@ export const submitButtonStyle = css`
   cursor: pointer;
 
   &:hover {
-    background-color: #4b5abc;
+    background-color: #553c9a;
   }
 `;
 
-// 여기부터 메시지 스타일 추가
 export const messageStyle = (available: boolean | null) => css`
   margin-left: 106px;
   margin-top: 0;

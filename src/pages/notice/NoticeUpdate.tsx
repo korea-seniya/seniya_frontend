@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { axiosInstance } from '../../apis/axiosConfig';
+import Header from '../../components/header'; 
+
 import {
   containerStyle,
   titleStyle,
@@ -64,32 +66,35 @@ function NoticeUpdate() {
   };
 
   return (
-    <div css={containerStyle}>
-      <h1 css={titleStyle}>공지 수정</h1>
+    <>
+      <Header />
+      <div css={containerStyle}>
+        <h1 css={titleStyle}>공지 수정</h1>
 
-      <div css={divStyle}>
-        <label css={labelStyle}>제목</label>
-        <input
-          css={inputStyle}
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="제목을 입력하세요"
-        />
+        <div css={divStyle}>
+          <label css={labelStyle}>제목 :</label>
+          <input
+            css={inputStyle}
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="제목을 입력하세요"
+          />
+        </div>
+
+        <textarea
+          css={contentStyle}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="공지사항 내용을 입력해주세요"
+        ></textarea>
+
+        <div css={buttonWrapperStyle}>
+          <button css={buttonStyle} onClick={handleUpdate}>수정완료</button>
+          <button css={buttonStyle} onClick={() => navigate(-1)}>취소</button>
+        </div>
       </div>
-
-      <textarea
-        css={contentStyle}
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="공지사항 내용을 입력해주세요"
-      ></textarea>
-
-      <div css={buttonWrapperStyle}>
-        <button css={buttonStyle} onClick={handleUpdate}>수정완료</button>
-        <button css={buttonStyle} onClick={() => navigate(-1)}>취소</button>
-      </div>
-    </div>
+    </>
   );
 }
 

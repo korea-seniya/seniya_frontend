@@ -113,19 +113,26 @@ export const commentInput = css`
   flex-grow: 1;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 12px;
   font-size: 14px;
+  &:focus {
+    outline: none;
+    border-color:rgb(128, 128, 128);
+  }
 `;
 
 export const commentButton = css`
   padding: 10px 16px;
   margin-left: 8px;
   border: none;
-  border-radius: 6px;
+  border-radius: 16px;
   background-color: #5c3ec3;
   color: white;
   cursor: pointer;
   font-size: 14px;
+  &:hover {
+    background: #553c9a;
+  }
 `;
 
 export const commentList = css`

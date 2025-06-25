@@ -2,10 +2,12 @@
 import { css } from '@emotion/react';
 
 const containerStyle = css`
-  max-width: 800px;
-  margin: 60px auto;
-  padding: 40px;
-  background-color: #ffffff;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 `;
 
 const titleStyle = css`
@@ -32,13 +34,13 @@ const inputStyle = css`
   flex: 1;
   padding: 12px;
   font-size: 14px;
-  background-color: #ccc;
+  background-color: rgb(223, 223, 223);
   border: 1px solid #ccc;
   border-radius: 8px;
-  box-sizing: border-box;
+  box-sizing: border-box;]
   &:focus {
     outline: none;
-    border-color: #5B6DC6;
+    border-color:rgb(80, 80, 80);
   }
 `;
 
@@ -52,25 +54,30 @@ const contentStyle = css`
   box-sizing: border-box;
   &:focus {
     outline: none;
-    border-color: #5B6DC6;
+    border-color:rgb(207, 207, 207);
   }
+    resize: none;
 `;
 
 const buttonStyle = css`
   padding: 12px 20px;
   font-size: 14px;
+  font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 16px;
   cursor: pointer;
-  background-color: #5B6DC6;
+  background-color: #6b46c1;
   color: white;
+  &:hover {
+    background: #553c9a;
+  }
 `;
 
 const buttonWrapperStyle = css`
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
-  gap: 10px;
+  gap: 20px;
 `;
 
 export {

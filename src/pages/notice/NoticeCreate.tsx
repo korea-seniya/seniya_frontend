@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../../components/header'; 
 
 import {
   containerStyle,
@@ -65,32 +66,35 @@ function NoticeCreate() {
   };
 
   return (
-    <div css={containerStyle}>
-      <h1 css={titleStyle}>공지 작성</h1>
+    <>
+      <Header /> 
+      <div css={containerStyle}>
+        <h1 css={titleStyle}>공지 작성</h1>
 
-      <div css={divStyle}>
-        <label css={labelStyle}>제목</label>
-        <input
-          css={inputStyle}
-          type="text"
-          placeholder="제목을 입력하세요"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+        <div css={divStyle}>
+          <label css={labelStyle}>제목</label>
+          <input
+            css={inputStyle}
+            type="text"
+            placeholder="제목을 입력하세요"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+
+        <textarea
+          css={contentStyle}
+          placeholder="공지사항 내용을 입력해주세요"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
-      </div>
 
-      <textarea
-        css={contentStyle}
-        placeholder="공지사항 내용을 입력해주세요"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
-
-      <div css={buttonWrapperStyle}>
-        <button css={buttonStyle} onClick={handleSubmit}>등록</button>
-        <button css={buttonStyle} onClick={handleCancel}>취소</button>
+        <div css={buttonWrapperStyle}>
+          <button css={buttonStyle} onClick={handleSubmit}>등록</button>
+          <button css={buttonStyle} onClick={handleCancel}>취소</button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

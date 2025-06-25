@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import * as style from './header.style';
 import { useUserStore } from '../stores/user.store';
+import logoImage from '../components/logo.png';
+import mypageIcon from '../components/mypage.png';
+import logoutIcon from '../components/logout.png';
 
 const navItems = [
   {
@@ -59,7 +62,7 @@ function Header() {
   return (
     <div css={style.headerContainer}>
       <div css={style.logoContainer} onClick={() => navigate('/')}>
-        로고
+        <img src={logoImage} alt="로고" css={style.logoImage} />
       </div>
 
       <div css={style.navContainer}>
@@ -69,8 +72,9 @@ function Header() {
             onMouseEnter={() => setHoveredIndex(idx)}
             onMouseLeave={() => setHoveredIndex(null)}
             css={style.navItemWrapper}
+            
           >
-            <span>{item.label}</span>
+            <span css={style.navLabel}>{item.label}</span>
 
             {hoveredIndex === idx && (
               <div css={style.subMenuContainer}>
@@ -92,14 +96,14 @@ function Header() {
       <div css={style.userContainer}>
         {isLogin && user ? (
           <>
-            <span>{user.name}님</span>
-            <button onClick={handleLogout}>로그아웃</button>
-            <NavLink to="/me">마이페이지</NavLink>
+            <span>{user.name} 님</span>
+            <img src={mypageIcon} alt="마이페이지 아이콘" css={style.iconImage} onClick={() => navigate('/api/v1/users/me')}/>
+            <img src={logoutIcon} alt="로그아웃 아이콘" css={style.logoutIconImage} onClick={handleLogout}/>
           </>
         ) : (
           <>
-            <NavLink to="/signin">로그인</NavLink>
-            <NavLink to="/signup">회원가입</NavLink>
+            <NavLink to="/signin">Login</NavLink>
+            <NavLink to="/signup">SignUp</NavLink>
           </>
         )}
       </div>
