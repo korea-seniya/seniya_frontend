@@ -1,11 +1,31 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as style from './Information.style';
 import Header from '../../components/header'; 
 import ceoImage from '../../components/앉아있는노인.jpg';
 import heroBg from '../../components/인사말배경.jpg';
 
 function Information() {
+  const highlightRef = useRef(null);
+  const [showHighlight, setShowHighlight] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowHighlight(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (highlightRef.current) observer.observe(highlightRef.current);
+
+    return () => {
+      if (highlightRef.current) observer.unobserve(highlightRef.current);
+    };
+  }, []);
+
   return (
     <>
       <Header />
@@ -15,7 +35,11 @@ function Information() {
           <div css={style.titleBlock}>
             <span css={style.subTitle}>TEAM Seniya</span>
             <h1 css={style.mainTitle}>인사말</h1>
-            <p css={style.highlight}>
+            <p
+              ref={highlightRef}
+              css={[style.highlight, style.fadeUp]}
+              className={showHighlight ? 'show' : ''}
+            >
               “<strong>건강한 일상, 편안한 삶, 따뜻한 돌봄</strong><br />
               <strong>저희는 어르신의 삶의 질을 높이는 것에 최우선 가치를 둡니다.</strong>”
             </p>
@@ -25,10 +49,11 @@ function Information() {
             <img src={ceoImage} alt="인삿말 이미지" css={style.imageStyle} />
             <div css={style.textBlock}>
               <p>
-                 <strong css={style.emphasizedText}>빠르게 진행되는 고령화 시대 속에서, </strong> 단순한 요양의 개념은 더 이상 충분하지 않습니다.
-                저희는 <strong>노인 맞춤형 케어 서비스</strong>를 중심으로 의료, 건강관리, 수면, 운동, 정서지원까지 
+                <strong css={style.emphasizedText}>빠르게 진행되는 고령화 시대 속에서, </strong>
+                단순한 요양의 개념은 더 이상 충분하지 않습니다.
+                저희는 <strong>노인 맞춤형 케어 서비스</strong>를 중심으로 의료, 건강관리, 수면, 운동, 정서지원까지
                 <strong>통합 헬스케어 시스템</strong>을 구축하여 어르신 한 분 한 분의 삶의 질 향상을 실현하고자 합니다.
-                특히 요양 및 케어 분야에서의 다년간의 경험을 바탕으로, 전문 간호사, 물리치료사, 트레이너, 심리상담사 등 각 분야 전문가들이 긴밀하게 협력하여  
+                특히 요양 및 케어 분야에서의 다년간의 경험을 바탕으로, 전문 간호사, 물리치료사, 트레이너, 심리상담사 등 각 분야 전문가들이 긴밀하게 협력하여
                 <strong> 개인 맞춤형 건강 솔루션</strong>을 제공합니다.
               </p>
               <p>

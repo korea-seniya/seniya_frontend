@@ -19,7 +19,7 @@ export const heroText = css`
   color: white;
   font-size: 1.7rem;
   font-weight: 700;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+  text-shadow: 1px 1px 5px rgba(180, 180, 180, 0.6);
   h2 {
     margin: 0.2rem 0; 
   }
@@ -60,13 +60,14 @@ export const detailSection = css`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  padding: 0 10rem;
 `;
 
 export const detailRow = css`
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-
+  margin-left: -1rem;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -75,9 +76,9 @@ export const detailRow = css`
 export const detailLabel = css`
   width: 120px;
   font-weight: bold;
-  color: #1a2f5a;
+  color:rgb(26, 60, 129);
   font-size: 1.2rem;
-  border-left: 3px solid #1a2f5a;
+  border-left: 3px solid rgb(26, 60, 129);
   padding-left: 0.8rem;
   flex-shrink: 0;
   margin-top: 27px;
@@ -101,4 +102,14 @@ export const detailSub = css`
   font-size: 1rem;
   color: #666;
   line-height: 1.6;
+`;
+export const fadeUp = css`
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;

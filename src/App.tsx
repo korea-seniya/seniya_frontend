@@ -44,6 +44,11 @@ import UserList from "./pages/admin/user/UserList";
 import CourseListPage from "./pages/course/CourseListPage";
 import EmailVerification from "./pages/user/EmailVerification";
 
+import Information from "./pages/main/Information";
+import OperationalGoals from "./pages/main/OperationalGoals";
+import Facility from "./pages/main/Facility";
+
+
 
 
 function App() {
@@ -64,8 +69,11 @@ function App() {
   return (
 
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path='/' element={<Home />} />
 
+      <Route path='/information' element={<Information />} />
+      <Route path='operationalgoals' element={<OperationalGoals />} />
+      <Route path='facility' element={<Facility />} />
       <Route path='/signup' element={<SignUp />} />
       <Route path='/signin' element={<SignIn />} />
 
@@ -76,14 +84,14 @@ function App() {
 
       <Route path='/users/me' element={<GetUserInfo />} />
 
-      <Route path="/notices" element={<NoticeList />} />
-      <Route path="/notices/:id" element={<NoticeDetail />} />
-      <Route path="/notices/:id/update" element={<NoticeUpdate />} />
-      <Route path="/notices/create" element={<RequireRole role={1}><NoticeCreate /></RequireRole>} />
+      <Route path='/notices' element={<NoticeList />} />
+      <Route path='/notices/:id' element={<NoticeDetail />} />
+      <Route path='/notices/:id/update' element={<NoticeUpdate />} />
+      <Route path='/notices/create' element={<RequireRole role={1}><NoticeCreate /></RequireRole>} />
 
-      <Route path="/email-send" element={<EmailSend />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/verify-email" element={<EmailVerification />} />
+      <Route path='/email-send' element={<EmailSend />} />
+      <Route path='/reset-password' element={<ResetPassword />} />
+      <Route path='/verify-email' element={<EmailVerification />} />
 
       <Route path='/inquiries' element={<InquiryListPage />} />
       <Route path='/inquiry' element={<InquiryCreate />} />
@@ -115,8 +123,8 @@ function App() {
 
       <Route path='/purchases' element={<PurchasePass />} />
       <Route path='/payments/request' element={<CheckoutPage />} />
-      <Route path="/success" element={<PaymentSuccess />} />
-      <Route path="/fail" element={<PaymentFail />} />
+      <Route path='/success' element={<PaymentSuccess />} />
+      <Route path='/fail' element={<PaymentFail />} />
       <Route path='/payments' element={<PaymentConfirm />} />
       <Route path='/admin/users' element={<UserList />} />
 
