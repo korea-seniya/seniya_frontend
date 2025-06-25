@@ -102,19 +102,52 @@ function PostDetailPage() {
   if (!post) return <div>로딩중...</div>;
 
   return (
-    <>
-      <Header /> 
-      <div css={pageWrapper}>
-        <h1 css={nameStyle} onClick={() => navigate(`/api/v1/posts`)} style={{ cursor: 'pointer' }}>
-          게시판
-        </h1>
+    <div css={pageWrapper}>
+      <h1 css={nameStyle} onClick={() => navigate(`/posts`)} style={{ cursor: 'pointer' }}>
+        게시판
+      </h1>
 
-        <div css={searchbarStyle}>
-          <select css={selectStyle} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
-            <option value="title">제목</option>
-            <option value="content">내용</option>
-            <option value="author">작성자</option>
-          </select>
+      <div css={searchbarStyle}>
+        <select css={selectStyle} value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+          <option value="title">제목</option>
+          <option value="content">내용</option>
+          <option value="author">작성자</option>
+        </select>
+        <input
+          css={inputStyle}
+          type="text"
+          placeholder="검색어를 입력해주세요."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        <button css={buttonStyle} onClick={handleSearch}>검색</button>
+      </div>
+
+      <div css={container}>
+        <h1 css={title}>{post.title}</h1>
+        <div css={infoRow}>
+          <span><strong>{post.username}</strong></span>
+          <span css={timestamp}>{new Date(post.createdAt).toLocaleString()}</span>
+        </div>
+
+        <div css={divider} />
+
+        <div css={imageWrapper}>
+          {post.imageUrls?.length ? (
+            post.imageUrls.map((url, idx) => (
+              <img key={idx} src={`${BACKEND_URL}${url}`} alt={`image-${idx}`} />
+            ))
+          ) : (
+            <p>이미지가 없습니다.</p>
+          )}
+        </div>
+
+        <div css={divider} />
+        <p>{post.content}</p>
+        <div css={divider} />
+
+        <div css={commentSection}>
+
           <input
             css={inputStyle}
             type="text"

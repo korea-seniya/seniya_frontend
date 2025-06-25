@@ -108,8 +108,9 @@ function Header() {
       <div css={style.userContainer}>
         {isLogin && user ? (
           <>
+
             <span>{user.name} 님</span>
-            <img src={mypageIcon} alt="마이페이지" css={style.iconImage} onClick={() => navigate('/api/v1/users/me')} />
+            <img src={mypageIcon} alt="마이페이지" css={style.iconImage} onClick={() => navigate('users/me')} />
             <img src={logoutIcon} alt="로그아웃" css={style.logoutIconImage} onClick={handleLogout} />
           </>
         ) : (
