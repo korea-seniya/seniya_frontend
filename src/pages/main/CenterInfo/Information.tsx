@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from 'react';
-import * as style from './Information.style';
-import Header from '../../components/header'; 
-import ceoImage from '../../components/앉아있는노인.jpg';
-import heroBg from '../../components/인사말배경.jpg';
+import * as style from '../CenterInfo/Information.style';
+import Header from '../../../components/header'; 
+import ceoImage from '../../../pages/main/images/앉아있는노인.jpg';
+import heroBg from '../../../pages/main/images/인사말배경.jpg';
 
 function Information() {
   const highlightRef = useRef(null);

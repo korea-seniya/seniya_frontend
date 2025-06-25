@@ -18,7 +18,7 @@ export const sectionTag = css`
 `;
 
 export const pageTitle = css`
-  font-size: 2.4rem;
+  font-size: 2.5rem;
   font-weight: bold;
   margin: 0.5rem 0;
 `;

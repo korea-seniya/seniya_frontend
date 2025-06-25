@@ -58,7 +58,6 @@ function SignUp() {
     if (!form.username.trim()) {
       setUsernameMessage('아이디를 입력해주세요.');
       setIsUsernameAvailable(null);
-      alert('아이디를 입력해주세요.');
       return;
     }
 
@@ -66,11 +65,9 @@ function SignUp() {
       const available = await checkUsername(form.username);
       setIsUsernameAvailable(available);
       setUsernameMessage(available ? '사용 가능한 아이디입니다.' : '이미 사용 중인 아이디입니다.');
-      alert(available ? '사용 가능한 아이디입니다.' : '이미 사용 중인 아이디입니다.');
     } catch {
       setUsernameMessage('아이디 확인 중 오류가 발생했습니다.');
       setIsUsernameAvailable(null);
-      alert('아이디 확인 중 오류가 발생했습니다.');
     }
   };
 
@@ -78,7 +75,6 @@ function SignUp() {
     if (!form.email.trim()) {
       setEmailMessage('이메일을 입력해주세요.');
       setIsEmailAvailable(null);
-      alert('이메일을 입력해주세요.');
       return;
     }
 
@@ -86,11 +82,9 @@ function SignUp() {
       const available = await checkEmail(form.email);
       setIsEmailAvailable(available);
       setEmailMessage(available ? '사용 가능한 이메일입니다.' : '이미 사용 중인 이메일입니다.');
-      alert(available ? '사용 가능한 이메일입니다.' : '이미 사용 중인 이메일입니다.');
     } catch {
       setEmailMessage('이메일 확인 중 오류가 발생했습니다.');
       setIsEmailAvailable(null);
-      alert('이메일 확인 중 오류가 발생했습니다.');
     }
   };
 

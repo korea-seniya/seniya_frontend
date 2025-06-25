@@ -42,11 +42,11 @@ import PaymentFail from "./pages/payment/FailPage";
 import PaymentConfirm from "./pages/admin/payment/PaymentConfirm";
 import UserList from "./pages/admin/user/UserList";
 import CourseListPage from "./pages/course/CourseListPage";
-import EmailVerification from "./pages/user/EmailVerification";
 
-import Information from "./pages/main/Information";
-import OperationalGoals from "./pages/main/OperationalGoals";
-import Facility from "./pages/main/Facility";
+import Information from "./pages/main/CenterInfo/Information";
+import OperationalGoals from "./pages/main/CenterInfo/OperationalGoals";
+import Facility from "./pages/main/CenterInfo/Facility";
+import Location from "./pages/main/CenterInfo/Location";
 
 
 
@@ -72,8 +72,9 @@ function App() {
       <Route path='/' element={<Home />} />
 
       <Route path='/information' element={<Information />} />
-      <Route path='operationalgoals' element={<OperationalGoals />} />
-      <Route path='facility' element={<Facility />} />
+      <Route path='/operationalgoals' element={<OperationalGoals />} />
+      <Route path='/facility' element={<Facility />} />
+      <Route path='location' element={<Location />} />
       <Route path='/signup' element={<SignUp />} />
       <Route path='/signin' element={<SignIn />} />
 
@@ -89,9 +90,8 @@ function App() {
       <Route path='/notices/:id/update' element={<NoticeUpdate />} />
       <Route path='/notices/create' element={<RequireRole role={1}><NoticeCreate /></RequireRole>} />
 
-      <Route path='/email-send' element={<EmailSend />} />
-      <Route path='/reset-password' element={<ResetPassword />} />
-      <Route path='/verify-email' element={<EmailVerification />} />
+      <Route path='/users/me/email-send' element={<EmailSend />} />
+      <Route path='/users/me/password-reset' element={<ResetPassword />} />
 
       <Route path='/inquiries' element={<InquiryListPage />} />
       <Route path='/inquiry' element={<InquiryCreate />} />
