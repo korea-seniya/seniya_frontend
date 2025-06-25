@@ -14,7 +14,7 @@ import Cookies from "js-cookie";
 
 function Home() {
   const navigate = useNavigate();
-  const { user, loginUser, logoutUser } = useUserStore(); 
+  const { user, loginUser, logoutUser } = useUserStore();
 
   useEffect(() => {
     const userData = Cookies.get("user");
@@ -36,25 +36,25 @@ function Home() {
   }, [user]);
 
   const handleLogout = () => {   // zustand 상태 초기화
-    Cookies.remove("user");     
-    Cookies.remove("token");   
+    Cookies.remove("user");
+    Cookies.remove("token");
     alert("로그아웃 되었습니다.");
     navigate("/");
   };
 
 
   return (
-  <>
+    <>
       <Header />
 
-      {/* 
+
       <Banner />
       <QuickSearch />
       <PopularSection />
-      <VideoSection />
+      {/* <VideoSection /> */}
       <NoticeSection />
       <TermsSection />
-      */}
+
 
       <Footer />
     </>

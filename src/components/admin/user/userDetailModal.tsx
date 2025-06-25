@@ -16,18 +16,12 @@ function UserDetailModal(props: UserModalProps) {
 
   console.log(user);
 
-  function formatDate(dateString: string) {
-    // dateString 예: "2025-07-17T12:00:00"
-    const [datePart] = dateString.split('T'); // "2025-07-17"
-    return datePart;
-  }
-
   return (
     <div css={style.overlay}>
       <div css={style.modal}>
         <form css={style.form}>
           <div css={style.row}>
-            <span>이름: {user.name}</span>
+            <span>이름: {user.userName}</span>
             <span>ROLE: {user.roleName}</span>
             <span>전화번호: {user.phone}</span>
             <span>총 수강권 구매 수량: {user?.totalCouponCount}</span>

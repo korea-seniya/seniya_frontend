@@ -7,7 +7,6 @@ import Header from '../../../components/header';
 import AdminSidebar from '../../../components/admin/AdminSidebar';
 import { confirmPayment, getPaymentList } from '../../../apis/payment/payment';
 import type { GetPaymentListResponseDto } from '../../../dtos/payment/response/GetPaymentList.response.dto';
-import type { PaymentResponseDto } from '../../../dtos/payment/response/Payment.response.dto';
 import type { ConfirmPaymentRequestDto } from '../../../dtos/payment/request/ConfirmPayment.request.dto';
 
 function PaymentConfirm() {
@@ -56,24 +55,21 @@ function PaymentConfirm() {
   };
 
   const handleConfirmClick = async (updatedPayment: GetPaymentListResponseDto) => {
-
     const dto: ConfirmPaymentRequestDto = {
       status: updatedPayment.status
-    }
+    };
 
-    const response = await confirmPayment(updatedPayment.paymentId, dto);
     try {
+      const response = await confirmPayment(updatedPayment.paymentId, dto);
       if (response.code === "SU") {
         setPayments((prevPayments) =>
           prevPayments.map((payment) =>
             payment.paymentId === updatedPayment.paymentId
-              ? {
-                ...payment,
-                status: updatedPayment.status
-              }
+              ? { ...payment, status: updatedPayment.status }
               : payment
           )
-        )
+        );
+        alert('결제 상태 변경 완료');
       }
       console.log(response.data);
     } catch (err) {
@@ -104,6 +100,7 @@ function PaymentConfirm() {
           <tbody>
             {payments.map((payment) => {
               const isEditing = editingPaymentId === payment.paymentId;
+              const isSuccess = payment.status === "SUCCESS";
 
               return (
                 <tr key={payment.paymentId} css={style.trStyle}>
@@ -117,7 +114,7 @@ function PaymentConfirm() {
                   <td css={style.tdStyle}>
                     <select
                       value={payment.status}
-                      disabled={!isEditing}
+                      disabled={!isEditing || isSuccess}
                       onChange={(e) =>
                         handleStatusChange(payment.paymentId, e.target.value)
                       }
@@ -128,19 +125,25 @@ function PaymentConfirm() {
                       <option value="CANCELLED">취소</option>
                     </select>
 
-                    {isEditing ? (
+                    {isSuccess ? (
+                      <span> (수정 불가)</span>
+                    ) : isEditing ? (
                       <>
                         <button onClick={() => handleConfirmClick(payment)}>확인</button>
                         <button onClick={() => handleCancelClick(payment.paymentId)}>취소</button>
                       </>
                     ) : (
-                      <button onClick={() => handleEditClick(payment.paymentId, payment.status)}>수정</button>
+                      <button
+                        onClick={() => handleEditClick(payment.paymentId, payment.status)}
+                        disabled={isSuccess}
+                      >
+                        수정
+                      </button>
                     )}
                   </td>
                 </tr>
               );
             })}
-
           </tbody>
         </table>
       </div>

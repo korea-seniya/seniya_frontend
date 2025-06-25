@@ -54,6 +54,7 @@ function QuickSearch() {
     if (endTime) params.append('classEndTime', endTime);
 
     navigate(`/api/v1/courses?${params.toString()}`);
+
   };
 
   return (
