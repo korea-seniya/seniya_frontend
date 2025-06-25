@@ -34,10 +34,6 @@ import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplica
 import EmailSend from "./pages/user/EmailSend"
 import ResetPassword from './pages/user/ResetPassword';
 import EmailVerification from './pages/user/EmailVerification';
-import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
-import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
-import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
-import MyParticipationList from "./pages/participation/MyParticipationList"
 import Home from "./pages/main/Home"
 
 
@@ -105,10 +101,6 @@ function App() {
         <Route path='/api/v1/trainer-application/me' element={<MyTrainerApplicationStatus />} />
         <Route path='/api/v1/trainer-applications' element={<TrainerApplicationList />} />
         <Route path='/api/v1/trainer-application/:id' element={<TrainerApplicationDetail />} />
-
-        <Route path='/api/v1/trainer-profile' element={<TrainerProfile />} />
-        <Route path='/api/v1/trainer-profile/me' element={<GetTrainerProfile />} />
-        <Route path='/api/v1/trainer-profile/update' element={<PutTrainerProfile />} />
         <Route path='/myparticipation' element={<MyParticipationList />} />
 
 
