@@ -1,20 +1,21 @@
 import { css } from '@emotion/react';
 
 export const containerStyle = css`
-  max-width: 500px;
-  margin: 60px auto;
-  padding: 40px;
+  flex: 1;
+  max-width: 800px;
+  padding: 60px 80px;
   border: 1px solid #cfd4ff;
-  border-radius: 12px;
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.12);
+  background-color: #fff;
 `;
 
 export const titleStyle = css`
   text-align: center;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  margin-bottom: 30px;
-  text-shadow: 1px 1px #ddd;
+  margin-bottom: 40px;
+  text-shadow: 1px 1px #ccc;
 `;
 
 export const labelStyle = css`
@@ -127,4 +128,14 @@ export const cancelButtonStyle = css`
   &:hover {
     background-color: #bbb;
   }
+`;
+
+export const pageWrapperStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  align-items: flex-start;
+  padding: 40px 80px;
+  gap: 40px;
 `;

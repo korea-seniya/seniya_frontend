@@ -1,56 +1,49 @@
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import CourseList from "./pages/admin/course/CourseList"
-import InquiryCreate from "./pages/inquiry/InquiryCreate"
-import PurchasePass from "./pages/payment/PurchasePass"
-import CheckoutPage from "./pages/payment/CheckoutPage"
-import PaymentConfirm from "./pages/admin/payment/PaymentConfirm"
-import UserList from "./pages/admin/user/UserList"
-import CreateCourse from "./pages/admin/course/CreateCourse"
-import SignUp from './pages/auth/SignUp';
-import SignIn from "./pages/auth/SignIn"
-import InquiryListPage from "./pages/inquiry/InquiryListPage"
-import InquiryDetail from "./pages/inquiry/InquiryDetail"
-import InquiryAnswer from "./pages/inquiry/InquiryAnswer"
-import InquiryUpdate from "./pages/inquiry/InquiryUpdate"
-import PaymentSuccess from "./pages/payment/SuccessPage"
-import PaymentFail from "./pages/payment/FailPage"
-import CourseListPage from "./pages/course/CourseListPage"
-import PostCreate from "./pages/post/PostCreate"
-import PostListPage from "./pages/post/PostListPage"
-import HealthDataCreate from "./pages/healthdata/HealthDataCreate"
-import HealthDataView from "./pages/healthdata/HealthDataView"
-import HealthDataUpdate from "./pages/healthdata/HealthDataUpdate"
-import GetUserInfo from "./pages/mypage/GetUserInfo"
-
-import NoticeList from './pages/notice/NoticeList';
-import NoticeDetail from './pages/notice/NoticeDetail';
-import NoticeCreate from './pages/notice/NoticeCreate';
-
-import TrainerApplication from "./pages/trainer/application/TrainerApplication"
-
-import MyTrainerApplicationStatus from "./pages/trainer/application/MyTrainerApplicationStatus"
-import TrainerApplicationList from "./pages/trainer/application/TrainerApplicationList"
-import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplicatinoDetail"
-import EmailSend from "./pages/user/EmailSend"
-import ResetPassword from './pages/user/ResetPassword';
-import EmailVerification from './pages/user/EmailVerification';
-// import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
-// import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
-// import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
-import MyParticipationList from "./pages/participation/MyParticipationList"
-import Home from "./pages/main/Home"
-
-import PostDetailPage from "./pages/post/PostDetailPage"
-import PostUpdate from "./pages/post/PostUpdate"
-// import MyParticipationList from "./pages/participation/MyParticipationList"
-import { useUserStore } from "./stores/user.store"
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { useUserStore } from "./stores/user.store";
+import { Route, Routes } from "react-router-dom";
 import Cookies from "js-cookie";
-import RequireRole from "./stores/RequireRole";
+import Home from "./pages/main/Home";
+import SignUp from "./pages/auth/SignUp";
+import SignIn from "./pages/auth/SignIn";
+import PostCreate from "./pages/post/PostCreate";
+import PostListPage from "./pages/post/PostListPage";
+import PostDetailPage from "./pages/post/PostDetailPage";
+import PostUpdate from "./pages/post/PostUpdate";
+import GetUserInfo from "./pages/mypage/GetUserInfo";
+import NoticeList from "./pages/notice/NoticeList";
+import NoticeDetail from "./pages/notice/NoticeDetail";
 import NoticeUpdate from "./pages/notice/NoticeUpdate";
-import CreateTrainerProfile from "./pages/trainer/profile/CreateTrainerProfile"
-import ViewTrainerProfile from "./pages/trainer/profile/ViewTrainerProfile"
-import EditTrainerProfile from "./pages/trainer/profile/EditTrainerProfile"
+import RequireRole from "./stores/RequireRole";
+import NoticeCreate from "./pages/notice/NoticeCreate";
+import EmailSend from "./pages/user/EmailSend";
+import ResetPassword from "./pages/user/ResetPassword";
+import InquiryListPage from "./pages/inquiry/InquiryListPage";
+import InquiryCreate from "./pages/inquiry/InquiryCreate";
+import InquiryDetail from "./pages/inquiry/InquiryDetail";
+import InquiryUpdate from "./pages/inquiry/InquiryUpdate";
+import InquiryAnswer from "./pages/inquiry/InquiryAnswer";
+import TrainerApplication from "./pages/trainer/application/TrainerApplication";
+import MyTrainerApplicationStatus from "./pages/trainer/application/MyTrainerApplicationStatus";
+import TrainerApplicationList from "./pages/trainer/application/TrainerApplicationList";
+import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplicatinoDetail";
+import MyParticipationList from "./pages/participation/MyParticipationList";
+import CreateTrainerProfile from "./pages/trainer/profile/CreateTrainerProfile";
+import ViewTrainerProfile from "./pages/trainer/profile/ViewTrainerProfile";
+import EditTrainerProfile from "./pages/trainer/profile/EditTrainerProfile";
+import HealthDataCreate from "./pages/healthdata/HealthDataCreate";
+import HealthDataView from "./pages/healthdata/HealthDataView";
+import HealthDataUpdate from "./pages/healthdata/HealthDataUpdate";
+import CreateCourse from "./pages/admin/course/CreateCourse";
+import CourseList from "./pages/admin/course/CourseList";
+import PurchasePass from "./pages/payment/PurchasePass";
+import CheckoutPage from "./pages/payment/CheckoutPage";
+import PaymentSuccess from "./pages/payment/SuccessPage";
+import PaymentFail from "./pages/payment/FailPage";
+import PaymentConfirm from "./pages/admin/payment/PaymentConfirm";
+import UserList from "./pages/admin/user/UserList";
+import CourseListPage from "./pages/course/CourseListPage";
+
+
 
 function App() {
   const loginUser = useUserStore((s) => s.loginUser);

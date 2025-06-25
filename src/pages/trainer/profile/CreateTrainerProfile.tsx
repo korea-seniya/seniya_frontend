@@ -25,7 +25,7 @@ import { Specialty } from "../../../dtos/trainer/specialty";
 function CreateTrainerProfile() {
   localStorage.setItem(
     "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVFJBSU5FUiIsImlhdCI6MTc1MDgxNDYwNSwiZXhwIjoxNzUwODE4MjA1fQ.5jSuRj0SLLeCOUGCvz4CFIt-gzf5DcrkRZAslek7TT8"
+    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVFJBSU5FUiIsImlhdCI6MTc1MDgzMTUzMSwiZXhwIjoxNzUwODM1MTMxfQ.fUyukIE6PG7OfMNRmaLTtCBUJCLtUpe7k88LEkdyGtI"
   );
 
   const [profileData, setProfileData] = useState<TrainerProfileRequestDto>({

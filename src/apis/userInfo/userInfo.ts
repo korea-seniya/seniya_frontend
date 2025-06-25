@@ -13,7 +13,7 @@ export const getMyInfo = async (token: string): Promise<ResponseDto<GetMyInfoRes
   try {
     const response = await axiosInstance.get(USER_URL, {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
     return responseSuccessHandler(response);
@@ -28,7 +28,7 @@ export const updateMyInfo = async (
 ): Promise<ResponseDto<GetMyInfoResponseDto>> => {
   try {
     const response = await axiosInstance.put(PUT_USER_URL, dto, {
-      headers: { Authorization: token },
+      headers: { Authorization: `Bearer ${token}` },
     });
     return responseSuccessHandler(response);
   } catch (error) {
@@ -39,7 +39,7 @@ export const updateMyInfo = async (
 export const deleteMyInfo = async (token: string): Promise<ResponseDto<null>> => {
   try {
     const response = await axiosInstance.delete(USER_URL, {
-      headers: { Authorization: token },
+      headers: { Authorization: `Bearer ${token}` },
     });
     if (response.status === 204) {
       return { code: 'SU', message: '회원 탈퇴 완료', data: null };

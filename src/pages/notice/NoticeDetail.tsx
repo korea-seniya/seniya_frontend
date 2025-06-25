@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import Header from '../../components/header';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { axiosInstance } from "../../apis/axiosConfig";
@@ -60,31 +61,34 @@ function NoticeDetail() {
     }
   };
 
-  if (loading) return <div css={containerStyle}>불러오는 중...</div>;
-  if (!notice) return <div css={containerStyle}>공지사항을 찾을 수 없습니다.</div>;
+  if (loading) return <><Header /><div css={containerStyle}>불러오는 중...</div></>;
+  if (!notice) return <><Header /><div css={containerStyle}>공지사항을 찾을 수 없습니다.</div></>;
 
   return (
-    <div css={containerStyle}>
-      <h1 css={titleStyle}>{notice.title}</h1>
+    <>
+      <Header />
+      <div css={containerStyle}>
+        <h1 css={titleStyle}>{notice.title}</h1>
 
-      <div css={metaWrapperStyle}>
-        <div css={authorDateStyle}>
-          <span><strong>{notice.username}</strong></span>
-          <span>{notice.createdAt.slice(0, 16).replace('T', ' ')}</span>
+        <div css={metaWrapperStyle}>
+          <div css={authorDateStyle}>
+            <span><strong>{notice.username}</strong></span>
+            <span>{notice.createdAt.slice(0, 16).replace('T', ' ')}</span>
+          </div>
+
+          {user?.role_id === 1 && (
+            <div css={actionStyle}>
+              <span onClick={goToUpdate}>수정</span>
+              <span onClick={handleDelete}>삭제</span>
+            </div>
+          )}
         </div>
 
-        {user?.role_id === 1 && (
-          <div css={actionStyle}>
-            <span onClick={goToUpdate}>수정</span>
-            <span onClick={handleDelete}>삭제</span>
-          </div>
-        )}
+        <div css={contentStyle}>
+          {notice.content}
+        </div>
       </div>
-
-      <div css={contentStyle}>
-        {notice.content}
-      </div>
-    </div>
+    </>
   );
 }
 

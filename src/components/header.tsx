@@ -3,13 +3,16 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import * as style from './header.style';
 import { useUserStore } from '../stores/user.store';
+import logoImage from '../components/logo.png';
+import mypageIcon from '../components/mypage.png';
+import logoutIcon from '../components/logout.png';
 
 const navItems = [
   {
     label: '센터소개',
     subItems: [
-      { name: '인사말', path: '/' },
-      { name: '운영목표', path: '/' },
+      { name: '인사말', path: '/information' },
+      { name: '운영목표', path: '/operationalgoals' },
       { name: '시설안내', path: '/' },
       { name: '오시는 길', path: '/' },
     ],
@@ -26,6 +29,13 @@ const navItems = [
     label: '트레이너',
     subItems: [
       { name: '트레이너 소개', path: '/' },
+      { name: '트레이너 프로필 조회', path: '/api/v1/trainer-profile/view'},
+      { name: '트레이너 프로필 생성', path: '/api/v1/trainer-profile/create'},
+      { name: '트레이너 프로필 수정', path: '/api/v1/trainer-profile/edit'},
+      { name: '트레이너 권한 신청', path:'/api/v1/trainer-application'},
+      { name: '트레이너 권한 신청목록', path:'/api/v1/trainer-applications'},
+      { name: '트레이너 권한 조회', path:'/api/v1/trainer-application/me'},
+      { name: '트레이너 권한 변경', path:'/api/v1/trainer-application/:id'},
     ],
   },
   {
@@ -39,8 +49,11 @@ const navItems = [
   {
     label: '고객센터',
     subItems: [
-      { name: '문의', path: '/api/v1/inquiries' },
-      { name: '자주 묻는 질문', path: '/api/v1/inquiries' },
+      { name: '문의 목록', path: '/api/v1/inquiries' },
+      { name: '문의 생성', path: '/api/v1/inquiry' },
+      { name: '문의 디테일', path: '/api/v1/inquiry/:id' },
+      { name: '문의 수정', path: '/api/v1/inquiry/:id/update' },
+      { name: '문의 답변', path: '/api/v1/inquiry/:id/response' },
     ],
   },
 ];
@@ -58,8 +71,8 @@ function Header() {
 
   return (
     <div css={style.headerContainer}>
-      <div css={style.logoContainer} onClick={() => navigate('/admin/users')}>
-        로고
+      <div css={style.logoContainer} onClick={() => navigate('/')}>
+        <img src={logoImage} alt="로고" css={style.logoImage} />
       </div>
 
       <div css={style.navContainer}>
@@ -68,9 +81,12 @@ function Header() {
             key={item.label}
             onMouseEnter={() => setHoveredIndex(idx)}
             onMouseLeave={() => setHoveredIndex(null)}
-            css={style.navItemWrapper}
+            css={[
+              style.navItemWrapper,
+              idx !== 0 && style.navItemWithDivider,
+            ]}
           >
-            <span>{item.label}</span>
+            <span css={style.navLabel}>{item.label}</span>
 
             {hoveredIndex === idx && (
               <div css={style.subMenuContainer}>
@@ -92,14 +108,15 @@ function Header() {
       <div css={style.userContainer}>
         {isLogin && user ? (
           <>
-            <span>{user.name}님</span>
-            <button onClick={handleLogout}>로그아웃</button>
-            <NavLink to="/me">마이페이지</NavLink>
+
+            <span>{user.name} 님</span>
+            <img src={mypageIcon} alt="마이페이지" css={style.iconImage} onClick={() => navigate('users/me')} />
+            <img src={logoutIcon} alt="로그아웃" css={style.logoutIconImage} onClick={handleLogout} />
           </>
         ) : (
           <>
-            <NavLink to="/signin">로그인</NavLink>
-            <NavLink to="/signup">회원가입</NavLink>
+            <NavLink to="/signin">Login</NavLink>
+            <NavLink to="/signup">SignUp</NavLink>
           </>
         )}
       </div>
