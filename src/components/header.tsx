@@ -11,8 +11,8 @@ const navItems = [
   {
     label: '센터소개',
     subItems: [
-      { name: '인사말', path: '/' },
-      { name: '운영목표', path: '/' },
+      { name: '인사말', path: '/information' },
+      { name: '운영목표', path: '/operationalgoals' },
       { name: '시설안내', path: '/' },
       { name: '오시는 길', path: '/' },
     ],
@@ -81,8 +81,10 @@ function Header() {
             key={item.label}
             onMouseEnter={() => setHoveredIndex(idx)}
             onMouseLeave={() => setHoveredIndex(null)}
-            css={style.navItemWrapper}
-            
+            css={[
+              style.navItemWrapper,
+              idx !== 0 && style.navItemWithDivider,
+            ]}
           >
             <span css={style.navLabel}>{item.label}</span>
 
@@ -107,8 +109,8 @@ function Header() {
         {isLogin && user ? (
           <>
             <span>{user.name} 님</span>
-            <img src={mypageIcon} alt="마이페이지 아이콘" css={style.iconImage} onClick={() => navigate('/api/v1/users/me')}/>
-            <img src={logoutIcon} alt="로그아웃 아이콘" css={style.logoutIconImage} onClick={handleLogout}/>
+            <img src={mypageIcon} alt="마이페이지" css={style.iconImage} onClick={() => navigate('/api/v1/users/me')} />
+            <img src={logoutIcon} alt="로그아웃" css={style.logoutIconImage} onClick={handleLogout} />
           </>
         ) : (
           <>

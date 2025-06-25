@@ -34,12 +34,13 @@ import TrainerApplicationDetail from "./pages/trainer/application/TrainerApplica
 import EmailSend from "./pages/user/EmailSend"
 import ResetPassword from './pages/user/ResetPassword';
 import EmailVerification from './pages/user/EmailVerification';
+
 import Home from "./pages/main/Home"
 
 
-// import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
-// import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
-// import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
+import TrainerProfile from "./pages/trainer/profile/TrainerProfile"
+import GetTrainerProfile from "./pages/trainer/profile/GetTrainerProfile"
+import PutTrainerProfile from "./pages/trainer/profile/PutTrainerProfile"
 import PostDetailPage from "./pages/post/PostDetailPage"
 import PostUpdate from "./pages/post/PostUpdate"        
 import MyParticipationList from "./pages/participation/MyParticipationList"
@@ -51,6 +52,8 @@ import NoticeUpdate from "./pages/notice/NoticeUpdate";
 import CreateTrainerProfile from "./pages/trainer/profile/CreateTrainerProfile"
 import ViewTrainerProfile from "./pages/trainer/profile/ViewTrainerProfile"
 import EditTrainerProfile from "./pages/trainer/profile/EditTrainerProfile"
+import Information from "./pages/main/Information";
+import OperationalGoals from "./pages/main/OperationalGoals";
 
 function App() {
     const loginUser = useUserStore((s) => s.loginUser);
@@ -71,7 +74,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        
+        <Route path="/information" element={<Information />} />
+        <Route path="/operationalgoals" element={<OperationalGoals />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signin' element={<SignIn />} />
         
@@ -101,6 +105,12 @@ function App() {
         <Route path='/api/v1/trainer-application/me' element={<MyTrainerApplicationStatus />} />
         <Route path='/api/v1/trainer-applications' element={<TrainerApplicationList />} />
         <Route path='/api/v1/trainer-application/:id' element={<TrainerApplicationDetail />} />
+
+
+        <Route path='/api/v1/trainer-profile' element={<TrainerProfile />} />
+        <Route path='/api/v1/trainer-profile/me' element={<GetTrainerProfile />} />
+        <Route path='/api/v1/trainer-profile/update' element={<PutTrainerProfile />} />
+
         <Route path='/myparticipation' element={<MyParticipationList />} />
 
 
