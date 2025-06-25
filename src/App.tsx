@@ -71,8 +71,8 @@ function App() {
 
       <Route path='/post' element={<PostCreate />} />
       <Route path='/posts' element={<PostListPage />} />
-      <Route path='/posts' element={<PostDetailPage />} />
-      <Route path='/posts' element={<PostUpdate />} />
+      <Route path='/posts/:id' element={<PostDetailPage />} />
+      <Route path='/posts/update' element={<PostUpdate />} />
 
       <Route path='/users/me' element={<GetUserInfo />} />
 

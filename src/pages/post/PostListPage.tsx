@@ -14,6 +14,7 @@ import {
 } from './PostList.style';
 
 import { getPostList, searchPosts, searchPostsByRole } from '../../apis/post/Post';
+import Footer from '../../components/main/footer/Footer';
 
 function PostListPage() {
   const [posts, setPosts] = useState<PostList[]>([]);
@@ -165,6 +166,13 @@ function PostListPage() {
             onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
           />
           <button css={buttonStyle} onClick={handleSearch}>검색</button>
+          <button
+            css={buttonStyle}
+            onClick={() => navigate('/post')}
+            style={{ marginLeft: '10px', backgroundColor: '#4CAF50', color: 'white' }}
+          >
+            게시글 작성
+          </button>
         </div>
 
         <div css={tableWrapper}>
@@ -183,7 +191,7 @@ function PostListPage() {
                   <span css={postNumber}>{post.id}</span>
                   <span
                     css={boldTitle}
-                    onClick={() => navigate(`/api/v1/posts/${post.id}`)}
+                    onClick={() => navigate(`/posts/${post.id}`)}
                     style={{ cursor: 'pointer' }}
                   >
                     {post.title}
@@ -200,6 +208,7 @@ function PostListPage() {
           <div css={separatorLine}></div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

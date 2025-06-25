@@ -27,6 +27,8 @@ import {
 import type { GetMyInfoResponseDto } from '../../dtos/userInfo/response/getMyInfo.response.dto';
 import type { updateMyInfoRequestDto } from '../../dtos/userInfo/request/updateMyInfoRequest.dto';
 import AsideBar from '../../components/myPage/AsideBar';
+import Footer from '../../components/main/footer/Footer';
+import Header from '../../components/header';
 
 const GetUserInfo = () => {
   const [userInfo, setUserInfo] = useState<GetMyInfoResponseDto | null>(null);
@@ -122,45 +124,49 @@ const GetUserInfo = () => {
   if (!userInfo) return <div css={containerStyle}>사용자 정보를 불러오는 중...</div>;
 
   return (
-    <div css={pageWrapperStyle}>
-      <AsideBar />
-      <div css={containerStyle}>
-        <h2 css={titleStyle}>{userInfo.username} 님</h2>
+    <>
+    <Header />
+      <div css={pageWrapperStyle}>
+        <AsideBar />
+        <div css={containerStyle}>
+          <h2 css={titleStyle}>{userInfo.username} 님</h2>
 
-        <label css={labelStyle}>
-          이름
-          <input css={inputStyle} name="username" value={formData.username} onChange={handleChange} />
-        </label>
+          <label css={labelStyle}>
+            이름
+            <input css={inputStyle} name="username" value={formData.username} onChange={handleChange} />
+          </label>
 
-        <label css={labelStyle}>
-          이메일
-          <input css={inputStyle} name="email" value={formData.email} onChange={handleChange} />
-        </label>
+          <label css={labelStyle}>
+            이메일
+            <input css={inputStyle} name="email" value={formData.email} onChange={handleChange} />
+          </label>
 
-        <label css={labelStyle}>
-          전화번호
-          <input css={inputStyle} name="phone" value={formData.phone} onChange={handleChange} />
-        </label>
+          <label css={labelStyle}>
+            전화번호
+            <input css={inputStyle} name="phone" value={formData.phone} onChange={handleChange} />
+          </label>
 
-        <label css={labelStyle}>
-          회원가입 날짜
-          <input css={inputStyle} value={userInfo.createdAt} readOnly />
-        </label>
+          <label css={labelStyle}>
+            회원가입 날짜
+            <input css={inputStyle} value={userInfo.createdAt} readOnly />
+          </label>
 
-        <button css={withdrawButtonStyle} onClick={handleUpdate}>수정 완료</button>
-        <button css={deleteButtonStyle} onClick={() => setShowDeleteModal(true)}>회원 탈퇴</button>
+          <button css={withdrawButtonStyle} onClick={handleUpdate}>수정 완료</button>
+          <button css={deleteButtonStyle} onClick={() => setShowDeleteModal(true)}>회원 탈퇴</button>
 
-        {showDeleteModal && (
-          <div css={modalOverlayStyle}>
-            <div css={modalBoxStyle}>
-              <p>정말로 회원 탈퇴하시겠습니까?<br />탈퇴 시 모든 정보가 삭제됩니다.</p>
-              <button css={confirmButtonStyle} onClick={handleDelete}>탈퇴하기</button>
-              <button css={cancelButtonStyle} onClick={() => setShowDeleteModal(false)}>취소</button>
+          {showDeleteModal && (
+            <div css={modalOverlayStyle}>
+              <div css={modalBoxStyle}>
+                <p>정말로 회원 탈퇴하시겠습니까?<br />탈퇴 시 모든 정보가 삭제됩니다.</p>
+                <button css={confirmButtonStyle} onClick={handleDelete}>탈퇴하기</button>
+                <button css={cancelButtonStyle} onClick={() => setShowDeleteModal(false)}>취소</button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>  
   );
 };
 

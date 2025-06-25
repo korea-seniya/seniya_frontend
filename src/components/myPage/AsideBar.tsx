@@ -20,7 +20,7 @@ const AsideBar = () => {
         <div css={menuItem}
         onClick={() => navigate(`/healthdata/me`)} style={{ cursor: 'pointer' }}>상태 조회</div>
         <div css={menuItem}
-        onClick={() => navigate(`/healthdata/`)} style={{ cursor: 'pointer' }}>상태 수정</div>
+        onClick={() => navigate(`/healthdata/update`)} style={{ cursor: 'pointer' }}>상태 수정</div>
       </div>
       <div css={menuSection}>
         <div css={menuTitle}>수업</div>
