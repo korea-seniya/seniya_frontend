@@ -22,14 +22,13 @@ export const createHealthData = async (
   }
 };
 
-
-export const getHealthData = async (token: string):
-  Promise<ResponseDto<HealthdataResponseDto>> => {
+export const getHealthData = async (): Promise<ResponseDto<HealthdataResponseDto>> => {
+  const token = Cookies.get('token');
   try {
     const response = await axiosInstance.get(GET_HEALTHDATA_URL, {
       headers: {
-        Authorization: token,
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     return responseSuccessHandler(response);
   } catch (error) {
@@ -38,13 +37,13 @@ export const getHealthData = async (token: string):
 };
 
 export const updateHealthData = async (
-  dto: HealthdataRequestDto,
-  token: string
+  dto: HealthdataRequestDto
 ): Promise<ResponseDto<HealthdataResponseDto>> => {
+  const token = Cookies.get('token');
   try {
     const response = await axiosInstance.put(PUT_HEALTHDATA_URL, dto, {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
     return responseSuccessHandler(response);

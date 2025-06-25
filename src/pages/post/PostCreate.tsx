@@ -24,10 +24,11 @@ import Header from '../../components/header';
 
 function PostCreate() {
   useEffect(() => {
-    localStorage.setItem(
-      "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuynhOyasO2DnCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMiwiaWF0IjoxNzUwNzQ5MTQzLCJleHAiOjE3NTA3NTI3NDN9.tWRdh83UMJw8DpwSATtxlcV2RT2L26iJGoREXzcGlg0"
-    );
+  const token = localStorage.getItem("Authorization");
+  if (!token) {
+    alert("로그인한 사용자만 게시글을 작성할 수 있습니다.");
+    navigate("/signin");
+  }
   }, []);
 
   const [title, setTitle] = useState("");
@@ -48,14 +49,18 @@ function PostCreate() {
   };
 
   const handleSubmit = async () => {
-    try {
-      const response = await createPost(title, content, selectedFiles);
-      alert("게시글이 등록되었습니다.");
-      navigate("/api/v1/posts");
+  try {
+    const response = await createPost(
+      { title, content },
+      selectedFiles.length > 0 ? selectedFiles : undefined // 여러 파일 전달
+    );
 
-      setTitle("");
-      setContent("");
-      setSelectedFiles([]);
+    alert("게시글이 등록되었습니다.");
+    navigate("/posts");
+
+    setTitle("");
+    setContent("");
+    setSelectedFiles([]);
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (err: any) {
       console.error("[handleSubmit] 요청 중 오류:", err);

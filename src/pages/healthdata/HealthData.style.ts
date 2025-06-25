@@ -12,60 +12,64 @@ export const containerStyle = css`
 `;
 
 export const titleStyle = css`
-  text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 30px;
+  text-align: left;
+  font-size: 1.25rem;
+  margin-bottom: 24px;
   font-weight: bold;
-  text-shadow: 2px 2px #ddd;
+  text-shadow: 1px 1px #ddd;
 `;
 
 export const formStyle = css`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  gap: 12px;
+  max-width: 300px; /* 폼 안쪽만 좁게 */
 `;
 
 export const labelStyle = css`
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex: 3;
-  font-weight: 500;
+  gap: 6px;
+  font-size: 0.9rem;
+  width: 100%;
+  
 `;
 
 export const inputStyle = css`
-  width: 200px;
-  padding: 5px 8px;
+  flex: 1;
+  width: 180px;
+  padding: 4px 6px;
   border: 1px solid #9a8de3;
-  border-radius: 8px;
-  outline: none;
-  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.9rem;
 `;
 
 export const selectStyle = inputStyle;
-
 export const dateStyle = inputStyle;
 
 export const checkboxWrapperStyle = css`
   display: flex;
-  gap: 20px;
-  padding: 8px 0;
+  gap: 16px;
+  padding: 4px 0;
+  font-size: 0.9rem;
 `;
 
 export const buttonWrapperStyle = css`
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 16px;
 `;
 
 export const buttonStyle = css`
-  padding: 6px 20px;
+  padding: 5px 16px;
   border: 1px solid #9a8de3;
-  border-radius: 10px;
+  border-radius: 8px;
   background: white;
   cursor: pointer;
   font-weight: bold;
+  font-size: 0.9rem;
 `;
 
 export const requiredMarkStyle = css`
@@ -79,9 +83,8 @@ export const unitStyle = css`
 export const pageWrapperStyle = css`
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 80vh;
   align-items: flex-start;
+  min-height: 80vh;
   padding: 40px 80px;
   gap: 40px;
 `;

@@ -2,6 +2,7 @@
 
 import { axiosInstance, responseSuccessHandler, responseErrorHandler, bearerAuthorization } from "../axiosConfig";
 import type { AxiosError } from "axios";
+import Cookies from 'js-cookie';
 import type ResponseDto from "../../dtos/response.dto";
 import type { PostListResponseDto } from "../../dtos/post/response/postList.response.dto";
 import type { PostDetailResponseDto } from "../../pages/post/PostDetail";
@@ -26,47 +27,36 @@ export const getPostDetail = async (postId: number): Promise<ResponseDto<PostDet
 };
 
 export const createPost = async (
-  title: string,
-  content: string,
-  files: File[]
+  dto: { title: string; content: string },
+  files?: File[]
 ): Promise<ResponseDto<PostDetailResponseDto>> => {
   try {
-    const dto = { title, content };
     const formData = new FormData();
 
     formData.append(
-      'data',
-      new Blob([JSON.stringify(dto)], { type: 'application/json' })
+      "data",
+      new Blob([JSON.stringify(dto)], { type: "application/json" })
     );
-    files.forEach((file) => formData.append('file', file));
 
-    const token = localStorage.getItem('Authorization');
-    if (!token) throw new Error('로그인이 필요합니다.');
-
-    const response = await axiosInstance.post('/api/v1/posts', formData, {
-      headers: {
-        Authorization: token,
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    console.log('서버 원본 응답:', response);
-
-    const resData = responseSuccessHandler(response);
-    console.log('서버 응답 (처리 후):', resData);
-    return resData;
-  } catch (error: any) {
-    console.error('게시글 생성 실패:', error);
-
-    if (error.response) {
-      console.error('에러 응답 데이터:', error.response.data);
-      console.error('에러 상태 코드:', error.response.status);
-    } else {
-      console.error('응답이 없음:', error.message);
+    if (files && files.length > 0) {
+      files.forEach((file) => formData.append("file", file));
     }
 
-    throw error;
+    const token = Cookies.get("token");
+    if (!token) throw new Error("로그인이 필요합니다.");
+
+    const response = await axiosInstance.post("/api/v1/posts", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return responseSuccessHandler(response);
+  } catch (error) {
+    return responseErrorHandler(error as AxiosError<ResponseDto>);
   }
 };
+
 
 export const updatePost = async (
   postId: number,
@@ -78,36 +68,61 @@ export const updatePost = async (
     const dto = { title, content };
     const formData = new FormData();
 
-    formData.append('data', new Blob([JSON.stringify(dto)], { type: 'application/json' }));
-    files.forEach((file) => formData.append('file', file));
+    formData.append("data", new Blob([JSON.stringify(dto)], { type: "application/json" }));
+    files.forEach((file) => formData.append("file", file));
 
-    const token = localStorage.getItem('Authorization');
-    if (!token) throw new Error('로그인이 필요합니다.');
-
-    const bearerToken = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
+    const token = Cookies.get("token");
+    if (!token) throw new Error("로그인이 필요합니다.");
 
     const response = await axiosInstance.post(`/api/v1/posts/${postId}`, formData, {
       headers: {
-        Authorization: bearerToken,
-        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
       },
     });
 
-    console.log('게시글 수정 응답:', response);
-
-    const resData = responseSuccessHandler(response);
-    return resData;
+    return responseSuccessHandler(response);
   } catch (error: any) {
-    console.error('게시글 수정 실패:', error);
+    console.error("게시글 수정 실패:", error);
     if (error.response) {
-      console.error('에러 응답 데이터:', error.response.data);
-      console.error('에러 상태 코드:', error.response.status);
+      console.error("에러 응답 데이터:", error.response.data);
+      console.error("에러 상태 코드:", error.response.status);
     } else {
-      console.error('응답이 없음:', error.message);
+      console.error("응답이 없음:", error.message);
     }
     throw error;
   }
 };
+
+export const deletePost = async (postId: number, token: string): Promise<ResponseDto<any>> => {
+  try {
+    const response = await axiosInstance.delete(`/api/v1/posts/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 204) {
+      return {
+        code: 'SU',
+        message: '게시글 삭제 완료',
+        data: null,
+      };
+    }
+
+    return response.data;
+  } catch (error) {
+    return {
+      code: 'ER',
+      message: '게시글 삭제 중 오류 발생',
+      data: null,
+    };
+  }
+};
+
+
+
+
 
 export const searchPosts = async (title: string): Promise<ResponseDto<PostListResponseDto[]>> => {
   try {

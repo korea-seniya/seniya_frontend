@@ -21,6 +21,8 @@ import {
   pageWrapperStyle,
 } from './HealthData.style';
 import AsideBar from '../../components/myPage/AsideBar';
+import Header from '../../components/header';
+import Footer from '../../components/main/footer/Footer';
 
 const HealthDataCreate = () => {
   const navigate = useNavigate();
@@ -42,23 +44,26 @@ const HealthDataCreate = () => {
   });
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    const userData = Cookies.get('user');
+  const token = Cookies.get('token');
+  const userData = Cookies.get('user');
+  
+  if (!token || !userData) {
+    alert('로그인이 필요합니다.');
+    navigate('/signin');
+    return;
+  }
 
-    if (!token || !userData) {
-      alert('로그인이 필요합니다.');
-      navigate('/signin');
-      return;
+  try {
+    const parsedUser = JSON.parse(userData);
+    if (!user) {
+      loginUser(parsedUser);
+      console.log('user after loginUser:', parsedUser);
     }
-
-    try {
-      const parsedUser = JSON.parse(userData);
-      if (!user) loginUser(parsedUser);
-    } catch (e) {
-      alert('유저 정보를 불러오는 데 실패했습니다.');
-      navigate('/signin');
-    }
-  }, []);
+  } catch (e) {
+    alert('유저 정보를 불러오는 데 실패했습니다.');
+    navigate('/signin');
+  }
+}, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, type, value, checked } = e.target as HTMLInputElement;
@@ -114,7 +119,7 @@ const HealthDataCreate = () => {
           smoker: true,
           drinker: false,
         });
-        navigate('/api/v1/healthdata/me');
+        navigate('/healthdata/me');
       } else {
         alert(`등록 실패: ${response.message || '알 수 없는 오류'}`);
       }
@@ -142,94 +147,98 @@ const HealthDataCreate = () => {
   };
 
   return (
-    <div css={pageWrapperStyle}>
-      <AsideBar />
-      <div css={containerStyle}>
-        <h2 css={titleStyle}>{user?.username ? `${user.username} 님` : '사용자 님'}</h2>
-        <div css={formStyle}>
-          <label css={labelStyle}>
-            <span css={requiredMarkStyle}>*</span> 몸무게
-            <input name="weight" css={inputStyle} value={formData.weight} onChange={handleChange} />
-            <span css={unitStyle}>kg</span>
-          </label>
-
-          <label css={labelStyle}>
-            <span css={requiredMarkStyle}>*</span> 키
-            <input name="height" css={inputStyle} value={formData.height} onChange={handleChange} />
-            <span css={unitStyle}>cm</span>
-          </label>
-
-          <label css={labelStyle}>
-            체지방
-            <input name="bodyFat" css={inputStyle} value={formData.bodyFat} onChange={handleChange} />
-            <span css={unitStyle}>%</span>
-          </label>
-
-          <label css={labelStyle}>
-            혈압
-            <select name="bloodPressure" css={selectStyle} value={formData.bloodPressure} onChange={handleChange}>
-              <option value="LOW">낮음</option>
-              <option value="NORMAL">정상</option>
-              <option value="HIGH">높음</option>
-            </select>
-          </label>
-
-          <label css={labelStyle}>
-            질병 명
-            <input name="diseaseName" css={inputStyle} value={formData.diseaseName} onChange={handleChange} />
-          </label>
-
-          <label css={labelStyle}>
-            진단 날짜
-            <input type="date" name="diagnosisDate" css={dateStyle} value={formData.diagnosisDate} onChange={handleChange} />
-          </label>
-
-          <label css={labelStyle}>
-            현재 상태
-            <select name="diseaseStatus" css={selectStyle} value={formData.diseaseStatus} onChange={handleChange}>
-              <option value="ACTIVE">진행 중</option>
-              <option value="RECOVERED">완치</option>
-              <option value="CHRONIC">만성</option>
-            </select>
-          </label>
-
-          <label css={labelStyle}>
-            약 이름
-            <input name="medication" css={inputStyle} value={formData.medication} onChange={handleChange} />
-          </label>
-
-          <label css={labelStyle}>
-            알러지 명
-            <input name="allergy" css={inputStyle} value={formData.allergy} onChange={handleChange} />
-          </label>
-
-          <label css={labelStyle}>
-            증상
-            <input name="symptoms" css={inputStyle} value={formData.symptoms} onChange={handleChange} />
-          </label>
-
-          <div css={checkboxWrapperStyle}>
-            <label>
-              <input type="checkbox" name="smoker" checked={formData.smoker} onChange={handleChange} />
-              흡연 여부
+    <>
+    <Header />
+      <div css={pageWrapperStyle}>
+        <AsideBar />
+        <div css={containerStyle}>
+          <h2 css={titleStyle}>{user?.name ? `${user.name} 님` : '사용자 님'}</h2>
+          <div css={formStyle}>
+            <label css={labelStyle}>
+              <span css={requiredMarkStyle}>*</span> 몸무게
+              <input name="weight" css={inputStyle} value={formData.weight} onChange={handleChange} />
+              <span css={unitStyle}>kg</span>
             </label>
-            <label>
-              <input type="checkbox" name="drinker" checked={formData.drinker} onChange={handleChange} />
-              음주 여부
-            </label>
-          </div>
 
-          <div css={buttonWrapperStyle}>
-            <button css={buttonStyle} onClick={handleCancel}>
-              취소
-            </button>
-            <button css={buttonStyle} onClick={handleSubmit}>
-              완료
-            </button>
+            <label css={labelStyle}>
+              <span css={requiredMarkStyle}>*</span> 키
+              <input name="height" css={inputStyle} value={formData.height} onChange={handleChange} />
+              <span css={unitStyle}>cm</span>
+            </label>
+
+            <label css={labelStyle}>
+              체지방
+              <input name="bodyFat" css={inputStyle} value={formData.bodyFat} onChange={handleChange} />
+              <span css={unitStyle}>%</span>
+            </label>
+
+            <label css={labelStyle}>
+              혈압
+              <select name="bloodPressure" css={selectStyle} value={formData.bloodPressure} onChange={handleChange}>
+                <option value="LOW">낮음</option>
+                <option value="NORMAL">정상</option>
+                <option value="HIGH">높음</option>
+              </select>
+            </label>
+
+            <label css={labelStyle}>
+              질병 명
+              <input name="diseaseName" css={inputStyle} value={formData.diseaseName} onChange={handleChange} />
+            </label>
+
+            <label css={labelStyle}>
+              진단 날짜
+              <input type="date" name="diagnosisDate" css={dateStyle} value={formData.diagnosisDate} onChange={handleChange} />
+            </label>
+
+            <label css={labelStyle}>
+              현재 상태
+              <select name="diseaseStatus" css={selectStyle} value={formData.diseaseStatus} onChange={handleChange}>
+                <option value="ACTIVE">진행 중</option>
+                <option value="RECOVERED">완치</option>
+                <option value="CHRONIC">만성</option>
+              </select>
+            </label>
+
+            <label css={labelStyle}>
+              약 이름
+              <input name="medication" css={inputStyle} value={formData.medication} onChange={handleChange} />
+            </label>
+
+            <label css={labelStyle}>
+              알러지 명
+              <input name="allergy" css={inputStyle} value={formData.allergy} onChange={handleChange} />
+            </label>
+
+            <label css={labelStyle}>
+              증상
+              <input name="symptoms" css={inputStyle} value={formData.symptoms} onChange={handleChange} />
+            </label>
+
+            <div css={checkboxWrapperStyle}>
+              <label>
+                <input type="checkbox" name="smoker" checked={formData.smoker} onChange={handleChange} />
+                흡연 여부
+              </label>
+              <label>
+                <input type="checkbox" name="drinker" checked={formData.drinker} onChange={handleChange} />
+                음주 여부
+              </label>
+            </div>
+
+            <div css={buttonWrapperStyle}>
+              <button css={buttonStyle} onClick={handleCancel}>
+                취소
+              </button>
+              <button css={buttonStyle} onClick={handleSubmit}>
+                완료
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

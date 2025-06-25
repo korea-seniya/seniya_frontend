@@ -1,6 +1,7 @@
 import type { CommentDto } from "./CommentDto";
 
 export interface PostDetailResponseDto {
+  id: any;
   postId: number;
   title: string;
   content: string;
