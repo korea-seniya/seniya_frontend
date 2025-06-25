@@ -22,7 +22,7 @@ import { API_DOMAIN } from "../../../apis/constants";
 function ViewTrainerProfile() {
   localStorage.setItem(
     "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc1MjIyOCwiZXhwIjoxNzUwNzU1ODI4fQ.DHMcidMNr9jLlp_cvPtlskr8fUhT71sWa4TNQaofRWo"
+    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVFJBSU5FUiIsImlhdCI6MTc1MDgzMTUzMSwiZXhwIjoxNzUwODM1MTMxfQ.fUyukIE6PG7OfMNRmaLTtCBUJCLtUpe7k88LEkdyGtI"
   );
 
   const [profile, setProfile] = useState<TrainerProfileResponseDto | null>(
