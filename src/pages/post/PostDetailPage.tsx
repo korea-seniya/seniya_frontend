@@ -104,7 +104,7 @@ function PostDetailPage() {
 
   return (
     <div css={pageWrapper}>
-      <h1 css={nameStyle} onClick={() => navigate(`/api/v1/posts`)} style={{ cursor: 'pointer' }}>
+      <h1 css={nameStyle} onClick={() => navigate(`/posts`)} style={{ cursor: 'pointer' }}>
         게시판
       </h1>
 

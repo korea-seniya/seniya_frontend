@@ -94,7 +94,7 @@ function Header() {
           <>
             <span>{user.name}님</span>
             <button onClick={handleLogout}>로그아웃</button>
-            <NavLink to="/me">마이페이지</NavLink>
+            <NavLink to="users/me">마이페이지</NavLink>
           </>
         ) : (
           <>

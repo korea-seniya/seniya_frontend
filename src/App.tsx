@@ -52,7 +52,7 @@ import ViewTrainerProfile from "./pages/trainer/profile/ViewTrainerProfile"
 import EditTrainerProfile from "./pages/trainer/profile/EditTrainerProfile"
 
 function App() {
-    const loginUser = useUserStore((s) => s.loginUser);
+  const loginUser = useUserStore((s) => s.loginUser);
 
   useEffect(() => {
     const userData = Cookies.get("user");
@@ -74,12 +74,12 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signin' element={<SignIn />} />
         
-        <Route path='/api/v1/post' element={<PostCreate/> } />
-        <Route path='/api/v1/posts' element={<PostListPage/> } />
-        <Route path='/api/v1/posts/:id' element= {<PostDetailPage/> } />
-        <Route path='/api/v1/posts/:id/update' element= {<PostUpdate/> } />
+        <Route path='/post' element={<PostCreate/> } />
+        <Route path='/posts' element={<PostListPage/> } />
+        <Route path='/posts/:id' element= {<PostDetailPage/> } />
+        <Route path='/posts/:id/update' element= {<PostUpdate/> } />
         
-        <Route path='/api/v1/users/me' element= {<GetUserInfo/> } />
+        <Route path='/users/me' element= {<GetUserInfo/> } />
         
         <Route path="/notices" element={<NoticeList />} />
         <Route path="/notices/:id" element={<NoticeDetail />} />
@@ -107,9 +107,9 @@ function App() {
 
         <Route path='/myparticipation'element={<MyParticipationList />} />
         
-        <Route path='/api/v1/healthdata' element={<HealthDataCreate />} />
-        <Route path='/api/v1/healthdata/me' element={<HealthDataView />} />
-        <Route path='/api/v1/healthdata/update' element={<HealthDataUpdate />} />
+        <Route path='/healthdata' element={<HealthDataCreate />} />
+        <Route path='/healthdata/me' element={<HealthDataView />} />
+        <Route path='/healthdata/update' element={<HealthDataUpdate />} />
 
         <Route path='/api/v1/admin/create-course' element={<CreateCourse />} />
         <Route path='/api/v1/admin/courses' element={<CourseList />} />
@@ -121,7 +121,7 @@ function App() {
         <Route path='/api/v1/payments' element={<PaymentConfirm />} />
         <Route path='/api/v1/admin/users' element={<UserList />} />
 
-        <Route path='/api/v1/courses' element={<CourseListPage />} />
+        <Route path='/courses' element={<CourseListPage />} />
       </Routes>
   );
 }
