@@ -4,7 +4,6 @@ import { css } from '@emotion/react';
 export const filterContainer = css`
   width: 100%;
   height: 100px;
-  background-color: yellowgreen;
   margin: 10px 0;
   display: flex;
   align-items: center;

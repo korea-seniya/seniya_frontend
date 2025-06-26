@@ -13,6 +13,7 @@ function PaymentConfirm() {
   const [payments, setPayments] = useState<GetPaymentListResponseDto[]>([]);
   const [editingPaymentId, setEditingPaymentId] = useState<number | null>(null);
   const [originalStatus, setOriginalStatus] = useState<string>("");
+  const [editedStatusMap, setEditedStatusMap] = useState<{ [key: number]: string }>({});
 
   useEffect(() => {
     async function fetchPayments() {
@@ -33,49 +34,47 @@ function PaymentConfirm() {
   }, []);
 
   const handleStatusChange = (paymentId: number, newStatus: string) => {
-    setPayments(prev =>
-      prev.map(p =>
-        p.paymentId === paymentId ? { ...p, status: newStatus } : p
-      )
-    );
+    setEditedStatusMap(prev => ({ ...prev, [paymentId]: newStatus }));
   };
 
   const handleEditClick = (paymentId: number, currentStatus: string) => {
     setOriginalStatus(currentStatus);
+    setEditedStatusMap(prev => ({ ...prev, [paymentId]: currentStatus }));
     setEditingPaymentId(paymentId);
   };
 
   const handleCancelClick = (paymentId: number) => {
-    setPayments(prev =>
-      prev.map(p =>
-        p.paymentId === paymentId ? { ...p, status: originalStatus } : p
-      )
-    );
+    setEditedStatusMap(prev => {
+      const updated = { ...prev };
+      delete updated[paymentId];
+      return updated;
+    });
     setEditingPaymentId(null);
   };
 
-  const handleConfirmClick = async (updatedPayment: GetPaymentListResponseDto) => {
-    const dto: ConfirmPaymentRequestDto = {
-      status: updatedPayment.status
-    };
+  const handleConfirmClick = async (paymentId: number) => {
+    const newStatus = editedStatusMap[paymentId];
+    const dto: ConfirmPaymentRequestDto = { status: newStatus };
 
     try {
-      const response = await confirmPayment(updatedPayment.paymentId, dto);
+      const response = await confirmPayment(paymentId, dto);
       if (response.code === "SU") {
-        setPayments((prevPayments) =>
-          prevPayments.map((payment) =>
-            payment.paymentId === updatedPayment.paymentId
-              ? { ...payment, status: updatedPayment.status }
-              : payment
+        setPayments(prev =>
+          prev.map(p =>
+            p.paymentId === paymentId ? { ...p, status: newStatus } : p
           )
         );
         alert('결제 상태 변경 완료');
       }
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
 
+    setEditedStatusMap(prev => {
+      const updated = { ...prev };
+      delete updated[paymentId];
+      return updated;
+    });
     setEditingPaymentId(null);
   };
 
@@ -100,7 +99,8 @@ function PaymentConfirm() {
           <tbody>
             {payments.map((payment) => {
               const isEditing = editingPaymentId === payment.paymentId;
-              const isSuccess = payment.status === "SUCCESS";
+              const isConfirmedSuccess = payment.status === "SUCCESS";
+              const tempStatus = editedStatusMap[payment.paymentId] ?? payment.status;
 
               return (
                 <tr key={payment.paymentId} css={style.trStyle}>
@@ -113,8 +113,8 @@ function PaymentConfirm() {
                   <td css={style.tdStyle}>{payment.createdAt}</td>
                   <td css={style.tdStyle}>
                     <select
-                      value={payment.status}
-                      disabled={!isEditing || isSuccess}
+                      value={tempStatus}
+                      disabled={!isEditing || isConfirmedSuccess}
                       onChange={(e) =>
                         handleStatusChange(payment.paymentId, e.target.value)
                       }
@@ -125,17 +125,17 @@ function PaymentConfirm() {
                       <option value="CANCELLED">취소</option>
                     </select>
 
-                    {isSuccess ? (
+                    {isConfirmedSuccess && !isEditing ? (
                       <span> (수정 불가)</span>
                     ) : isEditing ? (
                       <>
-                        <button onClick={() => handleConfirmClick(payment)}>확인</button>
+                        <button onClick={() => handleConfirmClick(payment.paymentId)}>확인</button>
                         <button onClick={() => handleCancelClick(payment.paymentId)}>취소</button>
                       </>
                     ) : (
                       <button
                         onClick={() => handleEditClick(payment.paymentId, payment.status)}
-                        disabled={isSuccess}
+                        disabled={isConfirmedSuccess}
                       >
                         수정
                       </button>

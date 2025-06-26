@@ -97,13 +97,13 @@
 
 // export default PurchasePass;
 
-
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import React, { useState } from 'react';
 import * as style from './PurchasePass.style';
 import Header from '../../components/header';
 import { useNavigate } from 'react-router-dom';
+import AsideBar from '../../components/myPage/AsideBar';
 
 function PurchasePass() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -123,7 +123,6 @@ function PurchasePass() {
     }
 
     const selectedPass = passOptions[selectedIndex];
-
 
     navigate('/payments/request', {
       state: { selectedPass },
@@ -149,36 +148,39 @@ function PurchasePass() {
   return (
     <>
       <Header />
-      <div css={style.containerStyle}>
-        <h2 css={style.h2Style}>수강권 구매</h2>
-        <div css={style.passContainerStyle}>
-          {passOptions.map((pass, index) => (
-            <div
-              key={index}
-              css={[
-                style.passDivStyle,
-                selectedIndex === index &&
-                css`
+      <div css={style.pageWrapper}>
+        <AsideBar />
+        <div css={style.containerStyle}>
+          <h2 css={style.h2Style}>수강권 구매</h2>
+          <div css={style.passContainerStyle}>
+            {passOptions.map((pass, index) => (
+              <div
+                key={index}
+                css={[
+                  style.passDivStyle,
+                  selectedIndex === index &&
+                  css`
                     background-color: #4658AE;
                     border: 2px solid #4658AE;
                     color: #fff;
                   `,
-              ]}
-              onClick={() =>
-                setSelectedIndex(selectedIndex === index ? null : index)
-              }
-            >
-              <CouponIcon
-                size={32}
-                color={selectedIndex === index ? "#fff" : "#4658AE"}
-              />
-              <div css={style.passCount}>수강권 {pass.count}개</div>
-              <div css={style.passPrice}>₩{pass.count * 1000}</div>
-            </div>
-          ))}
-          <button css={style.payBtn} onClick={purchaseClick}>
-            결제하기
-          </button>
+                ]}
+                onClick={() =>
+                  setSelectedIndex(selectedIndex === index ? null : index)
+                }
+              >
+                <CouponIcon
+                  size={32}
+                  color={selectedIndex === index ? "#fff" : "#4658AE"}
+                />
+                <div css={style.passCount}>수강권 {pass.count}개</div>
+                <div css={style.passPrice}>₩{pass.count * 1000}</div>
+              </div>
+            ))}
+            <button css={style.payBtn} onClick={purchaseClick}>
+              결제하기
+            </button>
+          </div>
         </div>
       </div>
     </>
