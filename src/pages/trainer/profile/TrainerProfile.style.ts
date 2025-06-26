@@ -39,7 +39,7 @@ export const imageBox = css`
 
 export const imageButton = css`
   padding: 8px 15px;
-  background-color: #007bff;
+  background-color: #5B6DC6;
   color: white;
   border: none;
   border-radius: 5px;
@@ -109,7 +109,7 @@ export const certInput = css`
 export const submitButton = css`
   width: 100%;
   padding: 12px 20px;
-  background-color: #28a745;
+  background-color: #5B6DC6;
   color: white;
   border: none;
   border-radius: 5px;
@@ -117,7 +117,7 @@ export const submitButton = css`
   cursor: pointer;
   margin-top: 20px;
   &:hover {
-    background-color: #218838;
+    background-color: #0056b3;
   }
 `;
 

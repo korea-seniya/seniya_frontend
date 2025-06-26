@@ -1,9 +1,9 @@
 export interface InquriyByIdResponseDto{
     title: string;
     username: string;
-    trainername: string;
+    trainername?: string;
     content: string;
-    response: string;
+    response?: string;
     isPrivated: boolean;
     createdAt: string;
     updatedAt: string;

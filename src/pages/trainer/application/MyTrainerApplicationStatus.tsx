@@ -12,13 +12,9 @@ import {
   valueStyle,
 } from "./MyTrainerApplicationStatus.style";
 import type { TrainerApplicationStatusResponseDto } from "../../../dtos/trainer/response/trainerApplyStatus.response.dto";
+import Header from "../../../components/header";
 
 function MyTrainerApplicationStatus() {
-  localStorage.setItem(
-    "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc1MjIyOCwiZXhwIjoxNzUwNzU1ODI4fQ.DHMcidMNr9jLlp_cvPtlskr8fUhT71sWa4TNQaofRWo"
-  );
-
   const [status, setStatus] =
     useState<TrainerApplicationStatusResponseDto | null>(null);
 
@@ -41,6 +37,8 @@ function MyTrainerApplicationStatus() {
   }[status?.approvalStatus ?? "PENDING"];
 
   return (
+    <>
+    <Header />
     <div css={containerStyle}>
       <h1 css={titleStyle}>트레이너 권한 신청 현황</h1>
 
@@ -63,6 +61,7 @@ function MyTrainerApplicationStatus() {
         </span>
       </div>
     </div>
+    </>
   );
 }
 
