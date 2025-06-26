@@ -22,20 +22,11 @@ import type { InquiryAnswerRequestDto } from "../../dtos/inquiry/request/answer.
 
 export const tmp = "";
 
-function getCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
-  return match ? decodeURIComponent(match[2]) : null;
-}
-
 export const createInquiryRequest = async (
   dto: InquiryRequestDto
 ): Promise<ResponseDto<InquiryResponseDto>> => {
   try {
-    const token = getCookie("token");
     const response = await axiosInstance.post(CREATE_INQUIRY_URL, dto, {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
       withCredentials: true,
     });
     return responseSuccessHandler(response);
@@ -48,7 +39,6 @@ export const getAllInquiriesRequest = async (): Promise<
   ResponseDto<AllInquiryResponseDto[]>
 > => {
   try {
-    const token = getCookie("token");
     const response = await axiosInstance.get(GET_ALL_INQUIRY_URL);
     return responseSuccessHandler(response);
   } catch (error) {
@@ -60,11 +50,7 @@ export const getInquiryDetailRequest = async (
   id: number
 ): Promise<ResponseDto<InquriyByIdResponseDto>> => {
   try {
-    const token = getCookie("token");
     const response = await axiosInstance.get(GET_INQUIRY_DETAIL_URL(id), {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
       withCredentials: true,
     });
     return responseSuccessHandler(response);
@@ -78,11 +64,7 @@ export const updateInquiryRequest = async (
   dto: InquiryRequestDto
 ): Promise<ResponseDto<InquiryResponseDto>> => {
   try {
-    const token = getCookie("token");
     const response = await axiosInstance.put(PUT_INQUIRY_URL(id), dto, {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
       withCredentials: true,
     });
     return responseSuccessHandler(response);
@@ -95,11 +77,7 @@ export const deleteInquiryRequest = async (
   id: number
 ): Promise<ResponseDto<void>> => {
   try {
-    const token = getCookie("token");
     const response = await axiosInstance.delete(DELETE_INQUIRY_URL(id), {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
       withCredentials: true,
     });
     return responseSuccessHandler(response);
@@ -113,11 +91,9 @@ export const inquiryAnswerRequest = async (
   dto: InquiryAnswerRequestDto
 ): Promise<ResponseDto<InquriyByIdResponseDto>> => {
   try {
-    const token = getCookie("token");
+    
     const response = await axiosInstance.put(ANSWER_INQUIRY_URL(id), dto, {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
+      
       withCredentials: true,
     });
     return responseSuccessHandler(response);

@@ -50,6 +50,7 @@ const TRAINER_PROFILE_MODULE_URL = `${API_DOMAIN}/api/v1/trainer-profiles`;
 export const CREATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const UPDATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
 export const GET_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
+export const POPULARTRAINER_URL = `${TRAINER_PROFILE_MODULE_URL}/popular`;
 
 export const QUICK_SEARCH_URL = `${API_DOMAIN}/api/v1/courses/filter`;
 export const TODAY_COURSE_URL = `${API_DOMAIN}/api/v1/courses/filter/today`;
