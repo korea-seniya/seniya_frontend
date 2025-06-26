@@ -42,9 +42,11 @@ export const COURSE_SEARCH_BY_CATEGORY_URL = (category: string) =>
 const TRAINER_APPLY_MODULE_URL = `${API_DOMAIN}/api/v1/trainer-applications`;
 export const CREATE_APPLY_URL = `${TRAINER_APPLY_MODULE_URL}`;
 export const MY_APPLY_URL = `${TRAINER_APPLY_MODULE_URL}/me`;
-export const ALL_APPLY_URL = `${TRAINER_APPLY_MODULE_URL}`;
-export const APPLY_DETAIL_URL = (id: number) => `${TRAINER_APPLY_MODULE_URL}/${id}`;
-export const APPLY_CHANGE_URL = (id: number) => `${TRAINER_APPLY_MODULE_URL}/${id}`;
+
+const ADMIN_TRAINER_MODULE_URL = `${API_DOMAIN}/admin/api/v1/trainer-applications`
+export const ALL_APPLY_URL = `${ADMIN_TRAINER_MODULE_URL}`;
+export const APPLY_DETAIL_URL = (id: number) => `${ADMIN_TRAINER_MODULE_URL}/${id}`;
+export const APPLY_CHANGE_URL = (id: number) => `${ADMIN_TRAINER_MODULE_URL}/${id}`;
 
 const TRAINER_PROFILE_MODULE_URL = `${API_DOMAIN}/api/v1/trainer-profiles`;
 export const CREATE_PROFILE_URL = `${TRAINER_PROFILE_MODULE_URL}/me`;
