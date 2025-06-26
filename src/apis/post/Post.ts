@@ -71,16 +71,15 @@ export const updatePost = async (
   postId: number,
   title: string,
   content: string,
-  files: File[]
+  files: File[],
+  token: string
 ): Promise<ResponseDto<PostDetailResponseDto>> => {
   try {
     const dto = { title, content };
     const formData = new FormData();
 
     formData.append("data", new Blob([JSON.stringify(dto)], { type: "application/json" }));
-    files.forEach((file) => formData.append("file", file));
-
-    const token = Cookies.get("token");
+    files.forEach(file => formData.append("file", file));
 
     const response = await axiosInstance.post(`/api/v1/posts/${postId}`, formData, {
       headers: {
@@ -95,6 +94,7 @@ export const updatePost = async (
   }
 };
 
+
 export const deletePost = async (postId: number, token: string): Promise<ResponseDto<any>> => {
   try {
     const response = await axiosInstance.delete(`/api/v1/posts/${postId}`, {
@@ -102,7 +102,7 @@ export const deletePost = async (postId: number, token: string): Promise<Respons
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    return responseSuccessHandler(response);
   } catch (error) {
     return responseErrorHandler(error as AxiosError<ResponseDto>);
   }

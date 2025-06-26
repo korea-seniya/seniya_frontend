@@ -19,18 +19,16 @@ import {
 } from './PostCreate.style';
 
 import { getPostDetail, updatePost } from '../../apis/post/Post';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useUserStore } from '../../stores/user.store';
 import Header from '../../components/header';
+import Footer from '../../components/main/footer/Footer';
 
 function PostUpdate() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.setItem(
-      "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IuynhOyasO2DnCIsInJvbGUiOiJVU0VSIiwidXNlcklkIjoyMiwiaWF0IjoxNzUwNzUwMTE4LCJleHAiOjE3NTA3NTM3MTh9.sJYFH25OlUFfnrxSGsaB8zHzJ3-IIR9QYSa5tQ0hAKg"
-    );
-  }, []);
+  const { user } = useUserStore();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -43,15 +41,16 @@ function PostUpdate() {
     }
   }, [id]);
 
-  const fetchPostDetail = async (id: number) => {
+  const fetchPostDetail = async (postId: number) => {
     try {
-      const res = await getPostDetail(id);
+      const res = await getPostDetail(postId);
       if (res.data) {
         setTitle(res.data.title);
         setContent(res.data.content);
       }
     } catch (error) {
       console.error('게시글 조회 실패:', error);
+      alert('게시글 조회에 실패했습니다.');
     }
   };
 
@@ -67,15 +66,22 @@ function PostUpdate() {
   };
 
   const handleSubmit = async () => {
-    console.log('handleSubmit 시작');
-    console.log('postId:', id, 'title:', title, 'content:', content, 'files:', selectedFiles);
+    if (!id) {
+      alert('게시글 ID가 없습니다.');
+      return;
+    }
 
-    if (!id) return;
+    if (!user || !user.token) {
+      alert('로그인 정보가 없습니다. 로그인 후 이용해주세요.');
+      navigate('/signin');
+      return;
+    }
 
     try {
-      const res = await updatePost(Number(id), title, content, selectedFiles);
+      const res = await updatePost(Number(id), title, content, selectedFiles, user.token);
       console.log('게시글 수정 성공:', res);
       alert('게시글이 수정되었습니다.');
+      navigate('/posts');
 
       setSelectedFiles([]);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -87,7 +93,7 @@ function PostUpdate() {
 
   return (
     <>
-      <Header /> 
+      <Header />
       <h1 css={nameStyle}>게시판 수정</h1>
       <div css={containerStyle}>
         <header>
@@ -146,6 +152,7 @@ function PostUpdate() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

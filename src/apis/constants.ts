@@ -57,3 +57,5 @@ export const TODAY_COURSE_URL = `${API_DOMAIN}/api/v1/courses/filter/today`;
 export const USER_URL = `${API_DOMAIN}/api/v1/users/me`;
 export const PUT_USER_URL = `${API_DOMAIN}/api/v1/users/me`;
 export const DELETE_USER_URL = `${API_DOMAIN}/api/v1/users/me`;
+
+export const USER_PASS_URL = `${API_DOMAIN}/api/v1/passes/me`;
