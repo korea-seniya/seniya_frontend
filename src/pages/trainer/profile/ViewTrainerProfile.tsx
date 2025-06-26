@@ -19,6 +19,7 @@ import type { TrainerProfileResponseDto } from "../../../dtos/trainer/response/t
 import { useNavigate } from "react-router-dom";
 import { API_DOMAIN } from "../../../apis/constants";
 import Header from "../../../components/header";
+import TrainerSide from "../../../components/trainer/TrainerSide";
 
 function ViewTrainerProfile() {
   const [profile, setProfile] = useState<TrainerProfileResponseDto | null>(
@@ -64,6 +65,7 @@ function ViewTrainerProfile() {
   return (
     <>
       <Header />
+      <TrainerSide />
       <div css={container}>
         <h2>트레이너 프로필</h2>
         <div css={imageNameDiv}>

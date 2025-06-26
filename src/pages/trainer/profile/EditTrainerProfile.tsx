@@ -30,6 +30,8 @@ import type { updateTrainerProfileRequestDto } from "../../../dtos/trainer/reque
 import { Specialty } from "../../../dtos/trainer/specialty";
 import { API_DOMAIN } from "../../../apis/constants";
 import Header from "../../../components/header";
+import { useUserStore } from "../../../stores/user.store";
+import TrainerSide from "../../../components/trainer/TrainerSide";
 
 const mapCertToRequestDto = (
   cert: CertificateResponseDto
@@ -52,7 +54,7 @@ function EditTrainerProfile() {
   >(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  const { user } = useUserStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -187,6 +189,7 @@ function EditTrainerProfile() {
   return (
     <>
       <Header />
+      <TrainerSide />
       <div css={container}>
         <h2>트레이너 프로필 수정</h2>
         <form onSubmit={handleSubmit}>
@@ -238,7 +241,7 @@ function EditTrainerProfile() {
 
             <div css={nameDiv}>
               <div css={label}>이름</div>
-              <input css={input} value={""} disabled />
+              <input css={input} value={user?.name} disabled />
 
               <div css={label}>소개글</div>
               <textarea

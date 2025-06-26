@@ -1,6 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
+export const sideStyle = css`
+  display: flex;
+  
+`;
+
 export const container = css`
   max-width: 800px;
   margin: 50px auto;

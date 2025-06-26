@@ -30,10 +30,10 @@ const navItems = [
     subItems: [
       { name: '트레이너 권한 신청', path:'/trainer-application'},
       { name: '트레이너 권한 조회', path:'/trainer-application/me'},
-      { name: '트레이너 권한 신청목록', path:'/trainer-applications'},
-      { name: '트레이너 프로필 생성', path: '/trainer-profile/create'},
-      { name: '트레이너 프로필 조회', path: '/trainer-profile/view'},
-      { name: '트레이너 프로필 수정', path: '/trainer-profile/edit'},
+      // { name: '트레이너 권한 신청목록', path:'/trainer-applications'},
+      // { name: '트레이너 프로필 생성', path: '/trainer-profile/create'},
+      // { name: '트레이너 프로필 조회', path: '/trainer-profile/view'},
+      // { name: '트레이너 프로필 수정', path: '/trainer-profile/edit'},
     ],
   },
   {

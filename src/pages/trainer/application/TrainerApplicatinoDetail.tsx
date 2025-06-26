@@ -16,6 +16,8 @@ import {
 } from "../../../apis/trainer/application";
 import type { TrainerApplicationDetailResponseDto } from "../../../dtos/trainer/response/trainerApplyDetail.response.dto";
 import Header from "../../../components/header";
+import AsideBar from "../../../components/myPage/AsideBar";
+import AdminSidebar from "../../../components/admin/AdminSidebar";
 
 function TrainerApplicationDetail() {
   const { id } = useParams<{ id: string }>();
@@ -84,6 +86,7 @@ function TrainerApplicationDetail() {
   return (
     <>
     <Header />
+    <AdminSidebar />
     <div css={containerStyle}>
       <h1 css={titleStyle}>트레이너 신청 상세</h1>
       <div css={detailBoxStyle}>

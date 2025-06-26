@@ -13,6 +13,7 @@ import { getAllTrainerApplications } from "../../../apis/trainer/application";
 import type { TrainerApplicationResponseDto } from "../../../dtos/trainer/response/trainerApply.response.dto";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../components/header";
+import AdminSidebar from "../../../components/admin/AdminSidebar";
 
 function TrainerApplicationList() {
   const [applications, setApplications] = useState<
@@ -48,6 +49,7 @@ function TrainerApplicationList() {
   return (
     <>
       <Header />
+      <AdminSidebar />
       <div css={containerStyle}>
         <table css={tableStyle}>
           <thead>
