@@ -27,7 +27,7 @@ const AsideBar = () => {
       <div css={menuSection}>
         <div css={menuTitle}>수업</div>
         <div css={menuItem}
-          onClick={() => navigate(`/myparticipation`)} style={{ cursor: 'pointer' }}>내 수업 보기</div>
+          onClick={() => navigate(`/users/me/myparticipation`)} style={{ cursor: 'pointer' }}>내 수업 보기</div>
       </div>
       <div css={menuSection}>
         <div css={menuTitle}>결제</div>

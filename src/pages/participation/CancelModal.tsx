@@ -7,7 +7,6 @@ import {
   modalCardStyle,
   modalButtonStyle,
   backButtonStyle,
-  modalImageStyle,
   modalTextStyle,
   modalFooterStyle,
 } from './MyParticipationList.style';
@@ -32,11 +31,6 @@ const CancelModal = ({ participation, onCancel, onConfirm }: Props) => {
         </p>
 
         <div css={modalCardStyle}>
-          <img
-            src="/images/example-course-thumbnail.png"
-            alt={`${participation.title} 썸네일`}
-            css={modalImageStyle}
-          />
           <div css={modalTextStyle}>
             <p><strong>[{participation.category}]</strong> {participation.title}</p>
             <p>{participation.description}</p>

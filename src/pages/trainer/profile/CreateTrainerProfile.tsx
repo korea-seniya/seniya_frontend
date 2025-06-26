@@ -23,7 +23,7 @@ import {
   sideStyle,
   removeCertButton,
 } from "./TrainerProfile.style"; // 스타일 임포트 경로 확인
-import { createProfile } from "../../../apis/trainer/profile"; // createProfile API
+import { createProfile, getMyProfile } from "../../../apis/trainer/profile"; // createProfile API
 import { useNavigate } from "react-router-dom";
 import type { TrainerProfileRequestDto } from "../../../dtos/trainer/request/trainerProfile.request.dto";
 import { Specialty } from "../../../dtos/trainer/specialty";
@@ -42,6 +42,21 @@ function CreateTrainerProfile() {
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const { user } = useUserStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkProfileExists = async () => {
+      try {
+        const response = await getMyProfile();
+        if (response && response.code === "SU" && response.data) {
+          alert("이미 작성한 프로필이 존재합니다. 프로필 수정 페이지로 이동합니다.");
+          navigate("/trainer-profile/edit");
+        }
+      } catch (error) {
+        console.error("프로필 확인 중 오류 발생:", error);
+      }
+    };
+    checkProfileExists();
+  }, [navigate]);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>

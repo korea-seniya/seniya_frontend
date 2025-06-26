@@ -82,7 +82,7 @@ function TrainerApplicationList() {
                 <td css={tdStyle}>
                   <button
                     css={detailButtonStyle}
-                    onClick={() => navigate(`/trainer-application/${app.id}`)}
+                    onClick={() => navigate(`/admin/trainer-application/${app.id}`)}
                   >
                     상세
                   </button>
