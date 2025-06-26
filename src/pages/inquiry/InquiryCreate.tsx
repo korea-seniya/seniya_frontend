@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
   containerStyle,
   titleStyle,
@@ -10,95 +10,94 @@ import {
   divStyle,
   buttonWrapperStyle,
   checkboxStyle,
-  label2Style
-} from './InquiryCreate.style';
+  label2Style,
+} from "./InquiryCreate.style";
 
-import { createInquiryRequest } from '../../apis/inquiry/Inquiry';
-import type { InquiryRequestDto } from '../../dtos/inquiry/request/inquiry.request.dto';
-import { useNavigate } from 'react-router-dom';
+import { createInquiryRequest } from "../../apis/inquiry/Inquiry";
+import type { InquiryRequestDto } from "../../dtos/inquiry/request/inquiry.request.dto";
+import { useNavigate } from "react-router-dom";
+import Header from "../../components/header";
 
 function InquiryCreate() {
-  localStorage.setItem("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3R0cmFpbmVyIiwicm9sZSI6IlRSQUlORVIiLCJpYXQiOjE3NTAzODM3OTksImV4cCI6MTc1MDM4NzM5OX0.IRfkeQAFfZLVOCdc7iFJRAVsFSYS_EtheERydo_aPsA");
-  const [title, setTitle] = useState<string>('');
-  const [content, setContent] = useState<string>('');
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
   const [isPrivated, setIsPrivated] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState<string>("");
   const navigate = useNavigate();
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
-  }
+  };
 
   const onContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
-  }
+  };
 
   const onIsPrivatedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsPrivated(e.target.checked);
-  }
+  };
 
   const onSubmit = async () => {
     if (!title || !content) {
-      setMessage('제목과 내용 모두 입력해주세요.');
+      setMessage("제목과 내용 모두 입력해주세요.");
       return;
     }
 
     const requestBody: InquiryRequestDto = {
       title,
       content,
-      isPrivated
+      isPrivated,
     };
 
     const response = await createInquiryRequest(requestBody);
-    if (response.code === 'SU') {
-      alert('문의 등록 완료.');
-      navigate('/api/v1/inquiries');
+    if (response.code === "SU") {
+      alert("문의 등록 완료.");
+      navigate("/inquiries");
     } else {
       setMessage(response.message);
     }
-  }
+  };
 
   return (
-    <div css={containerStyle}>
-      <h1 css={titleStyle}>문의 작성</h1>
-      <div css={divStyle}>
-        <label css={labelStyle}>
-          제목
-        </label>
-        <input
-          css={inputStyle}
-          type='text'
-          value={title}
-          onChange={onTitleChange}
-          placeholder='제목을 입력하세요'
-        />
-        <label css={label2Style}>
+    <>
+      <Header />
+      <div css={containerStyle}>
+        <h1 css={titleStyle}>문의 작성</h1>
+        <div css={divStyle}>
+          <label css={labelStyle}>제목</label>
           <input
-            type="checkbox"
-            checked={isPrivated}
-            onChange={onIsPrivatedChange}
-            css={checkboxStyle}
+            css={inputStyle}
+            type="text"
+            value={title}
+            onChange={onTitleChange}
+            placeholder="제목을 입력하세요"
           />
-          비밀글
-        </label>
+          <label css={label2Style}>
+            <input
+              type="checkbox"
+              checked={isPrivated}
+              onChange={onIsPrivatedChange}
+              css={checkboxStyle}
+            />
+            비밀글
+          </label>
+        </div>
+        <textarea
+          css={contentStyle}
+          value={content}
+          onChange={onContentChange}
+          placeholder="문의 내용을 입력해주세요"
+        ></textarea>
+        <div css={buttonWrapperStyle}>
+          <button css={buttonStyle} type="submit" onClick={onSubmit}>
+            등록
+          </button>
+          <button css={buttonStyle}>취소</button>
+        </div>
+        {<p>{message}</p>}
       </div>
-      <textarea
-        css={contentStyle}
-        value={content}
-        onChange={onContentChange}
-        placeholder='문의 내용을 입력해주세요'
-      ></textarea>
-      <div css={buttonWrapperStyle}>
-        <button
-          css={buttonStyle}
-          type='submit'
-          onClick={onSubmit}
-        >등록</button>
-        <button css={buttonStyle}>취소</button>
-      </div>
-      {<p>{message}</p>}
-    </div>
-  )
+    </>
+  );
 }
 
-export default InquiryCreate
+export default InquiryCreate;

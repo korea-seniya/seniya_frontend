@@ -1,44 +1,75 @@
 import type { AxiosError } from "axios";
 import type ResponseDto from "../../dtos/response.dto";
-import { axiosInstance, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
-import { ALL_APPLY_URL, APPLY_CHANGE_URL, APPLY_DETAIL_URL, CREATE_APPLY_URL, MY_APPLY_URL } from "../constants";
+import {
+  axiosInstance,
+  responseErrorHandler,
+  responseSuccessHandler,
+} from "../axiosConfig";
+import {
+  ALL_APPLY_URL,
+  APPLY_CHANGE_URL,
+  APPLY_DETAIL_URL,
+  CREATE_APPLY_URL,
+  MY_APPLY_URL,
+} from "../constants";
 import type { TrainerApplicationStatusResponseDto } from "../../dtos/trainer/response/trainerApplyStatus.response.dto";
 import type { TrainerApplicationResponseDto } from "../../dtos/trainer/response/trainerApply.response.dto";
 import type { TrainerApplicationDetailResponseDto } from "../../dtos/trainer/response/trainerApplyDetail.response.dto";
 import type { ApprovalStatus } from "../../dtos/trainer/approvalStatus";
 
+export const tmp = "";
+
+function getCookie(name: string): string | null {
+  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
+  return match ? decodeURIComponent(match[2]) : null;
+}
+
 export const trainerApply = async (): Promise<ResponseDto<void>> => {
   try {
-    const response = await axiosInstance.post(CREATE_APPLY_URL,{},{
-      headers: {
-        Authorization: localStorage.getItem('Authorization'),
+    const token = getCookie("token");
+    const response = await axiosInstance.post(
+      CREATE_APPLY_URL,
+      {},
+      {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        withCredentials: true,
       }
+    );
+    return responseSuccessHandler(response);
+  } catch (error) {
+    return responseErrorHandler(error as AxiosError<ResponseDto>);
+  }
+};
+
+export const getMyApply = async (): Promise<
+  ResponseDto<TrainerApplicationStatusResponseDto>
+> => {
+  try {
+    const token = getCookie("token");
+    const response = await axiosInstance.get(MY_APPLY_URL, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      withCredentials: true,
     });
     return responseSuccessHandler(response);
   } catch (error) {
     return responseErrorHandler(error as AxiosError<ResponseDto>);
   }
-}
+};
 
-export const getMyApply = async (): Promise<ResponseDto<TrainerApplicationStatusResponseDto>> => {
+export const getAllTrainerApplications = async (): Promise<
+  ResponseDto<TrainerApplicationResponseDto[]>
+> => {
   try {
-    const response = await axiosInstance.get(MY_APPLY_URL,{
-      headers: {
-        Authorization: localStorage.getItem('Authorization'),
-      }
-    });
-    return responseSuccessHandler(response);
-  } catch (error) {
-    return responseErrorHandler(error as AxiosError<ResponseDto>);
-  }
-}
-
-export const getAllTrainerApplications = async (): Promise<ResponseDto<TrainerApplicationResponseDto[]>> => {
-  try {
+    const token = getCookie("token");
     const response = await axiosInstance.get(ALL_APPLY_URL, {
       headers: {
-        Authorization: localStorage.getItem("Authorization"),
+        Authorization: token ? `Bearer ${token}` : "",
       },
+      withCredentials: true,
     });
     return responseSuccessHandler(response);
   } catch (error) {
@@ -50,6 +81,7 @@ export const getTrainerApplicationById = async (
   id: number
 ): Promise<ResponseDto<TrainerApplicationDetailResponseDto>> => {
   try {
+    const token = getCookie("token");
     const response = await axiosInstance.get(APPLY_DETAIL_URL(id), {
       headers: {
         Authorization: localStorage.getItem("Authorization"),
@@ -66,12 +98,15 @@ export const updateTrainerApplicationStatus = async (
   status: ApprovalStatus
 ): Promise<ResponseDto<void>> => {
   try {
-    const response = await axiosInstance.put(APPLY_CHANGE_URL(id), 
-      { approvalStatus: status }, 
+    const token = getCookie("token");
+    const response = await axiosInstance.put(
+      APPLY_CHANGE_URL(id),
+      { approvalStatus: status },
       {
         headers: {
-          Authorization: localStorage.getItem("Authorization"),
-        }
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        withCredentials: true,
       }
     );
     return responseSuccessHandler(response);
