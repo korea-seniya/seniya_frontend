@@ -28,22 +28,12 @@ const navItems = [
   {
     label: '트레이너',
     subItems: [
-<<<<<<< refactor/update-page
-      { name: '트레이너 프로필 조회', path: '/trainer-profile/view'},
-      { name: '트레이너 프로필 생성', path: '/trainer-profile/create'},
-      { name: '트레이너 프로필 수정', path: '/trainer-profile/edit'},
-      { name: '트레이너 권한 신청', path:'/trainer-application'},
-      { name: '트레이너 권한 신청목록', path:'/trainer-applications'},
-      { name: '트레이너 권한 조회', path:'/trainer-application/me'},
-      { name: '트레이너 권한 변경', path:'/trainer-application/:id'},
-=======
       { name: '트레이너 권한 신청', path:'/trainer-application'},
       { name: '트레이너 권한 조회', path:'/trainer-application/me'},
       { name: '트레이너 권한 신청목록', path:'/trainer-applications'},
       { name: '트레이너 프로필 생성', path: '/trainer-profile/create'},
       { name: '트레이너 프로필 조회', path: '/trainer-profile/view'},
-      { name: '트레이너 프로필 수정', path: '/trainer-profile/edit'},
->>>>>>> develop
+      { name: '트레이너 프로필 수정', path: '/trainer-profile/edit'}
     ],
   },
   {
@@ -57,14 +47,7 @@ const navItems = [
     label: '고객센터',
     subItems: [
       { name: '문의 목록', path: '/inquiries' },
-<<<<<<< refactor/update-page
-      { name: '문의 생성', path: '/inquiry' },
-      { name: '문의 디테일', path: '/inquiry/:id' },
-      { name: '문의 수정', path: '/inquiry/:id/update' },
-      { name: '문의 답변', path: '/inquiry/:id/response' },
-=======
-      { name: '문의 생성', path: '/inquiry' },  
->>>>>>> develop
+      { name: '문의 생성', path: '/inquiry' }
     ],
   },
 ];
