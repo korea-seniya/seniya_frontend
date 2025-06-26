@@ -1,72 +1,64 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-export const container = css`
-  width: 100%;
-  height: 500px;
-  margin: 10px 0;
+export const sectionStyle = css`
   display: flex;
-  background-color: #ccc;
-  box-sizing: border-box;
-  padding: 20px;
+  justify-content: space-between;
   gap: 20px;
+  margin-top: 30px;
+  padding: 20px;
 `;
 
 export const halfBox = css`
-  flex: 1 1 50%;
-  background-color: #fff;
+  width: 48%;
+  background-color: #ffffff;
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 24px;
-  box-sizing: border-box;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+`;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const titleStyle = css`
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+`;
+
+export const listStyle = css`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 1.4;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      color: #999;
+      font-size: 14px;
+    }
+  }
 `;
 
 export const table = css`
   width: 100%;
   border-collapse: collapse;
-  margin-top: 16px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  overflow: hidden; 
 
-  thead {
-    background-color: #f5f7fa;
-  }
-
-  th,
-  td {
-    padding: 12px 16px;
+  th, td {
+    padding: 8px 12px;
     text-align: center;
     font-size: 14px;
-    white-space: nowrap;
   }
 
-  th {
+  thead {
+    background-color: #f5f5f5;
     font-weight: 600;
-    border-bottom: 2px solid #e2e8f0;
-  }
-
-  td {
-    border-bottom: 1px solid #eef2f6;
-  }
-
-  tbody tr:nth-of-type(even) {
-    background-color: #fafbfc;
   }
 
   tbody tr:hover {
-    background-color: #edf6ff;
-    transition: background-color 0.25s ease;
-  }
-
-  @media (max-width: 768px) {
-    th:nth-of-type(3),
-    td:nth-of-type(3) {
-      display: none;
-    }
+    background-color: #f9f9f9;
   }
 `;
