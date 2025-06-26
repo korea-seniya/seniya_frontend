@@ -3,10 +3,11 @@ import { css } from '@emotion/react';
 
 export const sideStyle = css`
   display: flex;
-  
+  justify-content: center;
 `;
 
 export const container = css`
+  flex: 4;
   max-width: 800px;
   margin: 50px auto;
   padding: 30px;

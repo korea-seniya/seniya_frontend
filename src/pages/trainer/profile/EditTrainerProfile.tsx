@@ -21,6 +21,7 @@ import {
   submitButton,
   addCertButton,
   removeCertButton,
+  sideStyle,
 } from "./TrainerProfile.style"; // 스타일 임포트 경로 확인
 import { getMyProfile, updateProfile } from "../../../apis/trainer/profile"; // GET, PUT API
 import { useNavigate } from "react-router-dom";
@@ -189,132 +190,134 @@ function EditTrainerProfile() {
   return (
     <>
       <Header />
-      <TrainerSide />
-      <div css={container}>
-        <h2>트레이너 프로필 수정</h2>
-        <form onSubmit={handleSubmit}>
-          <div css={imageNameDiv}>
-            <div css={imageDiv}>
-              <div css={imageBox}>
-                {currentProfileImageUrl ? (
-                  <img
-                    src={currentProfileImageUrl}
-                    alt="프로필 이미지"
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      objectFit: "contain",
-                    }}
-                  />
-                ) : (
-                  "이미지 없음"
-                )}
+      <div css={sideStyle}>
+        <TrainerSide />
+        <div css={container}>
+          <h2>트레이너 프로필 수정</h2>
+          <form onSubmit={handleSubmit}>
+            <div css={imageNameDiv}>
+              <div css={imageDiv}>
+                <div css={imageBox}>
+                  {currentProfileImageUrl ? (
+                    <img
+                      src={currentProfileImageUrl}
+                      alt="프로필 이미지"
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  ) : (
+                    "이미지 없음"
+                  )}
+                </div>
+                <input
+                  type="file"
+                  id="profileImageInput"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+                <button
+                  type="button"
+                  css={imageButton}
+                  onClick={() =>
+                    document.getElementById("profileImageInput")?.click()
+                  }
+                >
+                  이미지 선택
+                </button>
+                {currentProfileImageUrl &&
+                  profileData.removeProfileImage === false && (
+                    <button
+                      type="button"
+                      css={imageButton}
+                      onClick={handleRemoveImage}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      이미지 삭제
+                    </button>
+                  )}
               </div>
-              <input
-                type="file"
-                id="profileImageInput"
-                accept="image/*"
-                onChange={handleFileChange}
-                style={{ display: "none" }}
-              />
-              <button
-                type="button"
-                css={imageButton}
-                onClick={() =>
-                  document.getElementById("profileImageInput")?.click()
-                }
-              >
-                이미지 선택
-              </button>
-              {currentProfileImageUrl &&
-                profileData.removeProfileImage === false && (
-                  <button
-                    type="button"
-                    css={imageButton}
-                    onClick={handleRemoveImage}
-                    style={{ marginLeft: "10px" }}
-                  >
-                    이미지 삭제
-                  </button>
-                )}
+
+              <div css={nameDiv}>
+                <div css={label}>이름</div>
+                <input css={input} value={user?.name} disabled />
+
+                <div css={label}>소개글</div>
+                <textarea
+                  css={textArea}
+                  name="description"
+                  value={profileData.description}
+                  onChange={handleInputChange}
+                />
+              </div>
             </div>
 
-            <div css={nameDiv}>
-              <div css={label}>이름</div>
-              <input css={input} value={user?.name} disabled />
+            <div css={label}>전문분야</div>
+            <select
+              css={select}
+              name="specialty"
+              value={profileData.specialty}
+              onChange={handleInputChange}
+            >
+              {Object.values(Specialty).map((s) => (
+                <option key={s} value={s}>
+                  {s === Specialty.EXERCISE && "운동"}
+                  {s === Specialty.SLEEP && "수면 치료"}
+                  {s === Specialty.REHABILITATION && "재활"}
+                  {s === Specialty.PSYCHOLOGY && "심리"}
+                </option>
+              ))}
+            </select>
 
-              <div css={label}>소개글</div>
-              <textarea
-                css={textArea}
-                name="description"
-                value={profileData.description}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
+            <div css={label}>경력 (년)</div>
+            <input
+              css={input}
+              type="number"
+              name="experienceYears"
+              value={profileData.experienceYears}
+              onChange={handleInputChange}
+            />
 
-          <div css={label}>전문분야</div>
-          <select
-            css={select}
-            name="specialty"
-            value={profileData.specialty}
-            onChange={handleInputChange}
-          >
-            {Object.values(Specialty).map((s) => (
-              <option key={s} value={s}>
-                {s === Specialty.EXERCISE && "운동"}
-                {s === Specialty.SLEEP && "수면 치료"}
-                {s === Specialty.REHABILITATION && "재활"}
-                {s === Specialty.PSYCHOLOGY && "심리"}
-              </option>
+            <div css={label}>자격증</div>
+            {(profileData.certificates || []).map((cert, index) => (
+              <div key={index} css={certRow}>
+                <input
+                  css={certInput}
+                  type="text"
+                  name="certificate"
+                  placeholder="자격증 명"
+                  value={cert.certificate}
+                  onChange={(e) => handleCertChange(index, e)}
+                />
+                <input
+                  css={certInput}
+                  type="date"
+                  name="certificationDate"
+                  placeholder="YYYY-MM-DD"
+                  value={cert.certificationDate}
+                  onChange={(e) => handleCertChange(index, e)}
+                />
+                <button
+                  type="button"
+                  css={removeCertButton}
+                  onClick={() => removeCertificate(index)}
+                >
+                  삭제
+                </button>
+              </div>
             ))}
-          </select>
+            <button type="button" css={addCertButton} onClick={addCertificate}>
+              자격증 추가
+            </button>
 
-          <div css={label}>경력 (년)</div>
-          <input
-            css={input}
-            type="number"
-            name="experienceYears"
-            value={profileData.experienceYears}
-            onChange={handleInputChange}
-          />
-
-          <div css={label}>자격증</div>
-          {(profileData.certificates || []).map((cert, index) => (
-            <div key={index} css={certRow}>
-              <input
-                css={certInput}
-                type="text"
-                name="certificate"
-                placeholder="자격증 명"
-                value={cert.certificate}
-                onChange={(e) => handleCertChange(index, e)}
-              />
-              <input
-                css={certInput}
-                type="date"
-                name="certificationDate"
-                placeholder="YYYY-MM-DD"
-                value={cert.certificationDate}
-                onChange={(e) => handleCertChange(index, e)}
-              />
-              <button
-                type="button"
-                css={removeCertButton}
-                onClick={() => removeCertificate(index)}
-              >
-                삭제
-              </button>
-            </div>
-          ))}
-          <button type="button" css={addCertButton} onClick={addCertificate}>
-            자격증 추가
-          </button>
-
-          <button css={submitButton} type="submit">
-            프로필 업데이트
-          </button>
-        </form>
+            <button css={submitButton} type="submit">
+              프로필 업데이트
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
