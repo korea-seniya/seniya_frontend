@@ -144,3 +144,19 @@ export const closeButtonStyle = css`
     background-color: #777;
   }
 `;
+
+export const participationButtonStyle = css`
+  margin-top: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #4658AE;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #6057B2;
+  }
+`;

@@ -8,9 +8,9 @@ export interface HealthdataRequestDto {
   bodyFatPercentage?: number;
   bloodPressure?: string;
 
-  diseases: DiseaseRequestDto[];
-  medications: MedicationRequestDto[];
-  allergies: AllergyRequestDto[];
+  diseases?: DiseaseRequestDto[];
+  medications?: MedicationRequestDto[];
+  allergies?: AllergyRequestDto[];
 
   smoking: boolean;
   drinking: boolean;

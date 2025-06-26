@@ -1,4 +1,5 @@
 export interface GetUserCourseDetailResponseDto {
+  courseId:number;
   trainerId: number;
   trainerName: string;
   title: string;

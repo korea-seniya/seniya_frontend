@@ -20,20 +20,30 @@ const navItems = [
   {
     label: '수업',
     subItems: [
-      { name: '수업 예약', path: '/api/v1/courses' },
-      { name: '트레이너 수업', path: '/api/v1/courses' },
-      { name: '카테고리 수업', path: '/api/v1/courses' },
+      { name: '수업 예약', path: '/courses' },
+      { name: '트레이너 수업', path: '/courses' },
+      { name: '카테고리 수업', path: '/courses' },
     ],
   },
   {
     label: '트레이너',
     subItems: [
+<<<<<<< refactor/update-page
+      { name: '트레이너 프로필 조회', path: '/trainer-profile/view'},
+      { name: '트레이너 프로필 생성', path: '/trainer-profile/create'},
+      { name: '트레이너 프로필 수정', path: '/trainer-profile/edit'},
+      { name: '트레이너 권한 신청', path:'/trainer-application'},
+      { name: '트레이너 권한 신청목록', path:'/trainer-applications'},
+      { name: '트레이너 권한 조회', path:'/trainer-application/me'},
+      { name: '트레이너 권한 변경', path:'/trainer-application/:id'},
+=======
       { name: '트레이너 권한 신청', path:'/trainer-application'},
       { name: '트레이너 권한 조회', path:'/trainer-application/me'},
       { name: '트레이너 권한 신청목록', path:'/trainer-applications'},
       { name: '트레이너 프로필 생성', path: '/trainer-profile/create'},
       { name: '트레이너 프로필 조회', path: '/trainer-profile/view'},
       { name: '트레이너 프로필 수정', path: '/trainer-profile/edit'},
+>>>>>>> develop
     ],
   },
   {
@@ -47,7 +57,14 @@ const navItems = [
     label: '고객센터',
     subItems: [
       { name: '문의 목록', path: '/inquiries' },
+<<<<<<< refactor/update-page
+      { name: '문의 생성', path: '/inquiry' },
+      { name: '문의 디테일', path: '/inquiry/:id' },
+      { name: '문의 수정', path: '/inquiry/:id/update' },
+      { name: '문의 답변', path: '/inquiry/:id/response' },
+=======
       { name: '문의 생성', path: '/inquiry' },  
+>>>>>>> develop
     ],
   },
 ];
@@ -104,7 +121,13 @@ function Header() {
           <>
 
             <span>{user.name} 님</span>
-            <img src={mypageIcon} alt="마이페이지" css={style.iconImage} onClick={() => navigate('users/me')} />
+            <img src={mypageIcon} alt="마이페이지" css={style.iconImage} onClick={() => {
+                    if (user.role_id === 2) {
+                      navigate('/users/me');
+                    } else if (user.role_id === 3) {
+                      navigate('/trainer-profile/view');
+                    }
+                  }} />
             <img src={logoutIcon} alt="로그아웃" css={style.logoutIconImage} onClick={handleLogout} />
           </>
         ) : (
