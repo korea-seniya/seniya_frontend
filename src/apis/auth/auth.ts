@@ -22,10 +22,8 @@ export interface SignInForm {
 
 // 비밀번호 재설정 폼 타입
 export interface ResetPasswordForm {
-  token: string;
-  email: string;       
+  token: string;    
   newPassword: string;
-  confirmPassword: string;
 }
 
 // 회원가입 API
@@ -62,6 +60,11 @@ export async function sendVerificationCode(email: string): Promise<void> {
 }
 
 // 비밀번호 재설정 API
+export interface ResetPasswordForm {
+  token: string;
+  newPassword: string;
+}
+
 export async function resetPassword(form: ResetPasswordForm) {
   try {
     const response = await axios.put(`${API_BASE_URL}/reset-password`, form);
@@ -70,6 +73,7 @@ export async function resetPassword(form: ResetPasswordForm) {
     throw new Error(error.response?.data?.message || '비밀번호 재설정 실패');
   }
 }
+
 
 // 이메일 인증 여부 확인 API
 export const checkEmailVerified = async (email: string): Promise<boolean> => {
