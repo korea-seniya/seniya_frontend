@@ -11,23 +11,23 @@ const AsideBar = () => {
       <div css={menuSection}>
         <div css={menuTitle}>내 정보</div>
         <div css={menuItem}
-        onClick={() => navigate(`/users/me`)} style={{ cursor: 'pointer' }}>내 정보 조회</div>
+          onClick={() => navigate(`/users/me`)} style={{ cursor: 'pointer' }}>내 정보 조회</div>
         <div css={menuItem}
-        onClick={() => navigate(`/users/me/email-send`)} style={{ cursor: 'pointer' }}>비밀번호 재설정</div>
+          onClick={() => navigate(`/users/me/email-send`)} style={{ cursor: 'pointer' }}>비밀번호 재설정</div>
       </div>
       <div css={menuSection}>
         <div css={menuTitle}>건강 데이터</div>
         <div css={menuItem}
-        onClick={() => navigate(`/healthdata`)} style={{ cursor: 'pointer' }}>상태 입력</div>
+          onClick={() => navigate(`/healthdata`)} style={{ cursor: 'pointer' }}>상태 입력</div>
         <div css={menuItem}
-        onClick={() => navigate(`/healthdata/me`)} style={{ cursor: 'pointer' }}>상태 조회</div>
+          onClick={() => navigate(`/healthdata/me`)} style={{ cursor: 'pointer' }}>상태 조회</div>
         <div css={menuItem}
-        onClick={() => navigate(`/healthdata/update`)} style={{ cursor: 'pointer' }}>상태 수정</div>
+          onClick={() => navigate(`/healthdata/update`)} style={{ cursor: 'pointer' }}>상태 수정</div>
       </div>
       <div css={menuSection}>
         <div css={menuTitle}>수업</div>
         <div css={menuItem}
-        onClick={() => navigate(`/myparticipation`)} style={{ cursor: 'pointer' }}>내 수업 보기</div>
+          onClick={() => navigate(`/myparticipation`)} style={{ cursor: 'pointer' }}>내 수업 보기</div>
       </div>
     </aside>
   );

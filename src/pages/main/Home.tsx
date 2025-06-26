@@ -10,7 +10,7 @@ import TermsSection from "../../components/main/termsSection/TermsSection";
 import { useUserStore } from "../../stores/user.store";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-// import VideoSection from "../../components/main/videoSection/VideoSection";
+import VideoSection from "../../components/main/videoSection/VideoSection";
 
 function Home() {
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ function Home() {
       <Banner />
       <QuickSearch />
       <PopularSection />
-      {/* <VideoSection /> */}
+      <VideoSection />
       <NoticeSection />
       <TermsSection />
 

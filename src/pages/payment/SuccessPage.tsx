@@ -40,7 +40,8 @@ export default function PaymentSuccess() {
     console.log('결제 성공 정보:', { paymentKey, orderId, amount, method });
     createPaymentSuccess();
 
-    navigate('/api/v1/purchases', { replace: true });
+    alert('결제 완료')
+    navigate('/purchases', { replace: true });
   }, [navigate, searchParams]);
 
   return <div>결제 성공 처리 중입니다. 잠시만 기다려 주세요...</div>;

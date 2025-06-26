@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 export const container = css`
   width: 100%;
-  background-color: #f9f5e3;
+  background-color: #ccc;
 
   box-sizing: border-box;
   overflow-x: hidden;
@@ -16,7 +16,7 @@ export const container = css`
 export const termsBox = css`
   width: 100%;
   max-width: 900px;
-  background-color: white;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 12px;
   padding: 20px 30px;

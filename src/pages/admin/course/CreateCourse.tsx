@@ -23,7 +23,6 @@ function CreateCourse() {
     trainerId: 0
   });
 
-  // onChange 이벤트가 input, select 둘 다 처리하도록 수정
   const onInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -32,7 +31,7 @@ function CreateCourse() {
     let updatedValue = value;
 
     if (name === 'classDate') {
-      updatedValue = `${value}T00:00:00`; // 저장할 땐 T 붙이기
+      updatedValue = `${value}T00:00:00`;
     }
 
     setForm({ ...form, [name]: updatedValue });
@@ -74,7 +73,7 @@ function CreateCourse() {
           trainerId: 0
         });
         alert('수업 생성 완료')
-        navigate('/api/v1/admin/courses')
+        navigate('/admin/courses')
       } else {
         console.log(response.message);
       }
