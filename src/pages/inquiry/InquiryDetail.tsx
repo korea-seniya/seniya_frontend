@@ -24,16 +24,15 @@ import {
   getInquiryDetailRequest,
 } from "../../apis/inquiry/Inquiry";
 import type { AxiosError } from "axios";
+import Header from "../../components/header";
+import { useUserStore } from "../../stores/user.store";
 
 function InquiryDetail() {
-  localStorage.setItem(
-    "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3R0cmFpbmVyIiwicm9sZSI6IlRSQUlORVIiLCJpYXQiOjE3NTAzODM3OTksImV4cCI6MTc1MDM4NzM5OX0.IRfkeQAFfZLVOCdc7iFJRAVsFSYS_EtheERydo_aPsA"
-  );
   const { id } = useParams<{ id: string }>();
   const inquiryId = Number(id);
   const navigate = useNavigate();
   const [inquiry, setInquiry] = useState<InquriyByIdResponseDto | null>(null);
+  const { user } = useUserStore();
 
   useEffect(() => {
     const fetchInquiry = async () => {
@@ -42,25 +41,39 @@ function InquiryDetail() {
         setInquiry(response.data);
       } else {
         alert("권한이 없습니다. 문의 목록으로 이동합니다.");
-        navigate("/api/v1/inquiries");
+        navigate("/inquiries");
       }
     };
     fetchInquiry();
-  }, []);
+  }, [inquiryId, navigate]);
 
-  const onClickUpdate = async () => {
+  const onClickUpdate = () => {
     if (inquiry?.response === null) {
-      navigate("update");
+      navigate(`/inquiry/${inquiryId}/update`);
     }
   };
 
-  const deleteInquiry = async () => {
-    await deleteInquiryRequest(inquiryId);
-    alert("게시글이 삭제되었습니다.");
-    navigate("/api/v1/inquiries");
+  
+  const onClickAnswer = () => {
+  
+    navigate(`/inquiry/${inquiryId}/response`);
   };
 
+  const deleteInquiry = async () => {
+  
+    if (window.confirm("정말로 문의를 삭제하시겠습니까?")) {
+      await deleteInquiryRequest(inquiryId);
+      alert("게시글이 삭제되었습니다.");
+      navigate("/inquiries");
+    }
+  };
+
+  const isAuthor = user?.name === inquiry?.username; 
+  const isTrainer = user?.role_id === 3;
+
   return (
+        <>
+    <Header />
     <div css={containerStyle}>
       <h1 css={titleStyle}>문 의</h1>
       <div css={divStyle}>
@@ -88,17 +101,25 @@ function InquiryDetail() {
           <div>아직 답변이 등록되지 않았습니다.</div>
         )}
         <div css={buttonWrapperStyle}>
-          {inquiry && !inquiry.response && (
-            <button css={buttonStyle} onClick={onClickUpdate}>
-              수정
-            </button>
-          )}
-          <button css={buttonStyle} onClick={deleteInquiry}>
-            삭제
-          </button>
-        </div>
+            {isTrainer && !inquiry?.response && (
+              <button css={buttonStyle} onClick={onClickAnswer}>
+                답변하기
+              </button>
+            )}
+            {isAuthor && !inquiry?.response && (
+              <button css={buttonStyle} onClick={onClickUpdate}>
+                수정
+              </button>
+            )}
+            {isAuthor && (
+              <button css={buttonStyle} onClick={deleteInquiry}>
+                삭제
+              </button>
+            )}
+          </div>
       </div>
     </div>
+    </>
   );
 }
 

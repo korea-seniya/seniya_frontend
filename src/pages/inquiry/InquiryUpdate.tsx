@@ -19,12 +19,9 @@ import {
   checkboxStyle,
 } from "./InquiryCreate.style";
 import type { InquriyByIdResponseDto } from "../../dtos/inquiry/response/inquiryDetail.response";
+import Header from "../../components/header";
 
 function InquiryUpdate() {
-  localStorage.setItem(
-    "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3R0cmFpbmVyIiwicm9sZSI6IlRSQUlORVIiLCJpYXQiOjE3NTAzODM3OTksImV4cCI6MTc1MDM4NzM5OX0.IRfkeQAFfZLVOCdc7iFJRAVsFSYS_EtheERydo_aPsA"
-  );
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [isPrivated, setIsPrivated] = useState<boolean>(false);
@@ -60,7 +57,7 @@ function InquiryUpdate() {
     const response = await updateInquiryRequest(inquiryId, requestBody);
     if (response.code === "SU") {
       alert("문의 수정 완료.");
-      navigate("/api/v1/inquiries");
+      navigate("/inquiries");
     } else {
       setMessage(response.message);
     }
@@ -83,46 +80,51 @@ function InquiryUpdate() {
   }, []);
 
   const cancleHandler = async () => {
-    navigate("/api/v1/inquiries");
+    navigate("/inquiries");
   };
 
   return (
-    <div css={containerStyle}>
-      <h1 css={titleStyle}>문의 수정</h1>
-      <div css={divStyle}>
-        <label css={labelStyle}>제목</label>
-        <input
-          css={inputStyle}
-          type="text"
-          placeholder="제목을 입력하세요"
-          value={title || ""}
-          onChange={onTitleChange}
-        ></input>
-        <label css={label2Style}>
+    <>
+      <Header />
+      <div css={containerStyle}>
+        <h1 css={titleStyle}>문의 수정</h1>
+        <div css={divStyle}>
+          <label css={labelStyle}>제목</label>
           <input
-            type="checkbox"
-            checked={isPrivated || false}
-            onChange={onIsPrivatedChange}
-            css={checkboxStyle}
-          />
-          비밀글
-        </label>
-      </div>
-      <textarea
-        css={contentStyle}
-        placeholder="문의 내용을 입력해주세요"
-        value={content || ""}
-        onChange={onContentChange}
-      ></textarea>
+            css={inputStyle}
+            type="text"
+            placeholder="제목을 입력하세요"
+            value={title || ""}
+            onChange={onTitleChange}
+          ></input>
+          <label css={label2Style}>
+            <input
+              type="checkbox"
+              checked={isPrivated || false}
+              onChange={onIsPrivatedChange}
+              css={checkboxStyle}
+            />
+            비밀글
+          </label>
+        </div>
+        <textarea
+          css={contentStyle}
+          placeholder="문의 내용을 입력해주세요"
+          value={content || ""}
+          onChange={onContentChange}
+        ></textarea>
 
-      <div css={buttonWrapperStyle}>
-        <button css={buttonStyle} onClick={onSubmit}>
-          등록
-        </button>
-        <button css={buttonStyle} onClick={cancleHandler}>취소</button>
+        <div css={buttonWrapperStyle}>
+          <button css={buttonStyle} onClick={onSubmit}>
+            등록
+          </button>
+          <button css={buttonStyle} onClick={cancleHandler}>
+            취소
+          </button>
+        </div>
+        {<p>{message}</p>}
       </div>
-      {<p>{message}</p>}
-    </div>
+    </>
   );
 }
 

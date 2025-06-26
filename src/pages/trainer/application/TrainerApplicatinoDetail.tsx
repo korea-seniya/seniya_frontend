@@ -15,13 +15,9 @@ import {
   updateTrainerApplicationStatus,
 } from "../../../apis/trainer/application";
 import type { TrainerApplicationDetailResponseDto } from "../../../dtos/trainer/response/trainerApplyDetail.response.dto";
+import Header from "../../../components/header";
 
 function TrainerApplicationDetail() {
-  localStorage.setItem(
-    "Authorization",
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRyYWluZXIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc1MDc1MjIyOCwiZXhwIjoxNzUwNzU1ODI4fQ.DHMcidMNr9jLlp_cvPtlskr8fUhT71sWa4TNQaofRWo"
-  );
-
   const { id } = useParams<{ id: string }>();
   const ApplyId = Number(id);
   const [app, setApp] = useState<TrainerApplicationDetailResponseDto | null>(null);
@@ -73,7 +69,7 @@ function TrainerApplicationDetail() {
         setApp(response.data);
       } else {
         alert("존재하지 않는 신청이거나 권한이 없습니다.");
-        navigate("/api/v1/trainer-applications");
+        navigate("/trainer-applications");
       }
     };
     fetchDetail();
@@ -86,6 +82,8 @@ function TrainerApplicationDetail() {
   }, [app]);
 
   return (
+    <>
+    <Header />
     <div css={containerStyle}>
       <h1 css={titleStyle}>트레이너 신청 상세</h1>
       <div css={detailBoxStyle}>
@@ -132,11 +130,12 @@ function TrainerApplicationDetail() {
       </div>
       <button
         css={buttonStyle}
-        onClick={() => navigate("/api/v1/trainer-applications")}
+        onClick={() => navigate("/trainer-applications")}
       >
         목록으로
       </button>
     </div>
+    </>
   );
 }
 

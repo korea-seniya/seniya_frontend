@@ -1,15 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-export const containerStyle = css`
-  max-width: 800px;
-  height: 700px;
+// 전체 페이지 수평 레이아웃 (AsideBar + PurchasePass)
+export const pageWrapper = css`
+  display: flex;
+  max-width: 1200px;
   margin: 30px auto;
-  overflow-x: auto;
+  gap: 24px;
+`;
+
+export const containerStyle = css`
+  flex: 1;
   display: flex;
   flex-direction: column;
   text-align: center;
+  overflow: hidden;
 `;
+
 
 export const h2Style = css`
   font-size: 30px;
@@ -33,11 +40,10 @@ export const passDivStyle = css`
   border-radius: 10px;
   display: flex;
   align-items: center;
-  padding: 0 20px;        
-  gap: 20px;              
+  padding: 0 20px;
+  gap: 20px;
   justify-content: space-between;
 `;
-
 
 export const passCount = css`
   width: 50%;
@@ -51,8 +57,6 @@ export const passPrice = css`
   padding-right: 10px;
 `;
 
-
-
 export const payBtn = css`
   width: 300px;
   height: 70px;
@@ -61,5 +65,5 @@ export const payBtn = css`
   border: none;
   border-radius: 10px;
   font-size: 20px;
+  margin: 0 auto 40px;
 `;
-
