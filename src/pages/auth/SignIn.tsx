@@ -16,11 +16,11 @@ import {
 
 import { signIn } from '../../apis/auth/auth';
 import { useUserStore } from '../../stores/user.store';
+import Header from '../../components/header'; 
 
 function SignIn() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ username: '', password: '' });
-
   const loginUser = useUserStore((state) => state.loginUser);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,41 +58,44 @@ function SignIn() {
   };
 
   return (
-    <div css={containerStyle}>
-      <div css={cardStyle}>
-        <div css={leftStyle}>SNS 로그인</div>
-        <div css={rightStyle}>
-          <h2 css={titleStyle}>로그인</h2>
+    <>
+      <Header /> 
+      <div css={containerStyle}>
+        <div css={cardStyle}>
+          <div css={leftStyle}>SNS 로그인</div>
+          <div css={rightStyle}>
+            <h2 css={titleStyle}>로그인</h2>
 
-          <div css={inputWrapperStyle}>
-            <span css={iconStyle}></span>
-            <input
-              type="text"
-              name="username"
-              placeholder="아이디 입력"
-              css={inputStyle}
-              value={form.username}
-              onChange={handleChange}
-            />
+            <div css={inputWrapperStyle}>
+              <span css={iconStyle}></span>
+              <input
+                type="text"
+                name="username"
+                placeholder="아이디 입력"
+                css={inputStyle}
+                value={form.username}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div css={inputWrapperStyle}>
+              <span css={iconStyle}></span>
+              <input
+                type="password"
+                name="password"
+                placeholder="비밀번호 입력"
+                css={inputStyle}
+                value={form.password}
+                onChange={handleChange}
+              />
+            </div>
+
+            <button css={loginButtonStyle} onClick={handleSubmit}>로그인</button>
+            <button css={signUpButtonStyle} onClick={() => navigate('/signup')}>회원가입</button>
           </div>
-
-          <div css={inputWrapperStyle}>
-            <span css={iconStyle}></span>
-            <input
-              type="password"
-              name="password"
-              placeholder="비밀번호 입력"
-              css={inputStyle}
-              value={form.password}
-              onChange={handleChange}
-            />
-          </div>
-
-          <button css={loginButtonStyle} onClick={handleSubmit}>로그인</button>
-          <button css={signUpButtonStyle} onClick={() => navigate('/signup')}>회원가입</button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

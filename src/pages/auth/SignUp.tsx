@@ -18,6 +18,7 @@ import {
 import { signUp } from '../../apis/auth/auth';
 import { checkUsername } from '../../apis/auth/CheckUsername';
 import { checkEmail } from '../../apis/auth/CheckEmail';
+import Header from '../../components/header'; 
 
 function SignUp() {
   const navigate = useNavigate();
@@ -117,111 +118,110 @@ function SignUp() {
   };
 
   return (
-    <div css={containerStyle}>
-      <h2 css={titleStyle}>회원가입</h2>
+    <>
+      <Header /> 
+      <div css={containerStyle}>
+        <h2 css={titleStyle}>회원가입</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div css={fieldGroupStyle}>
-          <label css={labelStyle}>아이디</label>
-          <input
-            name="username"
-            css={inputStyle}
-            placeholder="ID 를 입력해주세요."
-            value={form.username}
-            onChange={handleChange}
-          />
-          <button css={buttonStyle} type="button" onClick={handleCheckUsername}>
-            중복 확인
-          </button>
-        </div>
-        {usernameMessage && (
-          <div css={messageStyle(isUsernameAvailable)}>
-            {usernameMessage}
+        <form onSubmit={handleSubmit}>
+          <div css={fieldGroupStyle}>
+            <label css={labelStyle}>아이디</label>
+            <input
+              name="username"
+              css={inputStyle}
+              placeholder="ID 를 입력해주세요."
+              value={form.username}
+              onChange={handleChange}
+            />
+            <button css={buttonStyle} type="button" onClick={handleCheckUsername}>
+              중복 확인
+            </button>
           </div>
-        )}
+          {usernameMessage && (
+            <div css={messageStyle(isUsernameAvailable)}>{usernameMessage}</div>
+          )}
 
-        <div css={fieldGroupStyle}>
-          <label css={labelStyle}>비밀번호</label>
-          <input
-            type="password"
-            name="password"
-            css={inputStyle}
-            placeholder="PW 를 입력해주세요."
-            value={form.password}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div css={fieldGroupStyle}>
-          <label css={labelStyle}>비밀번호 확인</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            css={inputStyle}
-            value={form.confirmPassword}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div css={fieldGroupStyle}>
-          <label css={labelStyle}>이름</label>
-          <input
-            name="name"
-            css={inputStyle}
-            value={form.name}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div css={fieldGroupStyle}>
-          <label css={labelStyle}>이메일</label>
-          <input
-            name="email"
-            css={inputStyle}
-            value={form.email}
-            onChange={handleChange}
-          />
-          <button css={buttonStyle} type="button" onClick={handleCheckEmail}>
-            중복 확인
-          </button>
-        </div>
-        {emailMessage && (
-          <div css={messageStyle(isEmailAvailable)}>
-            {emailMessage}
+          <div css={fieldGroupStyle}>
+            <label css={labelStyle}>비밀번호</label>
+            <input
+              type="password"
+              name="password"
+              css={inputStyle}
+              placeholder="PW 를 입력해주세요."
+              value={form.password}
+              onChange={handleChange}
+            />
           </div>
-        )}
 
-        <div css={fieldGroupStyle}>
-          <label css={labelStyle}>휴대폰 번호</label>
-          <input
-            name="phone"
-            css={inputStyle}
-            placeholder="- 없이 입력하세요."
-            value={form.phone}
-            onChange={handleChange}
-          />
-        </div>
+          <div css={fieldGroupStyle}>
+            <label css={labelStyle}>비밀번호 확인</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              css={inputStyle}
+              value={form.confirmPassword}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div css={checkboxWrapperStyle}>
-          <input
-            type="checkbox"
-            name="agreeToSMS"
-            checked={form.agreeToSMS}
-            onChange={handleChange}
-          />
-          <label htmlFor="agreeToSMS">정보/이벤트 SNS 수신에 동의합니다.</label>
-        </div>
+          <div css={fieldGroupStyle}>
+            <label css={labelStyle}>이름</label>
+            <input
+              name="name"
+              css={inputStyle}
+              value={form.name}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div css={buttonWrapperStyle}>
-          <button type="button" css={cancelButtonStyle} onClick={() => navigate('/signin')}>
-            취소
-          </button>
-          <button type="submit" css={submitButtonStyle}>
-            회원가입
-          </button>
-        </div>
-      </form>
-    </div>
+          <div css={fieldGroupStyle}>
+            <label css={labelStyle}>이메일</label>
+            <input
+              name="email"
+              css={inputStyle}
+              value={form.email}
+              onChange={handleChange}
+            />
+            <button css={buttonStyle} type="button" onClick={handleCheckEmail}>
+              중복 확인
+            </button>
+          </div>
+          {emailMessage && (
+            <div css={messageStyle(isEmailAvailable)}>{emailMessage}</div>
+          )}
+
+          <div css={fieldGroupStyle}>
+            <label css={labelStyle}>휴대폰 번호</label>
+            <input
+              name="phone"
+              css={inputStyle}
+              placeholder="- 없이 입력하세요."
+              value={form.phone}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div css={checkboxWrapperStyle}>
+            <input
+              type="checkbox"
+              name="agreeToSMS"
+              checked={form.agreeToSMS}
+              onChange={handleChange}
+            />
+            <label htmlFor="agreeToSMS">정보/이벤트 SNS 수신에 동의합니다.</label>
+          </div>
+
+          <div css={buttonWrapperStyle}>
+            <button type="button" css={cancelButtonStyle} onClick={() => navigate('/signin')}>
+              취소
+            </button>
+            <button type="submit" css={submitButtonStyle}>
+              회원가입
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }
 

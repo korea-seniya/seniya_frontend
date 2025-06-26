@@ -104,15 +104,12 @@ function App() {
       <Route path='/trainer-application/me' element={<MyTrainerApplicationStatus />} />
 
 
-      <Route path='/myparticipation' element={<MyParticipationList />} />
+      <Route path='/users/me/myparticipation' element={<MyParticipationList />} />
 
 
       <Route path='/trainer-profile/create' element={<CreateTrainerProfile />} />
       <Route path='/trainer-profile/view' element={<ViewTrainerProfile />} />
       <Route path='/trainer-profile/edit' element={<EditTrainerProfile />} />
-
-      <Route path='/myparticipation' element={<MyParticipationList />} />
-
 
       <Route path='/healthdata' element={<HealthDataCreate />} />
       <Route path='/healthdata/me' element={<HealthDataView />} />
