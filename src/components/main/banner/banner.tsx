@@ -33,7 +33,6 @@ function Banner() {
 
   return (
     <div>
-      <h2>메인페이지</h2>
       <div css={style.bannerContainer}>
         {banners.map((banner, index) => (
           <img

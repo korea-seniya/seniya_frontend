@@ -44,7 +44,7 @@ function ViewTrainerProfile() {
               response.message +
               "\n프로필 생성 페이지로 이동합니다."
           );
-          navigate("/api/v1/trainer-profile/create");
+          navigate("/trainer-profile/create");
         }
       } catch (error) {
         console.error("프로필 불러오기 에러:", error);
