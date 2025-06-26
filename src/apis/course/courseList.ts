@@ -59,3 +59,12 @@ export const getCourseById = async (id: number): Promise<ResponseDto<GetUserCour
     return responseErrorHandler(error as AxiosError<ResponseDto>);
   }
 };
+
+export const applyCourse = async (courseId: number): Promise<ResponseDto<any>> => {
+  try {
+    const response = await axiosInstance.post(`/api/v1/courses/${courseId}`);
+    return responseSuccessHandler(response);
+  } catch (error) {
+    return responseErrorHandler(error as AxiosError<ResponseDto>);
+  }
+};
