@@ -1,5 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, type ChangeEvent, type FormEvent } from "react";
+import React, {
+  useEffect,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 import {
   container,
   imageNameDiv,
@@ -15,6 +20,7 @@ import {
   certRow,
   submitButton,
   addCertButton,
+  sideStyle,
   removeCertButton,
 } from "./TrainerProfile.style"; // 스타일 임포트 경로 확인
 import { createProfile } from "../../../apis/trainer/profile"; // createProfile API
@@ -22,6 +28,8 @@ import { useNavigate } from "react-router-dom";
 import type { TrainerProfileRequestDto } from "../../../dtos/trainer/request/trainerProfile.request.dto";
 import { Specialty } from "../../../dtos/trainer/specialty";
 import Header from "../../../components/header";
+import { useUserStore } from "../../../stores/user.store";
+import TrainerSide from "../../../components/trainer/TrainerSide";
 
 function CreateTrainerProfile() {
   const [profileData, setProfileData] = useState<TrainerProfileRequestDto>({
@@ -32,7 +40,7 @@ function CreateTrainerProfile() {
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
-
+  const { user } = useUserStore();
   const navigate = useNavigate();
 
   const handleInputChange = (
@@ -106,122 +114,125 @@ function CreateTrainerProfile() {
   return (
     <>
       <Header />
-      <div css={container}>
-        <h2>트레이너 프로필 생성</h2>
-        <form onSubmit={handleSubmit}>
-          <div css={imageNameDiv}>
-            <div css={imageDiv}>
-              <div css={imageBox}>
-                {previewImageUrl ? (
-                  <img
-                    src={previewImageUrl}
-                    alt="프로필 이미지 미리보기"
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      objectFit: "contain",
-                    }}
-                  />
-                ) : (
-                  "이미지 선택"
-                )}
+      <div css={sideStyle}>
+        <TrainerSide />
+        <div css={container}>
+          <h2>트레이너 프로필 생성</h2>
+          <form onSubmit={handleSubmit}>
+            <div css={imageNameDiv}>
+              <div css={imageDiv}>
+                <div css={imageBox}>
+                  {previewImageUrl ? (
+                    <img
+                      src={previewImageUrl}
+                      alt="프로필 이미지 미리보기"
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  ) : (
+                    "이미지 선택"
+                  )}
+                </div>
+                <input
+                  type="file"
+                  id="profileImageInput"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+                <button
+                  type="button"
+                  css={imageButton}
+                  onClick={() =>
+                    document.getElementById("profileImageInput")?.click()
+                  }
+                >
+                  이미지 선택
+                </button>
               </div>
-              <input
-                type="file"
-                id="profileImageInput"
-                accept="image/*"
-                onChange={handleFileChange}
-                style={{ display: "none" }}
-              />
-              <button
-                type="button"
-                css={imageButton}
-                onClick={() =>
-                  document.getElementById("profileImageInput")?.click()
-                }
-              >
-                이미지 선택
-              </button>
+
+              <div css={nameDiv}>
+                <div css={label}>이름</div>
+                <input css={input} value={user?.name} disabled />
+
+                <div css={label}>소개글</div>
+                <textarea
+                  css={textArea}
+                  name="description"
+                  placeholder="자신을 소개해 주세요."
+                  value={profileData.description}
+                  onChange={handleInputChange}
+                />
+              </div>
             </div>
 
-            <div css={nameDiv}>
-              <div css={label}>이름</div>
-              <input css={input} placeholder="사용자 이름 자동 입력" disabled />
+            <div css={label}>전문분야</div>
+            <select
+              css={select}
+              name="specialty"
+              value={profileData.specialty}
+              onChange={handleInputChange}
+            >
+              {Object.values(Specialty).map((s) => (
+                <option key={s} value={s}>
+                  {s === Specialty.EXERCISE && "운동"}
+                  {s === Specialty.SLEEP && "수면 치료"}
+                  {s === Specialty.REHABILITATION && "재활"}
+                  {s === Specialty.PSYCHOLOGY && "심리"}
+                </option>
+              ))}
+            </select>
 
-              <div css={label}>소개글</div>
-              <textarea
-                css={textArea}
-                name="description"
-                placeholder="자신을 소개해 주세요."
-                value={profileData.description}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
+            <div css={label}>경력 (년)</div>
+            <input
+              css={input}
+              type="number"
+              name="experienceYears"
+              placeholder="경력을 입력하세요."
+              value={profileData.experienceYears}
+              onChange={handleInputChange}
+            />
 
-          <div css={label}>전문분야</div>
-          <select
-            css={select}
-            name="specialty"
-            value={profileData.specialty}
-            onChange={handleInputChange}
-          >
-            {Object.values(Specialty).map((s) => (
-              <option key={s} value={s}>
-                {s === Specialty.EXERCISE && "운동"}
-                {s === Specialty.SLEEP && "수면 치료"}
-                {s === Specialty.REHABILITATION && "재활"}
-                {s === Specialty.PSYCHOLOGY && "심리"}
-              </option>
+            <div css={label}>자격증</div>
+            {(profileData.certificates || []).map((cert, index) => (
+              <div key={index} css={certRow}>
+                <input
+                  css={certInput}
+                  type="text"
+                  name="certificate"
+                  placeholder="자격증 명"
+                  value={cert.certificate}
+                  onChange={(e) => handleCertChange(index, e)}
+                />
+                <input
+                  css={certInput}
+                  type="date"
+                  name="certificationDate"
+                  placeholder="YYYY-MM-DD"
+                  value={cert.certificationDate}
+                  onChange={(e) => handleCertChange(index, e)}
+                />
+                <button
+                  type="button"
+                  css={removeCertButton}
+                  onClick={() => removeCertificate(index)}
+                >
+                  삭제
+                </button>
+              </div>
             ))}
-          </select>
+            <button type="button" css={addCertButton} onClick={addCertificate}>
+              자격증 추가
+            </button>
 
-          <div css={label}>경력 (년)</div>
-          <input
-            css={input}
-            type="number"
-            name="experienceYears"
-            placeholder="경력을 입력하세요."
-            value={profileData.experienceYears}
-            onChange={handleInputChange}
-          />
-
-          <div css={label}>자격증</div>
-          {(profileData.certificates || []).map((cert, index) => (
-            <div key={index} css={certRow}>
-              <input
-                css={certInput}
-                type="text"
-                name="certificate"
-                placeholder="자격증 명"
-                value={cert.certificate}
-                onChange={(e) => handleCertChange(index, e)}
-              />
-              <input
-                css={certInput}
-                type="date"
-                name="certificationDate"
-                placeholder="YYYY-MM-DD"
-                value={cert.certificationDate}
-                onChange={(e) => handleCertChange(index, e)}
-              />
-              <button
-                type="button"
-                css={removeCertButton}
-                onClick={() => removeCertificate(index)}
-              >
-                삭제
-              </button>
-            </div>
-          ))}
-          <button type="button" css={addCertButton} onClick={addCertificate}>
-            자격증 추가
-          </button>
-
-          <button css={submitButton} type="submit">
-            프로필 생성
-          </button>
-        </form>
+            <button css={submitButton} type="submit">
+              프로필 생성
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
