@@ -42,13 +42,15 @@ function SignIn() {
       const { token, exprTime, roleId, user } = data;
       const { username, name } = user;
 
-      loginUser({
-        username,
+      const userData = {
+        username: form.username,
         role_id: roleId,
         token,
         exprTime,
         name
-      });
+      };
+      
+      loginUser(userData);
 
       alert('로그인 성공!');
       navigate('/');

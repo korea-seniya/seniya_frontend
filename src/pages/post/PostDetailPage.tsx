@@ -26,6 +26,7 @@ function PostDetailPage() {
   const [searchType, setSearchType] = useState('title');
   const [searchText, setSearchText] = useState('');
   const [commentText, setCommentText] = useState('');
+  const [isAuthor, setIsAuthor] = useState(false);
 
   const { user, loginUser } = useUserStore();
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ function PostDetailPage() {
 
     try {
       const response = await deletePost(postId, token);
+      console.log('deletePost 응답:', response);
       if (response.code === 'SU') {
         alert('게시글이 삭제되었습니다.');
         navigate('/posts');
@@ -53,37 +55,42 @@ function PostDetailPage() {
       alert('게시글 삭제 중 오류가 발생했습니다.');
     }
   };
-
+  
   useEffect(() => {
-    const userData = Cookies.get('user');
-    if (!userData) {
-      alert('로그인한 회원만 조회 가능합니다.');
-      navigate('/signin');
-      return;
-    }
+    const init = async () => {
+      const userData = Cookies.get('user');
+      if (!userData) {
+        alert('로그인한 회원만 조회 가능합니다.');
+        navigate('/signin');
+        return;
+      }
 
-    if (!user) {
+      let parsedUser;
       try {
-        const parsed = JSON.parse(userData);
-        loginUser(parsed);
+        parsedUser = JSON.parse(userData);
       } catch {
         navigate('/signin');
+        return;
       }
-    }
-  }, [user]);
 
-  useEffect(() => {
-    const fetchPostDetail = async () => {
-      
-      if (!id || !user) return;
+      if (!user) loginUser(parsedUser);
+
       try {
         const response = await getPostDetail(Number(id));
         if (response.data) setPost(response.data);
-      } catch {}
+      } catch {
+        alert('게시글을 불러오는 데 실패했습니다.');
+      }
     };
 
-    fetchPostDetail();
-  }, [id, user]);
+    init();
+  }, [id]);
+
+  useEffect(() => {
+    if (user && post) {
+      setIsAuthor(user.username === post.username);
+    }
+  }, [user, post]);
 
   const handleAddComment = async () => {
     const userData = Cookies.get('user');
@@ -163,9 +170,9 @@ function PostDetailPage() {
           <p>{post.content}</p>
           <div css={divider} />
 
-          {user?.username === post?.username && (
+          {isAuthor && (
             <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
-              <button onClick={() => navigate(`/posts/${post.postId}/edit`)}>수정</button>
+              <button onClick={() => navigate(`/posts/${post.postId}/update`)}>수정</button>
               <button onClick={handleDeletePost}>삭제</button>
             </div>
           )}

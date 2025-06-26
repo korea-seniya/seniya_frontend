@@ -3,6 +3,7 @@ export interface GetMyInfoResponseDto {
   username: string;
   email: string;
   phone: string;
+  passes: number;
   createdAt: string;
   updatedAt: string;
 }

@@ -33,6 +33,8 @@ const AsideBar = () => {
         <div css={menuTitle}>결제</div>
         <div css={menuItem}
         onClick={() => navigate(`/purchases`)} style={{ cursor: 'pointer' }}>결제하기</div>
+        <div css={menuItem}
+        onClick={() => navigate(`/userPasses`)} style={{ cursor: 'pointer' }}>수강권확인</div>
       </div>
     </aside>
   );

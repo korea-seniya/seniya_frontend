@@ -47,6 +47,7 @@ import Information from "./pages/main/CenterInfo/Information";
 import OperationalGoals from "./pages/main/CenterInfo/OperationalGoals";
 import Facility from "./pages/main/CenterInfo/Facility";
 import Location from "./pages/main/CenterInfo/Location";
+import UserPassPage from "./pages/userPass/UserPassPage";
 import AdminRoute from "./routes/AdminRoute";
 
 
@@ -82,7 +83,7 @@ function App() {
       <Route path='/post' element={<PostCreate />} />
       <Route path='/posts' element={<PostListPage />} />
       <Route path='/posts/:id' element={<PostDetailPage />} />
-      <Route path='/posts/update' element={<PostUpdate />} />
+      <Route path='/posts/:id/update' element={<PostUpdate />} />
 
       <Route path='/users/me' element={<GetUserInfo />} />
 
@@ -110,6 +111,8 @@ function App() {
       <Route path='/trainer-profile/create' element={<CreateTrainerProfile />} />
       <Route path='/trainer-profile/view' element={<ViewTrainerProfile />} />
       <Route path='/trainer-profile/edit' element={<EditTrainerProfile />} />
+
+      <Route path='/userPasses' element={<UserPassPage />} />
 
       <Route path='/healthdata' element={<HealthDataCreate />} />
       <Route path='/healthdata/me' element={<HealthDataView />} />
