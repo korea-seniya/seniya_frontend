@@ -17,17 +17,11 @@ import type { TrainerProfileCreateResponseDto } from "../../dtos/trainer/respons
 
 export const tmp = "";
 
-function getCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
-  return match ? decodeURIComponent(match[2]) : null;
-}
-
 export const createProfile = async (
   dto: TrainerProfileRequestDto,
   file?: File | null
 ): Promise<ResponseDto<TrainerProfileCreateResponseDto>> => {
   try {
-    const token = getCookie("token");
     const formData = new FormData();
     formData.append(
       "dto",
@@ -37,9 +31,6 @@ export const createProfile = async (
       formData.append("file", file);
     }
     const response = await axiosInstance.post(CREATE_PROFILE_URL, formData, {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
       withCredentials: true,
     });
     return responseSuccessHandler(response);
@@ -52,11 +43,7 @@ export const getMyProfile = async (): Promise<
   ResponseDto<TrainerProfileResponseDto>
 > => {
   try {
-    const token = getCookie("token");
     const response = await axiosInstance.get(GET_PROFILE_URL, {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
       withCredentials: true,
     });
     return responseSuccessHandler(response);
@@ -70,7 +57,6 @@ export const updateProfile = async (
   file?: File | null
 ): Promise<ResponseDto<TrainerProfileResponseDto>> => {
   try {
-    const token = getCookie("token");
     const formData = new FormData();
     formData.append(
       "dto",
@@ -80,9 +66,6 @@ export const updateProfile = async (
       formData.append("file", file);
     }
     const response = await axiosInstance.put(UPDATE_PROFILE_URL, formData, {
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
       withCredentials: true,
     });
     return responseSuccessHandler(response);

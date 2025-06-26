@@ -91,7 +91,7 @@ function InquiryDetail() {
           <>
             <div css={answerDivStyle}>
               <p css={answerPStyle}>
-                <strong css={strongStyle}>{inquiry.trainername}</strong>
+                <strong css={strongStyle}>{inquiry?.trainerName}</strong>
               </p>
               <div css={lineStyle} />
               <div css={textareaStyle}>{inquiry.response}</div>
