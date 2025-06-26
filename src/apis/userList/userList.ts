@@ -9,7 +9,9 @@ export const tmp = '';
 export const getUserList = async (): Promise<ResponseDto<GetUserListResponseDto[]>> => {
 
   try {
-    const response = await axiosInstance.get(USER_LIST_URL);
+    const response = await axiosInstance.get(USER_LIST_URL, {
+      withCredentials: true,
+    });
     return responseSuccessHandler(response);
   } catch (error) {
     return responseErrorHandler(error as AxiosError<ResponseDto>);

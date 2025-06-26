@@ -47,6 +47,7 @@ import Information from "./pages/main/CenterInfo/Information";
 import OperationalGoals from "./pages/main/CenterInfo/OperationalGoals";
 import Facility from "./pages/main/CenterInfo/Facility";
 import Location from "./pages/main/CenterInfo/Location";
+import AdminRoute from "./routes/AdminRoute";
 
 
 
@@ -101,8 +102,7 @@ function App() {
 
       <Route path='/trainer-application' element={<TrainerApplication />} />
       <Route path='/trainer-application/me' element={<MyTrainerApplicationStatus />} />
-      <Route path='/trainer-applications' element={<TrainerApplicationList />} />
-      <Route path='/trainer-application/:id' element={<TrainerApplicationDetail />} />
+
 
       <Route path='/myparticipation' element={<MyParticipationList />} />
 
@@ -118,17 +118,25 @@ function App() {
       <Route path='/healthdata/me' element={<HealthDataView />} />
       <Route path='/healthdata/update' element={<HealthDataUpdate />} />
 
-      <Route path='/admin/create-course' element={<CreateCourse />} />
-      <Route path='/admin/courses' element={<CourseList />} />
+
 
       <Route path='/purchases' element={<PurchasePass />} />
       <Route path='/payments/request' element={<CheckoutPage />} />
       <Route path='/success' element={<PaymentSuccess />} />
       <Route path='/fail' element={<PaymentFail />} />
-      <Route path='/payments' element={<PaymentConfirm />} />
-      <Route path='/admin/users' element={<UserList />} />
 
       <Route path='/courses' element={<CourseListPage />} />
+
+
+      {/* 관리자 권한 필요한 페이지 */}
+      <Route path="/admin" element={<AdminRoute />}>
+        <Route path='/admin/create-course' element={<CreateCourse />} />
+        <Route path='/admin/courses' element={<CourseList />} />
+        <Route path='/admin/users' element={<UserList />} />
+        <Route path='/admin/payments' element={<PaymentConfirm />} />
+        <Route path='/admin/trainer-applications' element={<TrainerApplicationList />} />
+        <Route path='/admin/trainer-application/:id' element={<TrainerApplicationDetail />} />
+      </Route>
     </Routes>
   );
 }
