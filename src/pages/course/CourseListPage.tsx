@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { CourseList } from './CourseList';
 import type { GetUserCourseDetailResponseDto } from '../../dtos/userCourse/response/GetUserCourseDetail.response.dto';
 import {
@@ -19,13 +19,18 @@ import {
   detailButtonStyle,
   modalOverlayStyle,
   modalContentStyle,
-  closeButtonStyle
+  closeButtonStyle,
+  participationButtonStyle
 } from './CourseList.style';
 import {
   getCourseList,
   getCourseById
 } from '../../apis/course/courseList';
 import { quickSearch } from '../../apis/main/main';
+import { applyCourse } from '../../apis/course/courseList';
+import Header from '../../components/header';
+import Footer from '../../components/main/footer/Footer';
+import { useUserStore } from '../../stores/user.store';
 
 function CourseListPage() {
   const [allCourses, setAllCourses] = useState<CourseList[]>([]);
@@ -35,6 +40,8 @@ function CourseListPage() {
   const [selectedCourseDetail, setSelectedCourseDetail] = useState<GetUserCourseDetailResponseDto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { isLogin } = useUserStore(); 
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -116,90 +123,131 @@ function CourseListPage() {
     setIsModalOpen(false);
   };
 
+  const handleApplyCourse = async () => {
+    if (!isLogin) {
+      alert('로그인이 필요합니다.');
+      navigate('/login');
+      return; // 로그인 안 되어 있으면 신청 로직 진행하지 않음
+    }
+
+    if (!selectedCourseDetail) return;
+
+    try {
+      const response = await applyCourse(selectedCourseDetail.courseId);
+
+      if (response.code === 'SU') {
+        alert('수업 신청이 완료되었습니다!');
+        closeModal();
+        navigate('/my-course');
+      } else {
+        alert('수업 신청에 실패했습니다.');
+      }
+    } catch (error: any) {
+      console.error(error);
+      const status = error?.response?.status;
+
+      if (status === 409) {
+        alert('이미 신청한 수업입니다.');
+      } else if (status === 404) {
+        alert('존재하지 않는 수업입니다.');
+      } else {
+        alert('수업 신청 중 오류가 발생했습니다.');
+      }
+    }
+  };
+
+
   return (
-    <div css={postContainer}>
-      <h1 css={nameStyle}>수업 목록</h1>
+    <>
+    <Header />
+      <div css={postContainer}>
+        <h1 css={nameStyle}>수업 목록</h1>
 
-      <div css={searchbarStyle}>
-        <select
-          css={selectStyle}
-          value={searchType}
-          onChange={(e) => setSearchType(e.target.value as 'trainer' | 'category')}
-        >
-          <option value="trainer">트레이너</option>
-          <option value="category">카테고리</option>
-        </select>
-        <input
-          css={inputStyle}
-          type="text"
-          placeholder={
-            searchType === 'trainer'
-              ? '트레이너 이름으로 검색'
-              : '카테고리 입력 (수면, 재활, 운동, 심리)'
-          }
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          onKeyDown={onKeyDown}
-        />
-        <button css={buttonStyle} onClick={handleSearch}>검색</button>
-        <button css={buttonStyle} onClick={handleReset}>전체 목록 보기</button>
-      </div>
-
-      <div css={tableWrapper}>
-        <div css={postListTotal}>전체 {filteredCourses.length}건</div>
-        <div css={separatorLine}></div>
-
-        <div css={tableHeader}>
-          <div css={tableCell}>카테고리</div>
-          <div css={tableCell}>수업명</div>
-          <div css={tableCell}>설명</div>
-          <div css={tableCell}>시간</div>
-          <div css={tableCell}>날짜</div>
-          <div css={tableCell}>강의장</div>
-          <div css={tableCell}>트레이너</div>
-          <div css={tableCell}>상세보기</div>
+        <div css={searchbarStyle}>
+          <select
+            css={selectStyle}
+            value={searchType}
+            onChange={(e) => setSearchType(e.target.value as 'trainer' | 'category')}
+          >
+            <option value="trainer">트레이너</option>
+            <option value="category">카테고리</option>
+          </select>
+          <input
+            css={inputStyle}
+            type="text"
+            placeholder={
+              searchType === 'trainer'
+                ? '트레이너 이름으로 검색'
+                : '카테고리 입력 (SLEEP, REHABILITATION, EXERCISE, PSYCHOLOGY)'
+            }
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={onKeyDown}
+          />
+          <button css={buttonStyle} onClick={handleSearch}>검색</button>
+          <button css={buttonStyle} onClick={handleReset}>전체 목록 보기</button>
         </div>
 
-        {filteredCourses.map((course, index) => (
-          <div
-            key={course.courseId ?? `${course.title}-${index}`}
-            css={tableRow}
-          >
-            <div css={tableCell}>{course.category}</div>
-            <div css={tableCell}>{course.title}</div>
-            <div css={tableCell}>{course.description}</div>
-            <div css={tableCell}>
-              {course.classStartTime} ~ {course.classEndTime}
+        <div css={tableWrapper}>
+          <div css={postListTotal}>전체 {filteredCourses.length}건</div>
+          <div css={separatorLine}></div>
+
+          <div css={tableHeader}>
+            <div css={tableCell}>카테고리</div>
+            <div css={tableCell}>수업명</div>
+            <div css={tableCell}>설명</div>
+            <div css={tableCell}>시간</div>
+            <div css={tableCell}>날짜</div>
+            <div css={tableCell}>강의장</div>
+            <div css={tableCell}>트레이너</div>
+            <div css={tableCell}>상세보기</div>
+          </div>
+
+          {filteredCourses.map((course, index) => (
+            <div
+              key={course.courseId ?? `${course.title}-${index}`}
+              css={tableRow}
+            >
+              <div css={tableCell}>{course.category}</div>
+              <div css={tableCell}>{course.title}</div>
+              <div css={tableCell}>{course.description}</div>
+              <div css={tableCell}>
+                {course.classStartTime} ~ {course.classEndTime}
+              </div>
+              <div css={tableCell}>{course.classDate.slice(0, 10)}</div>
+              <div css={tableCell}>{course.classroom}</div>
+              <div css={tableCell}>{course.name}</div>
+              <div css={tableCell}>
+                <button css={detailButtonStyle} onClick={() => openModal(course)}>
+                  상세보기
+                </button>
+              </div>
             </div>
-            <div css={tableCell}>{course.classDate.slice(0, 10)}</div>
-            <div css={tableCell}>{course.classroom}</div>
-            <div css={tableCell}>{course.name}</div>
-            <div css={tableCell}>
-              <button css={detailButtonStyle} onClick={() => openModal(course)}>
-                상세보기
+          ))}
+
+          <div css={separatorLine}></div>
+        </div>
+
+        {isModalOpen && selectedCourseDetail && (
+          <div css={modalOverlayStyle} onClick={closeModal}>
+            <div css={modalContentStyle} onClick={(e) => e.stopPropagation()}>
+              <h2>{selectedCourseDetail.title}</h2>
+              <p>카테고리: {selectedCourseDetail.category}</p>
+              <p>설명: {selectedCourseDetail.description}</p>
+              <p>시간: {selectedCourseDetail.classStartTime} ~ {selectedCourseDetail.classEndTime}</p>
+              <p>날짜: {selectedCourseDetail.classDate}</p>
+              <p>강의장: {selectedCourseDetail.classroom}</p>
+              <p>트레이너: {selectedCourseDetail.trainerName}</p>
+              <button css={closeButtonStyle} onClick={closeModal}>닫기</button>
+              <button css={participationButtonStyle} onClick={handleApplyCourse} style={{ cursor: 'pointer' }}>
+                신청하기
               </button>
             </div>
           </div>
-        ))}
-
-        <div css={separatorLine}></div>
+        )}
       </div>
-
-      {isModalOpen && selectedCourseDetail && (
-        <div css={modalOverlayStyle} onClick={closeModal}>
-          <div css={modalContentStyle} onClick={(e) => e.stopPropagation()}>
-            <h2>{selectedCourseDetail.title}</h2>
-            <p>카테고리: {selectedCourseDetail.category}</p>
-            <p>설명: {selectedCourseDetail.description}</p>
-            <p>시간: {selectedCourseDetail.classStartTime} ~ {selectedCourseDetail.classEndTime}</p>
-            <p>날짜: {selectedCourseDetail.classDate}</p>
-            <p>강의장: {selectedCourseDetail.classroom}</p>
-            <p>트레이너: {selectedCourseDetail.trainerName}</p>
-            <button css={closeButtonStyle} onClick={closeModal}>닫기</button>
-          </div>
-        </div>
-      )}
-    </div>
+      <Footer />
+    </>
   );
 }
 

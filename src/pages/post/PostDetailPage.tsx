@@ -116,10 +116,6 @@ function PostDetailPage() {
   if (!user) return <div>로그인한 회원만 조회 가능합니다.</div>;
   if (!post) return <div>로딩중...</div>;
 
-  console.log('로그인한 사용자 username:', user?.username);
-console.log('게시글 작성자 username:', post?.username);
-console.log('비교 결과:', user?.username === post?.username);
-
   return (
     <>
       <Header />

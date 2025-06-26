@@ -20,9 +20,9 @@ const navItems = [
   {
     label: '수업',
     subItems: [
-      { name: '수업 예약', path: '/api/v1/courses' },
-      { name: '트레이너 수업', path: '/api/v1/courses' },
-      { name: '카테고리 수업', path: '/api/v1/courses' },
+      { name: '수업 예약', path: '/courses' },
+      { name: '트레이너 수업', path: '/courses' },
+      { name: '카테고리 수업', path: '/courses' },
     ],
   },
   {
@@ -47,7 +47,7 @@ const navItems = [
     label: '고객센터',
     subItems: [
       { name: '문의 목록', path: '/inquiries' },
-      { name: '문의 생성', path: '/inquiry' },  
+      { name: '문의 생성', path: '/inquiry' }
     ],
   },
 ];
@@ -104,7 +104,13 @@ function Header() {
           <>
 
             <span>{user.name} 님</span>
-            <img src={mypageIcon} alt="마이페이지" css={style.iconImage} onClick={() => navigate('users/me')} />
+            <img src={mypageIcon} alt="마이페이지" css={style.iconImage} onClick={() => {
+                    if (user.role_id === 2) {
+                      navigate('/users/me');
+                    } else if (user.role_id === 3) {
+                      navigate('/trainer-profile/view');
+                    }
+                  }} />
             <img src={logoutIcon} alt="로그아웃" css={style.logoutIconImage} onClick={handleLogout} />
           </>
         ) : (
