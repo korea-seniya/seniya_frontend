@@ -6,6 +6,11 @@ import { COURSE_LIST_URL, COURSE_SEARCH_BY_TRAINER_URL, USER_COURSE_LIST_URL } f
 import type { GetUserCourseListResponseDto } from "../../dtos/userCourse/response/GetUserCourseList.response.dto";
 import type { GetUserCourseDetailResponseDto } from "../../dtos/userCourse/response/GetUserCourseDetail.response.dto";
 
+function getCookie(name: string): string | null {
+  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
+  return match ? decodeURIComponent(match[2]) : null;
+}
+
 export const getCourseList = async (): Promise<GetUserCourseListResponseDto[]> => {
   try {
     const response = await axiosInstance.get(USER_COURSE_LIST_URL);
@@ -62,7 +67,17 @@ export const getCourseById = async (id: number): Promise<ResponseDto<GetUserCour
 
 export const applyCourse = async (courseId: number): Promise<ResponseDto<any>> => {
   try {
-    const response = await axiosInstance.post(`/api/v1/courses/${courseId}`);
+    const token = getCookie("token");
+    const response = await axiosInstance.post(
+      `/api/v1/courses/${courseId}`,
+      {},
+      {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        withCredentials: true, 
+      }
+    );
     return responseSuccessHandler(response);
   } catch (error) {
     return responseErrorHandler(error as AxiosError<ResponseDto>);
