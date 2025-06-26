@@ -8,9 +8,9 @@ import { CookiesProvider } from 'react-cookie'
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <CookiesProvider>
-      <StrictMode>
-        <App />
-      </StrictMode>
+      {/* <StrictMode> */}
+      <App />
+      {/* </StrictMode> */}
     </CookiesProvider>
   </BrowserRouter>
 )
