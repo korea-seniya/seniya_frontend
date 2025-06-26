@@ -31,9 +31,10 @@ import { applyCourse } from '../../apis/course/courseList';
 import Header from '../../components/header';
 import Footer from '../../components/main/footer/Footer';
 import { useUserStore } from '../../stores/user.store';
+import type { GetUserCourseListResponseDto } from '../../dtos/userCourse/response/GetUserCourseList.response.dto';
 
 function CourseListPage() {
-  const [allCourses, setAllCourses] = useState<CourseList[]>([]);
+  const [allCourses, setAllCourses] = useState<GetUserCourseListResponseDto[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<CourseList[]>([]);
   const [searchType, setSearchType] = useState<'trainer' | 'category'>('trainer');
   const [searchText, setSearchText] = useState('');
@@ -58,8 +59,8 @@ function CourseListPage() {
           const dto = { category, trainer, classDate, classStartTime, classEndTime };
           const response = await quickSearch(dto);
           if (response.code === 'SU' && Array.isArray(response.data)) {
-            setFilteredCourses(response.data as CourseList[]);
-            setAllCourses(response.data as CourseList[]);
+            setFilteredCourses(response.data as GetUserCourseListResponseDto[]);
+            setAllCourses(response.data as GetUserCourseListResponseDto[]);
           } else {
             setFilteredCourses([]);
             setAllCourses([]);
@@ -103,18 +104,19 @@ function CourseListPage() {
     }
   };
 
-  const openModal = async (course: CourseList) => {
+  const openModal = async (course: GetUserCourseListResponseDto) => {
     try {
       const response = await getCourseById(course.courseId);
-      if (response.data) {
+      console.log(course, response)
+      if (response.code === 'SU' && response.data) {
         setSelectedCourseDetail(response.data);
-        setIsModalOpen(true);
       } else {
-        alert('상세 정보를 불러오지 못했습니다.');
+        setSelectedCourseDetail(course as unknown as GetUserCourseDetailResponseDto);
       }
+      setIsModalOpen(true);
     } catch (error) {
       console.error(error);
-      alert('상세 정보 조회 중 오류가 발생했습니다.');
+      alert('상세 정보를 불러오지 못했습니다.');
     }
   };
 
@@ -127,7 +129,7 @@ function CourseListPage() {
     if (!isLogin) {
       alert('로그인이 필요합니다.');
       navigate('/login');
-      return; // 로그인 안 되어 있으면 신청 로직 진행하지 않음
+      return; 
     }
 
     if (!selectedCourseDetail) return;
@@ -138,7 +140,7 @@ function CourseListPage() {
       if (response.code === 'SU') {
         alert('수업 신청이 완료되었습니다!');
         closeModal();
-        navigate('/my-course');
+        navigate('/myparticipation');
       } else {
         alert('수업 신청에 실패했습니다.');
       }

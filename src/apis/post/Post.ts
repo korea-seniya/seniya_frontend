@@ -52,8 +52,7 @@ export const createPost = async (
       files.forEach((file) => formData.append("file", file));
     }
 
-    const token = Cookies.get("token");
-    if (!token) throw new Error("로그인이 필요합니다.");
+    const token = Cookies.get("token");;
 
     const response = await axiosInstance.post("/api/v1/posts", formData, {
       headers: {
@@ -82,7 +81,6 @@ export const updatePost = async (
     files.forEach((file) => formData.append("file", file));
 
     const token = Cookies.get("token");
-    if (!token) throw new Error("로그인이 필요합니다.");
 
     const response = await axiosInstance.post(`/api/v1/posts/${postId}`, formData, {
       headers: {
@@ -92,15 +90,8 @@ export const updatePost = async (
     });
 
     return responseSuccessHandler(response);
-  } catch (error: any) {
-    console.error("게시글 수정 실패:", error);
-    if (error.response) {
-      console.error("에러 응답 데이터:", error.response.data);
-      console.error("에러 상태 코드:", error.response.status);
-    } else {
-      console.error("응답이 없음:", error.message);
-    }
-    throw error;
+  } catch (error) {
+    return responseErrorHandler(error as AxiosError<ResponseDto>);
   }
 };
 
@@ -111,28 +102,11 @@ export const deletePost = async (postId: number, token: string): Promise<Respons
         Authorization: `Bearer ${token}`,
       },
     });
-
-    if (response.status === 204) {
-      return {
-        code: 'SU',
-        message: '게시글 삭제 완료',
-        data: null,
-      };
-    }
-
     return response.data;
   } catch (error) {
-    return {
-      code: 'ER',
-      message: '게시글 삭제 중 오류 발생',
-      data: null,
-    };
+    return responseErrorHandler(error as AxiosError<ResponseDto>);
   }
 };
-
-
-
-
 
 export const searchPosts = async (title: string): Promise<ResponseDto<PostListResponseDto[]>> => {
   try {
