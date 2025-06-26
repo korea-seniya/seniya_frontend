@@ -6,7 +6,17 @@ import Cookies from 'js-cookie';
 import type ResponseDto from "../../dtos/response.dto";
 import type { PostListResponseDto } from "../../dtos/post/response/postList.response.dto";
 import type { PostDetailResponseDto } from "../../pages/post/PostDetail";
+import type { PopularPostResponseDto } from "../../dtos/post/response/popularPost.response.dto";
 import { POST_LIST_URL, POST_SEARCH_BY_TITLE_URL } from "../constants";
+
+export const getPopularPosts = async (): Promise<ResponseDto<PopularPostResponseDto[]>> => {
+  try {
+    const response = await axiosInstance.get("/api/v1/posts/popular");
+    return responseSuccessHandler(response);
+  } catch (error) {
+    return responseErrorHandler(error as AxiosError<ResponseDto>);
+  }
+};
 
 export const getPostList = async (): Promise<ResponseDto<PostListResponseDto[]>> => {
   try {
