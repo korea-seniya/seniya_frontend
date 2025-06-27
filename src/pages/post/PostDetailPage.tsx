@@ -18,8 +18,6 @@ import {
 
 import type { PostDetailResponseDto } from './PostDetail';
 
-const BACKEND_URL = 'http://localhost:8080';
-
 function PostDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<PostDetailResponseDto | null>(null);
@@ -30,6 +28,8 @@ function PostDetailPage() {
 
   const { user, loginUser } = useUserStore();
   const navigate = useNavigate();
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
 
   const handleDeletePost = async () => {
     if (!window.confirm('정말로 게시글을 삭제하시겠습니까?')) return;
