@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import Cookies from 'js-cookie';
 import React, { useState, useRef, useEffect } from "react";
 import {
   containerStyle,
@@ -24,7 +25,7 @@ import Header from '../../components/header';
 
 function PostCreate() {
   useEffect(() => {
-  const token = localStorage.getItem("token");
+  const token = Cookies.get("token");
   if (!token) {
     alert("로그인한 사용자만 게시글을 작성할 수 있습니다.");
     navigate("/signin");
