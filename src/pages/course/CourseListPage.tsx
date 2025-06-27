@@ -140,7 +140,7 @@ function CourseListPage() {
       if (response.code === 'SU') {
         alert('수업 신청이 완료되었습니다!');
         closeModal();
-        navigate('/myparticipation');
+        navigate('/users/me/myparticipation');
       } else {
         alert('수업 신청에 실패했습니다.');
       }
