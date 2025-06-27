@@ -109,6 +109,8 @@ function Header() {
                       navigate('/users/me');
                     } else if (user.role_id === 3) {
                       navigate('/trainer-profile/view');
+                    } else if (user.role_id === 1) {
+                      navigate('/admin/users');
                     }
                   }} />
             <img src={logoutIcon} alt="로그아웃" css={style.logoutIconImage} onClick={handleLogout} />

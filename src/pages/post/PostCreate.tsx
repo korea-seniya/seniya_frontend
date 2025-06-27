@@ -24,7 +24,7 @@ import Header from '../../components/header';
 
 function PostCreate() {
   useEffect(() => {
-  const token = localStorage.getItem("Authorization");
+  const token = localStorage.getItem("token");
   if (!token) {
     alert("로그인한 사용자만 게시글을 작성할 수 있습니다.");
     navigate("/signin");
